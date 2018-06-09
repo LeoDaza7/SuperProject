@@ -40,6 +40,7 @@ namespace SuperProject.Services
                     element.Line1 = store.Line1;
                     element.Line2 = store.Line2;
                     element.Phone = store.Phone;
+                    return true;
                 }
             }
             return false;
