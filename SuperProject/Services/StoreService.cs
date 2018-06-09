@@ -30,16 +30,16 @@ namespace SuperProject.Services
         {
             return list;
         }
-        public bool Update(string name, string newname, string line1,string line2, int phone)
+        public bool Update(string name, Store store)
         {
             foreach (Store element in list)
             {
                 if (element.Name.Equals(name))
                 {
-                    element.Name = newname;
-                    element.Line1 = line1;
-                    element.Line2 = line2;
-                    element.Phone = phone;
+                    element.Name = store.Name;
+                    element.Line1 = store.Line1;
+                    element.Line2 = store.Line2;
+                    element.Phone = store.Phone;
                 }
             }
             return false;
