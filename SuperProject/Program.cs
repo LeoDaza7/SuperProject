@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SuperProject.Services;
+using System;
+using System.Collections.Generic;
 
 namespace SuperProject
 {
@@ -7,6 +9,8 @@ namespace SuperProject
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Console.ReadKey();
+
         }
     }
 }
