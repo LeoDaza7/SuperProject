@@ -10,19 +10,16 @@ namespace SuperProject.Services
 
         public CategoryService()
         {
-            if (categoryList){
-                categoryList = new List<Category>();
-            }
-            
+            categoryList = new List<Category>();
         }
 
         public bool create(string name, string description)
         {
             foreach (Category c in categoryList)
             {
-                if (c.name == name)
+                if (c.Name.Equals(name))
                 {
-                    console.log("Name repeated or already exist!");
+                    Console.WriteLine("Name repeated or already exist!");
                     return false;
                 }
             }
@@ -53,15 +50,15 @@ namespace SuperProject.Services
         {
             foreach (Category c in categoryList)
             {
-                if (c.name == key)
+                if (c.Name.Equals(key))
                 {
-                    console.log("Updating");
+                    Console.WriteLine("Updating");
                     c.Name = uCategory.Name;
                     c.Description = uCategory.Description;
                     return true;
                 }
             }
-            console.log("Ups, seems like that category doesn't exist");
+            Console.WriteLine("Ups, seems like that category doesn't exist");
             return false;
         }
 
@@ -69,14 +66,14 @@ namespace SuperProject.Services
         {
             foreach (Category c in categoryList)
             {
-                if (c.name == key)
+                if (c.Name.Equals(key))
                 {
-                    console.log("Exterminating!!!");
+                    Console.WriteLine("Exterminating!!!");
                     categoryList.Remove(c);
                     return true;
                 }
             }
-            console.log("Ups, seems like that category doesn't exist or is indestructible");
+            Console.WriteLine("Ups, seems like that category doesn't exist or is indestructible");
             return false;
         }
     }

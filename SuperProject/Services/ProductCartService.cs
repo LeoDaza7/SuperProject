@@ -8,21 +8,17 @@ namespace SuperProject.Services
 {
    class ProductCartService
     {
-        public Cart cart;
+        public List<ProductCart> listPC;
         public ProductCartService() { 
-        }
-        public ProductCartService(Cart cart)
-        {
-            this.cart = cart;
         }
         private int getProductCartIndex(string productCode)
         {
-            return cart.ListPC.FindIndex((x => x.ProductCode == productCode));
+            return listPC.FindIndex((x => x.ProductCode == productCode));
         }
 
         public bool productCartVerification(ProductCart pc)
         {
-            return cart.ListPC.Exists((x => x.ProductCode == pc.ProductCode));
+            return listPC.Exists((x => x.ProductCode == pc.ProductCode));
         }
 
 
@@ -33,7 +29,7 @@ namespace SuperProject.Services
                 return false;
             }
 
-            cart.ListPC.Add(pc);
+            listPC.Add(pc);
             return true;
         }
         public bool Delete(string key)
@@ -41,7 +37,7 @@ namespace SuperProject.Services
             int index = getProductCartIndex(key);
             if (index != -1)
             { 
-                cart.ListPC.RemoveAt(index);
+                listPC.RemoveAt(index);
                 return true;
             }
             return false;
@@ -50,13 +46,13 @@ namespace SuperProject.Services
         }
         public List<ProductCart> read()
         {
-            return cart.ListPC;
+            return listPC;
         }
 
         public bool Update(string key, ProductCart pc)
         {
             
-            if (key != pc.ProductCode || cart == null)
+            if (key != pc.ProductCode)
             {
                 return false;
             }
@@ -64,7 +60,7 @@ namespace SuperProject.Services
             int index = getProductCartIndex(key);
             if (index != -1)
             {
-                cart.ListPC[index] = pc;
+                listPC[index] = pc;
                 return true;
             }
             return false;
