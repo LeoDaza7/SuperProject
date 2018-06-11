@@ -27,6 +27,9 @@ namespace SuperProject.Services
             if (productCartVerification(pc))
             {
                 return false;
+            }else if (pc.shippingDeliveryType != ProductCart.shippingDeliveryTypeEnum.inStore)
+            {
+                pc.Store = null;
             }
 
             listPC.Add(pc);

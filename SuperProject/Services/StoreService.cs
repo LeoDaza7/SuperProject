@@ -7,6 +7,11 @@ namespace SuperProject.Services
     class StoreService
     {
         List<Store> dBstore = new List<Store>();
+        
+        public StoreService()
+        {
+
+        }
         public bool create(string name, string line1, string line2, int phone)
         {
             Store auxStore = new Store();
