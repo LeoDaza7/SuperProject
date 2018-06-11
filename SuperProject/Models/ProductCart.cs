@@ -6,5 +6,9 @@ namespace SuperProject
 {
     class ProductCart
     {
+        public string ProductCode {get; set;}
+        public string SelectedDelivery {get; set;}
+        public Store Store { get; set;}
+        public int Quantity { get; set;}
     }
 }
