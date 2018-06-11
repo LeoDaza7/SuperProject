@@ -9,10 +9,10 @@ namespace SuperProject
         static void Main(string[] args)
         {
             ProductService ps = new ProductService();
-            ps.ejemploLista();
+            ps.read();
 
             Console.WriteLine("Lista de ejemplo para trabajar\n");
-            foreach(Product p in ps.read())
+            foreach(Product p in ps.productos)
             {
                 Console.WriteLine(p.toString());
             }
@@ -33,7 +33,7 @@ namespace SuperProject
             ps.create((Object) ej1);
 
             Console.WriteLine("Revisando los cambios realizados\n");
-            foreach (Product p in ps.read())
+            foreach (Product p in ps.productos)
             {
                 Console.WriteLine(p.toString());
             }
@@ -54,7 +54,7 @@ namespace SuperProject
             ps.Update(ej2.code, (Object) ej2);
 
             Console.WriteLine("Revisando los cambios realizados\n");
-            foreach (Product p in ps.read())
+            foreach (Product p in ps.productos)
             {
                 Console.WriteLine(p.toString());
             }
@@ -66,7 +66,7 @@ namespace SuperProject
             ps.Delete("1");
 
             Console.WriteLine("Revisando los cambios realizados\n");
-            foreach (Product p in ps.read())
+            foreach (Product p in ps.productos)
             {
                 Console.WriteLine(p.toString());
             }

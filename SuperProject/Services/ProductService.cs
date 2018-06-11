@@ -6,7 +6,7 @@ namespace SuperProject.Services
 {
     class ProductService
     {
-        private List<Product> productos = new List<Product>();
+        public List<Product> productos = new List<Product>();
         public void ejemploLista()
         {
             Product p1 = new Product();
@@ -61,6 +61,7 @@ namespace SuperProject.Services
 
         public List<Product> read()
         {
+            ejemploLista();
             return productos;
         }
         public bool Update(string codigo, Object producto)
