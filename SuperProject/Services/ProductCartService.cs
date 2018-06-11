@@ -26,7 +26,7 @@ namespace SuperProject.Services
         }
 
 
-        public bool Create(ProductCart pc)
+        public bool create(ProductCart pc)
         {
             if (productCartVerification(pc))
             {
@@ -48,7 +48,7 @@ namespace SuperProject.Services
 
        
         }
-        public List<ProductCart> getListPC()
+        public List<ProductCart> read()
         {
             return cart.ListPC;
         }
