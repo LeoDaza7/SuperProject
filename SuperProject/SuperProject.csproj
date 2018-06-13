@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -40,6 +40,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\IService1.cs" />
     <Compile Include="Services\ProductCartService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ShippingAddressService.cs" />
@@ -68,6 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\x86\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
