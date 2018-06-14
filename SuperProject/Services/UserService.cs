@@ -1,37 +1,39 @@
-﻿using System;
+﻿using Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SuperProject.Services
 {
-    class UserService
+    class UserService : IService1<User>
     {
         public List<User> users;
         public UserService()
         {
             users = new List<User>();
         }
-        public bool create(String Username, String Password, String Name, String LastName, List<ShippingAddress> ShippingAddresses)
+
+        private int GetIndex(string key)
         {
-            User user = new User();
-            user.Username = Username;
-            user.Password = Password;
-            user.Name = Name;
-            user.LastName = LastName;
-            user.ShippingAddresses = ShippingAddresses;
+            return users.FindIndex((x => x.Username == key));
+        }
+
+        private bool Verification(User u)
+        {
+            return users.Exists((x => x.Username == u.Username));
+        }
+
+        public bool Create(User user)
+        {
+            bool existe = false;
             if (!users.Contains(user))
             {
                 users.Add(user);
-                return true;
+                existe = true;
             }
-            else
-            {
-                Console.WriteLine("This username already exists.");
-                return false;
-            }
-            
+            return existe;
         }
-        public List<User> read()
+        public List<User> Read()
         {
             users.Add(new User { Username = "user1", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
             users.Add(new User { Username = "user2", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
@@ -40,32 +42,30 @@ namespace SuperProject.Services
             users.Add(new User { Username = "user5", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
             return users;
         }
-        public bool Update(User user, String Username, String Password, String Name, String LastName, List<ShippingAddress> ShippingAddresses)
+        public bool Update(string key, User user)
         {
-            if (users.Contains(user))
+            bool existe = true;
+            if (!key.Equals(user.Username))
+                existe = false;
+            if (existe)
             {
-                users.Remove(user);
-                create(Username, Password, Name, LastName, ShippingAddresses);
-                return true;
+                int index = GetIndex(key);
+                if (index != -1)
+                    users[index] = user;
+                else
+                    existe = false;
             }
-            else
-            {
-                Console.WriteLine("This user doesn't exists or can't be updated.");
-                return false;
-            }
+            return existe;
         }
-        public bool Delete(User user)
+        public bool Delete(string key)
         {
-            if (users.Contains(user))
-            {
-                users.Remove(user);
-                return true;
-            }
+            bool eliminado = true;
+            int index = GetIndex(key);
+            if (index != -1)
+                users.RemoveAt(index);
             else
-            {
-                Console.WriteLine("This user doesn't exists or can't be deleted.");
-                return false;
-            }
+                eliminado = false;
+            return eliminado;
         }
     }
 }

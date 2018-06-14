@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SuperProject.Services
 {
-    class CategoryService
+    class CategoryService : IService1<Category>
     {
         public List<Category> categoryList;
 
@@ -13,24 +14,26 @@ namespace SuperProject.Services
             categoryList = new List<Category>();
         }
 
-        public bool create(string name, string description)
+        private int GetIndex(string key)
         {
-            foreach (Category c in categoryList)
-            {
-                if (c.Name.Equals(name))
-                {
-                    Console.WriteLine("Name repeated or already exist!");
-                    return false;
-                }
-            }
-            Category nCategory = new Category();
-            nCategory.Name = name;
-            nCategory.Description = description;
-            categoryList.Add(nCategory);
-            return true;
+            return categoryList.FindIndex((x => x.Name == key));
         }
 
-        public List<Category> read()
+        private bool Verification(Category c)
+        {
+            return categoryList.Exists((x => x.Name == c.Name));
+        }
+        public bool Create(Category category)
+        {
+            bool existe = !Verification(category);
+            if (existe)
+            {
+                categoryList.Add(category);
+            }
+            return existe;
+        }
+
+        public List<Category> Read()
         {
             Category mock1 = new Category() {Name = "New", Description = "Not Used"};
             Category mock2 = new Category() {Name = "Not so new", Description = "Slightly Used"};
@@ -48,33 +51,29 @@ namespace SuperProject.Services
 
         public bool Update(string key, Category uCategory)
         {
-            foreach (Category c in categoryList)
+            bool exist = true;
+            if (!key.Equals(uCategory.Name))
+                exist = false;
+            if (exist)
             {
-                if (c.Name.Equals(key))
-                {
-                    Console.WriteLine("Updating");
-                    c.Name = uCategory.Name;
-                    c.Description = uCategory.Description;
-                    return true;
-                }
+                int index = GetIndex(key);
+                if (index != -1)
+                    categoryList[index] = uCategory;
+                else
+                    exist = false;
             }
-            Console.WriteLine("Ups, seems like that category doesn't exist");
-            return false;
+            return exist;
         }
 
         public bool Delete(string key)
         {
-            foreach (Category c in categoryList)
-            {
-                if (c.Name.Equals(key))
-                {
-                    Console.WriteLine("Exterminating!!!");
-                    categoryList.Remove(c);
-                    return true;
-                }
-            }
-            Console.WriteLine("Ups, seems like that category doesn't exist or is indestructible");
-            return false;
+            bool eliminado = true;
+            int index = GetIndex(key);
+            if (index != -1)
+                categoryList.RemoveAt(index);
+            else
+                eliminado = false;
+            return eliminado;
         }
     }
 }

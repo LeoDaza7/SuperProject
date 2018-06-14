@@ -1,41 +1,38 @@
-﻿using System;
+﻿using Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SuperProject.Services
 {
-    class ShippingAddressService
+    class ShippingAddressService : IService1<ShippingAddress>
     {
         public List<ShippingAddress> lista;
         public ShippingAddressService()
         {
             lista = new List<ShippingAddress>();
         }
-        public bool create(string identifier, string line1, string line2, int phone, string city, string zone)
+
+        private int GetIndex(string key)
         {
-            ShippingAddress newSA = new ShippingAddress();
-            newSA.Identifier = identifier;
-            bool estado = true;
-            foreach (ShippingAddress sa in lista)
+            return lista.FindIndex((x => x.Identifier == key));
+        }
+
+        private bool Verification(ShippingAddress s)
+        {
+            return lista.Exists((x => x.Identifier == s.Identifier));
+        }
+
+        public bool Create(ShippingAddress newSA)
+        {
+            bool existe = !Verification(newSA);
+            if (existe)
             {
-                if (sa.Identifier.Equals(identifier))
-                {
-                    estado = false;
-                }
-            }
-            if (estado)
-            {
-                newSA.Identifier = identifier;
-                newSA.Line1 = line1;
-                newSA.Line2 = line2;
-                newSA.Phone = phone;
-                newSA.City = city;
-                newSA.Zone = zone;
                 lista.Add(newSA);
             }
-            return estado;
+            return existe;
         }
-        public List<ShippingAddress> read()
+        public List<ShippingAddress> Read()
         {
             ShippingAddress sa1 = new ShippingAddress() { Identifier = "casa", Line1 = "asd", Line2 = "123", Phone = 1, City = "cbba", Zone = "Temporal"};
             ShippingAddress sa2 = new ShippingAddress() { Identifier = "oficina", Line1 = "asd", Line2 = "123", Phone = 2, City = "cbba", Zone = "centro" };
@@ -51,35 +48,27 @@ namespace SuperProject.Services
         }
         public bool Update(string key, ShippingAddress actualizado)
         {
-            bool actualizable = false;
-            foreach(ShippingAddress sa in lista)
+            bool existe = true;
+            if (!key.Equals(actualizado.Identifier))
+                existe = false;
+            if (existe)
             {
-                if (sa.Identifier.Equals(key))
-                {
-                    sa.City = actualizado.City;
-                    sa.Line1 = actualizado.Line1;
-                    sa.Line2 = actualizado.Line2;
-                    sa.Zone = actualizado.Zone;
-                    sa.Phone = actualizado.Phone;
-                    actualizable = true;
-                    break;
-                }
+                int index = GetIndex(key);
+                if (index != -1)
+                    lista[index] = actualizado;
+                else
+                    existe = false;
             }
-            return actualizable;
+            return existe;
         }
         public bool Delete(string key)
         {
-            bool eliminado = false;
-            ShippingAddress auxiliar = null;
-            foreach(ShippingAddress sa in lista)
-            {
-                if (sa.Identifier.Equals(key))
-                {
-                    lista.Remove(sa);
-                    eliminado = true;
-                    break;
-                }
-            }
+            bool eliminado = true;
+            int index = GetIndex(key);
+            if (index != -1)
+                lista.RemoveAt(index);
+            else
+                eliminado = false;
             return eliminado;
         }
     }
