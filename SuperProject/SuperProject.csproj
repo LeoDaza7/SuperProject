@@ -46,6 +46,7 @@
     <Compile Include="Services\ShippingAddressService.cs" />
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="SuperDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
