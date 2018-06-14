@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SuperProject.Services
 {
-    class StoreService : IService1<Store>
+    public class StoreService : IService1<Store>
     {
         List<Store> dBstore;
         

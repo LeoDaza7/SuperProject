@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SuperProject.Services
 {
-    class CartService : IService1<Cart>
+    public class CartService : IService1<Cart>
     {
         public List<Cart> listC;
         public CartService()

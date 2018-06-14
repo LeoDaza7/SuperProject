@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SuperProject
 {
-    class User : IEquatable<User>
+    public class User : IEquatable<User>
     {
         public String Username { get; set; }
         public String Password { get; set; }

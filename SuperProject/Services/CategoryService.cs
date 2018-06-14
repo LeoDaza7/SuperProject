@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SuperProject.Services
 {
-    class CategoryService : IService1<Category>
+    public class CategoryService : IService1<Category>
     {
         public List<Category> categoryList;
 

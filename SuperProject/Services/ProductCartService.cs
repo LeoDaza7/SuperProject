@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperProject.Services
 {
-   class ProductCartService : IService1<ProductCart>
+   public class ProductCartService : IService1<ProductCart>
     {
         public List<ProductCart> listPC;
         public ProductCartService() { 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SuperProject.Services
 {
-    class ShippingAddressService : IService1<ShippingAddress>
+    public class ShippingAddressService : IService1<ShippingAddress>
     {
         public List<ShippingAddress> lista;
         public ShippingAddressService()

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SuperProject
 {
-    class ShippingAddress
+    public class ShippingAddress
     {
         public string Identifier { set; get; }
         public string Line1 { set; get; }

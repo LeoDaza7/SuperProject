@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SuperProject
 {
-    class Category
+    public class Category
     {
         public string Name { set; get; }
         public string Description { set; get; }

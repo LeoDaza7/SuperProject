@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SuperProject.Services
 {
-    class ProductService : IService1<Product>
+    public class ProductService : IService1<Product>
     {
         public List<Product> productos = new List<Product>();
 

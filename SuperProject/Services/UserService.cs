@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SuperProject.Services
 {
-    class UserService : IService1<User>
+    public class UserService : IService1<User>
     {
         public List<User> users;
         public UserService()
