@@ -57,25 +57,22 @@ namespace WAPI.Controllers
         }
 
         /*[HttpPut, ActionName("updateInfo")]
+        [Route("api/putstore/{id}")]
         public HttpResponseMessage UpdateInfo(Object res)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(res.ToString(), Encoding.UTF8, "application/json");
-            return response;
+            
         }*/
 
         [HttpDelete, ActionName("DeleteInfo")]
-        [Route("api/deletestore")]
-        public HttpResponseMessage DeleteInfo(Object id)
+        [Route("api/deletestore/{id}")]
+        public HttpResponseMessage DeleteInfo(string id)
         {
             try
             {
-                string storeJSON = id.ToString();
-                string key = JsonConvert.DeserializeObject<string>(storeJSON);
-                StoreService ss = new StoreService();
                 var response = Request.CreateResponse(HttpStatusCode.Unused);
+                StoreService ss = new StoreService();
                 ss.Read();
-                if (ss.Delete(key))
+                if (ss.Delete(id))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Content = new StringContent("Store deleted\n", Encoding.UTF8, "application/json");
