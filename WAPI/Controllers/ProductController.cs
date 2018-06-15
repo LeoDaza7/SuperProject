@@ -36,14 +36,24 @@ namespace WAPI.Controllers
             if(ps.Create(p))
             {
                 response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent("Updated Success\n" + p.toString(), Encoding.UTF8, "application/json");
+                response.Content = new StringContent("Producto creado\n" + lista(ps.Read()), Encoding.UTF8, "application/json");
             }
             else
             {
                 response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Update failure", Encoding.UTF8, "application/json");
+                response.Content = new StringContent("Error al crear producto", Encoding.UTF8, "application/json");
             }
             return response;
+        }
+
+        private string lista(List<Product> ps)
+        {
+            string aux = "";
+            foreach(Product p in ps)
+            {
+                aux += p.toString();
+            }
+            return aux;
         }
     }
 }
