@@ -15,7 +15,7 @@ namespace WAPI.Controllers
     public class StoreController: ApiController
     {
         [HttpGet]
-        [Route("/api/getstore")]
+        [Route("api/getstore")]
         public HttpResponseMessage GetStore()
         {
             StoreService storeservice = new StoreService();//Servicios
@@ -27,6 +27,7 @@ namespace WAPI.Controllers
         }
 
         [HttpPost, ActionName("postInfo")]
+        [Route("api/poststore")]
         public HttpResponseMessage PostInfo(Object content)
         {
             try
@@ -38,7 +39,7 @@ namespace WAPI.Controllers
                 if (ss.Create(store))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store created\n" + lista(ss.Read()), Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("Store created", Encoding.UTF8, "application/json");
                 }
                 else
                 {
@@ -64,18 +65,20 @@ namespace WAPI.Controllers
         }*/
 
         [HttpDelete, ActionName("DeleteInfo")]
+        [Route("api/deletestore")]
         public HttpResponseMessage DeleteInfo(Object id)
         {
             try
             {
-                String storeJSON = content.ToString();
-                string key = JsonConvert.DeserializeObject<String>(storeJSON);
-                storeService ss = new StoreService();
+                string storeJSON = id.ToString();
+                string key = JsonConvert.DeserializeObject<string>(storeJSON);
+                StoreService ss = new StoreService();
                 var response = Request.CreateResponse(HttpStatusCode.Unused);
+                ss.Read();
                 if (ss.Delete(key))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store deleted\n" + lista(ss.Read()), Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("Store deleted\n", Encoding.UTF8, "application/json");
                 }
                 else
                 {
@@ -84,10 +87,10 @@ namespace WAPI.Controllers
                 }
                 return response;
             }
-            catch (Exception e)
+            catch
             {
                 var response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent(("Error" + e), Encoding.UTF8, "application/json");
+                response.Content = new StringContent(("Error"), Encoding.UTF8, "application/json");
                 return response;
             }
         }
