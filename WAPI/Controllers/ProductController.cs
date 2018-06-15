@@ -1,11 +1,49 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SuperProject;
+using SuperProject.Services;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Web.Http;
 
 namespace WAPI.Controllers
 {
-    public class ProductController
+    public class ProductController : ApiController
     {
+        [HttpGet]
+        [Route("api/getproducts")]
+        public HttpResponseMessage GetProducts()
+        {
+            ProductService ps = new ProductService();
+            List<Product> products = ps.Read();
+            String productsJSON = JsonConvert.SerializeObject(products, Formatting.Indented);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
+            return response;
+        }
+
+        [HttpPost]
+        [Route("api/postproducts")]
+        public  HttpResponseMessage PostProducts(Object product)
+        {
+            String productJSON = product.ToString();
+            
+            Product p = JsonConvert.DeserializeObject<Product>(productJSON);            
+            ProductService ps = new ProductService();
+            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            if(ps.Create(p))
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent("Updated Success\n" + p.toString(), Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                response.Content = new StringContent("Update failure", Encoding.UTF8, "application/json");
+            }
+            return response;
+        }
     }
 }
