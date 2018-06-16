@@ -12,11 +12,10 @@ namespace SuperProject
             ps.Read();
 
             Console.WriteLine("Lista de ejemplo para trabajar\n");
-            foreach(Product p in ps.productos)
+            foreach(Product p in ps.instance.ProductsList)
             {
                 Console.WriteLine(p.toString());
             }
-
             Console.WriteLine("Introduciendo un codigo existente\n");
             Product ej1 = new Product();
             ej1.Code = "1";
@@ -33,7 +32,7 @@ namespace SuperProject
             Console.WriteLine(ps.Create(ej1));
 
             Console.WriteLine("Revisando los cambios realizados\n");
-            foreach (Product p in ps.productos)
+            foreach (Product p in ps.instance.ProductsList)
             {
                 Console.WriteLine(p.toString());
             }
@@ -54,7 +53,7 @@ namespace SuperProject
             Console.WriteLine(ps.Update(ej2.Code, ej2));
 
             Console.WriteLine("Revisando los cambios realizados\n");
-            foreach (Product p in ps.productos)
+            foreach (Product p in ps.instance.ProductsList)
             {
                 Console.WriteLine(p.toString());
             }
@@ -66,7 +65,7 @@ namespace SuperProject
             Console.WriteLine(ps.Delete("1"));
 
             Console.WriteLine("Revisando los cambios realizados\n");
-            foreach (Product p in ps.productos)
+            foreach (Product p in ps.instance.ProductsList)
             {
                 Console.WriteLine(p.toString());
             }

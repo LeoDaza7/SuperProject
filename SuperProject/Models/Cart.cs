@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SuperProject
 {
-    class Cart
+    public class Cart
     {
         public string Username { get; set; }
 
