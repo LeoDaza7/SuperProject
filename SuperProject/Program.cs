@@ -15,8 +15,12 @@ namespace SuperProject
             foreach(Product p in ps.instance.ProductsList)
             {
                 Console.WriteLine(p.toString());
+                Console.WriteLine("probando2: " + p.getType().ToString());
             }
 
+            Console.WriteLine("probando: " + Product.typeEnum.physical.ToString());
+
+            /*
             Console.WriteLine("Introduciendo un codigo existente\n");
             Product ej1 = new Product();
             ej1.Code = "1";
@@ -69,7 +73,7 @@ namespace SuperProject
             foreach (Product p in ps.instance.ProductsList)
             {
                 Console.WriteLine(p.toString());
-            }
+            }*/
 
 
             Console.ReadKey();

@@ -32,6 +32,58 @@ namespace SuperProject
         {
             return "Codigo = " + Code + "\nNombre = " + Name + "\nPrecio = " + Price + "\nTipo = " + Type + "\nTipo de entrega = " + ShippingDeliveryType + "\nCategoria = " + Category;
         }
+
+        public void setType(string tipo)
+        {
+            switch (tipo)
+            {
+                case "physical":
+                    this.Type = typeEnum.physical;
+                    break;
+                case "digital":
+                    this.Type = typeEnum.digital;
+                    this.ShippingDeliveryType = shippingDeliveryTypeEnum.none;
+                    break;
+                default:
+                    this.Type = typeEnum.nulo;
+                    break;
+            }
+        }
+
+        public typeEnum getType()
+        {
+            return this.Type;
+        }
+
+        public void setShippingDT(string ship)
+        {
+            if (!Type.ToString().Equals("digital"))
+            {
+                switch (ship)
+                {
+                    case "express":
+                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.express;
+                        break;
+                    case "normal":
+                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.normal;
+                        break;
+                    case "inStore":
+                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.inStore;
+                        break;
+                    case "free":
+                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.free;
+                        break;
+                    default:
+                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.nulo;
+                        break;
+                }
+            }
+        }
+
+        public shippingDeliveryTypeEnum getShippingDT()
+        {
+            return this.ShippingDeliveryType;
+        }
             
     }
 }

@@ -1,0 +1,112 @@
+﻿using Newtonsoft.Json;
+using SuperProject;
+using SuperProject.Services;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Web.Http;
+
+namespace WAPI.Controllers
+{
+    public class ProductController : ApiController
+    {
+        [HttpGet]
+        [Route("api/getproducts")]
+        public HttpResponseMessage GetProducts()
+        {
+            ProductService ps = new ProductService();
+            List<Product> products = ps.Read();
+            String productsJSON = JsonConvert.SerializeObject(products, Formatting.Indented);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
+            return response;
+        }
+
+        [HttpPost]
+        [Route("api/postproducts")]
+        public  HttpResponseMessage PostProducts(Object product)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            try
+            {
+                String productJSON = product.ToString();
+
+                Product p = JsonConvert.DeserializeObject<Product>(productJSON);
+                ProductService ps = new ProductService();
+                if (ps.Create(p))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StringContent("Producto creado\n", Encoding.UTF8, "application/json");
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                    response.Content = new StringContent("Error al crear producto", Encoding.UTF8, "application/json");
+                }
+            }
+            catch
+            {
+                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                response.Content = new StringContent("Error!!!", Encoding.UTF8, "application/json");
+            }
+            return response;
+        }
+
+        [HttpPut]
+        [Route("api/updateproduct")]
+        public HttpResponseMessage UpdateProduct(Object producto)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            try
+            {
+                Product p = JsonConvert.DeserializeObject<Product>(producto.ToString());
+                ProductService ps = new ProductService();
+                if (ps.Update(p.Code, p))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StringContent("Producto actualizado", Encoding.UTF8, "application/json");
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                    response.Content = new StringContent("Error al actualizar producto", Encoding.UTF8, "application/json");
+                }
+            }
+            catch
+            {
+                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                response.Content = new StringContent("Error!!!", Encoding.UTF8, "application/json");
+            }
+            return response;
+        }
+
+        [HttpDelete]
+        [Route("api/deleteproduct/{id}")]
+        public HttpResponseMessage DeleteProduct(string id)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            try
+            {
+                ProductService ps = new ProductService();
+                if (ps.Delete(id))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StringContent("producto eliminado", Encoding.UTF8, "application/json");
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                    response.Content = new StringContent("Error al eliminar producto", Encoding.UTF8, "application/json");
+                }
+            }
+            catch
+            {
+                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                response.Content = new StringContent("Error!!!", Encoding.UTF8, "application/json");
+            }
+            return response;
+        }
+    }
+}
