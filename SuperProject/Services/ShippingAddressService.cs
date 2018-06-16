@@ -7,20 +7,20 @@ namespace SuperProject.Services
 {
     public class ShippingAddressService : IService1<ShippingAddress>
     {
-        public List<ShippingAddress> lista;
+        public SuperDB instance;
         public ShippingAddressService()
         {
-            lista = new List<ShippingAddress>();
+            instance = SuperDB.Instance;
         }
 
         public int GetIndex(string key)
         {
-            return lista.FindIndex((x => x.Identifier == key));
+            return instance.ShippingAddressesList.FindIndex((x => x.Identifier == key));
         }
 
         public bool Verification(ShippingAddress s)
         {
-            return lista.Exists((x => x.Identifier == s.Identifier));
+            return instance.ShippingAddressesList.Exists((x => x.Identifier == s.Identifier));
         }
 
         public bool Create(ShippingAddress newSA)
@@ -28,23 +28,13 @@ namespace SuperProject.Services
             bool existe = !Verification(newSA);
             if (existe)
             {
-                lista.Add(newSA);
+                instance.ShippingAddressesList.Add(newSA);
             }
             return existe;
         }
         public List<ShippingAddress> Read()
         {
-            ShippingAddress sa1 = new ShippingAddress() { Identifier = "casa", Line1 = "asd", Line2 = "123", Phone = 1, City = "cbba", Zone = "Temporal"};
-            ShippingAddress sa2 = new ShippingAddress() { Identifier = "oficina", Line1 = "asd", Line2 = "123", Phone = 2, City = "cbba", Zone = "centro" };
-            ShippingAddress sa3 = new ShippingAddress() { Identifier = "oficina2", Line1 = "asd", Line2 = "123", Phone = 3, City = "cbba", Zone = "America oeste" };
-            ShippingAddress sa4 = new ShippingAddress() { Identifier = "casa2", Line1 = "asd", Line2 = "123", Phone = 4, City = "cbba", Zone = "parque Lincoln" };
-            ShippingAddress sa5 = new ShippingAddress() { Identifier = "tienda", Line1 = "asd", Line2 = "123", Phone = 5, City = "cbba", Zone = "Muyurina" };
-            lista.Add(sa1);
-            lista.Add(sa2);
-            lista.Add(sa3);
-            lista.Add(sa4);
-            lista.Add(sa5);
-            return lista;
+            return instance.ShippingAddressesList;
         }
         public bool Update(string key, ShippingAddress actualizado)
         {
@@ -55,7 +45,7 @@ namespace SuperProject.Services
             {
                 int index = GetIndex(key);
                 if (index != -1)
-                    lista[index] = actualizado;
+                    instance.ShippingAddressesList[index] = actualizado;
                 else
                     existe = false;
             }
@@ -66,7 +56,7 @@ namespace SuperProject.Services
             bool eliminado = true;
             int index = GetIndex(key);
             if (index != -1)
-                lista.RemoveAt(index);
+                instance.ShippingAddressesList.RemoveAt(index);
             else
                 eliminado = false;
             return eliminado;

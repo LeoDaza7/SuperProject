@@ -7,20 +7,19 @@ namespace SuperProject.Services
 {
     public class StoreService : IService1<Store>
     {
-        List<Store> dBstore;
-        
+        public SuperDB instance;
         public StoreService()
         {
-            dBstore = new List<Store>();
+            instance = SuperDB.Instance;
         }
         public int GetIndex(string key)
         {
-            return dBstore.FindIndex((x => x.Name == key));
+            return instance.StoresList.FindIndex((x => x.Name == key));
         }
 
         public bool Verification(Store store)
         {
-            return dBstore.Exists((x => x.Name == store.Name));
+            return instance.StoresList.Exists((x => x.Name == store.Name));
         }
 
         public bool Create(Store store)
@@ -28,23 +27,13 @@ namespace SuperProject.Services
             bool existe = !Verification(store);
             if (existe)
             {
-                dBstore.Add(store);
+                instance.StoresList.Add(store);
             }
             return existe;
         }
         public List<Store> Read()
         {
-            Store store1 = new Store() {Name="New York", Line1= "a", Line2="b",Phone= 1};
-            Store store2 = new Store() { Name = "Chicago", Line1 = "c", Line2 = "d", Phone = 2 };
-            Store store3 = new Store() { Name = "La Paz", Line1 = "e", Line2 = "f", Phone = 3 };
-            Store store4 = new Store() { Name = "Cochabamba", Line1 = "g", Line2 = "h", Phone = 4 };
-            Store store5 = new Store() { Name = "Moscu", Line1 = "i", Line2 = "j", Phone = 5 };
-            dBstore.Add(store1);
-            dBstore.Add(store2);
-            dBstore.Add(store3);
-            dBstore.Add(store4);
-            dBstore.Add(store5);
-            return dBstore;
+            return instance.StoresList;
         }
         public bool Update(string name, Store store)
         {
@@ -55,7 +44,7 @@ namespace SuperProject.Services
             {
                 int index = GetIndex(name);
                 if (index != -1)
-                    dBstore[index] = store;
+                    instance.StoresList[index] = store;
                 else
                     existe = false;
             }
@@ -66,7 +55,7 @@ namespace SuperProject.Services
             bool eliminado = true;
             int index = GetIndex(name);
             if (index != -1)
-                dBstore.RemoveAt(index);
+                instance.StoresList.RemoveAt(index);
             else
                 eliminado = false;
             return eliminado;

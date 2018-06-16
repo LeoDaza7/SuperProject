@@ -9,17 +9,18 @@ namespace SuperProject.Services
 {
    public class ProductCartService : IService1<ProductCart>
     {
-        public List<ProductCart> listPC;
-        public ProductCartService() { 
+        public SuperDB instance;
+        public ProductCartService() {
+            instance = SuperDB.Instance;
         }
         public int GetProductCartIndex(string productCode)
         {
-            return listPC.FindIndex((x => x.ProductCode == productCode));
+            return instance.ProductCartList.FindIndex((x => x.ProductCode == productCode));
         }
 
         public bool ProductCartVerification(ProductCart pc)
         {
-            return listPC.Exists((x => x.ProductCode == pc.ProductCode));
+            return instance.ProductCartList.Exists((x => x.ProductCode == pc.ProductCode));
         }
 
 
@@ -30,7 +31,7 @@ namespace SuperProject.Services
             {
                 if (pc.ShippingDeliveryType != ProductCart.shippingDeliveryTypeEnum.inStore)
                     pc.Store = null;
-                listPC.Add(pc);
+                instance.ProductCartList.Add(pc);
             }
             return existe;
         }
@@ -39,14 +40,14 @@ namespace SuperProject.Services
             bool eliminado = true;
             int index = GetProductCartIndex(key);
             if (index != -1)
-                listPC.RemoveAt(index);
+                instance.ProductCartList.RemoveAt(index);
             else
                 eliminado = false;
             return eliminado;
         }
         public List<ProductCart> Read()
         {
-            return listPC;
+            return instance.ProductCartList;
         }
 
         public bool Update(string key, ProductCart pc)
@@ -58,7 +59,7 @@ namespace SuperProject.Services
             {
                 int index = GetProductCartIndex(key);
                 if (index != -1)
-                    listPC[index] = pc;
+                    instance.ProductCartList[index] = pc;
                 else
                     existe = false;
             }
