@@ -79,15 +79,15 @@ namespace WAPI.Controllers
         }
 
         [HttpPut]
-        [Route("api/updateuser")]
-        public HttpResponseMessage UpdateInfo(Object user)
+        [Route("api/updateuser/{key}")]
+        public HttpResponseMessage UpdateInfo(Object user, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
             {
                 User u = JsonConvert.DeserializeObject<User>(user.ToString());
                 UserService us = new UserService();
-                if (us.Update(u.Username,u))
+                if (us.Update(key,u))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Content = new StringContent("usuario actualizado", Encoding.UTF8, "application/json");

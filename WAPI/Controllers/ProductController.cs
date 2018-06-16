@@ -24,6 +24,30 @@ namespace WAPI.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("api/getproducts/{key}")]
+        public HttpResponseMessage GetCategory(string key)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            ProductService productservice = new ProductService();
+            List<Product> product = productservice.Read();
+            int id = productservice.GetIndex(key);
+            if (id != -1)
+            {
+                Product ct = product[id];
+                string categoryJSON = JsonConvert.SerializeObject(ct, Formatting.Indented);
+                response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(categoryJSON, Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+            }
+            return response;
+
+        }
+
         [HttpPost]
         [Route("api/postproducts")]
         public  HttpResponseMessage PostProducts(Object product)
@@ -55,15 +79,15 @@ namespace WAPI.Controllers
         }
 
         [HttpPut]
-        [Route("api/updateproduct")]
-        public HttpResponseMessage UpdateProduct(Object producto)
+        [Route("api/updateproduct/{key}")]
+        public HttpResponseMessage UpdateProduct(Object producto, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
             {
                 Product p = JsonConvert.DeserializeObject<Product>(producto.ToString());
                 ProductService ps = new ProductService();
-                if (ps.Update(p.Code, p))
+                if (ps.Update(key, p))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Content = new StringContent("Producto actualizado", Encoding.UTF8, "application/json");
