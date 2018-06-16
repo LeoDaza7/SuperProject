@@ -13,12 +13,12 @@ namespace SuperProject.Services
             lista = new List<ShippingAddress>();
         }
 
-        private int GetIndex(string key)
+        public int GetIndex(string key)
         {
             return lista.FindIndex((x => x.Identifier == key));
         }
 
-        private bool Verification(ShippingAddress s)
+        public bool Verification(ShippingAddress s)
         {
             return lista.Exists((x => x.Identifier == s.Identifier));
         }

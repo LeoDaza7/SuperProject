@@ -15,20 +15,20 @@ namespace WAPI.Controllers
     public class CategoryController: ApiController
     {
         [HttpGet]
-        [Route("api/getstore")]
-        public HttpResponseMessage GetStore()
+        [Route("api/getcategory")]
+        public HttpResponseMessage GetCategory()
         {
             CategoryService categoryservice = new CategoryService();//Servicios
             List<Category> category = categoryservice.Read();
-            string productsJSON = JsonConvert.SerializeObject(category, Formatting.Indented);
+            string categoryJSON = JsonConvert.SerializeObject(category, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(categoryJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
         [HttpGet]
-        [Route("api/getstore/{key}")]
-        public HttpResponseMessage GetStore(string key)
+        [Route("api/getcategory/{key}")]
+        public HttpResponseMessage GetCategory(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             CategoryService categoryservice = new CategoryService();//Servicios
@@ -37,9 +37,9 @@ namespace WAPI.Controllers
             if (id != -1)
             {
                 Category ct = category[id];
-                string productsJSON = JsonConvert.SerializeObject(ct, Formatting.Indented);
+                string categoryJSON = JsonConvert.SerializeObject(ct, Formatting.Indented);
                 response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
+                response.Content = new StringContent(categoryJSON, Encoding.UTF8, "application/json");
             }
             else
             {
@@ -50,15 +50,15 @@ namespace WAPI.Controllers
 
         }
 
-        [HttpPost, ActionName("postInfo")]
-        [Route("api/poststore")]
-        public HttpResponseMessage PostInfo(Object content)
+        [HttpPost]
+        [Route("api/postcategory")]
+        public HttpResponseMessage PostCategory(Object content)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
             {
-                String storeJSON = content.ToString();
-                Category category = JsonConvert.DeserializeObject<Category>(storeJSON);
+                String categoryJSON = content.ToString();
+                Category category = JsonConvert.DeserializeObject<Category>(categoryJSON);
                 CategoryService cs = new CategoryService();
                 if (cs.Create(category))
                 {
@@ -68,7 +68,7 @@ namespace WAPI.Controllers
                 else
                 {
                     response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred creating the category", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("An error has ocurred creating the Category", Encoding.UTF8, "application/json");
                 }
             }
             catch
@@ -79,8 +79,8 @@ namespace WAPI.Controllers
         }
 
         [HttpPut]
-        [Route("api/updatestore/{key}")]
-        public HttpResponseMessage UpdateInfo(Object content, string key)
+        [Route("api/updatecategory/{key}")]
+        public HttpResponseMessage UpdateCategory(Object content, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
@@ -107,9 +107,9 @@ namespace WAPI.Controllers
             return response;
         }
 
-        [HttpDelete, ActionName("DeleteInfo")]
-        [Route("api/deletestore/{id}")]
-        public HttpResponseMessage DeleteInfo(string id)
+        [HttpDelete]
+        [Route("api/deletecategory/{id}")]
+        public HttpResponseMessage DeleteCategory(string id)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
@@ -124,7 +124,7 @@ namespace WAPI.Controllers
                 else
                 {
                     response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred deleting the store", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("An error has ocurred deleting the Category", Encoding.UTF8, "application/json");
                 }
             }
             catch

@@ -20,9 +20,9 @@ namespace WAPI.Controllers
         {
             StoreService storeservice = new StoreService();//Servicios
             List<Store> store = storeservice.Read();
-            string productsJSON = JsonConvert.SerializeObject(store, Formatting.Indented);
+            string storeJSON = JsonConvert.SerializeObject(store, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(storeJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -37,9 +37,9 @@ namespace WAPI.Controllers
             if (id!=-1)
             {
                 Store st = store[id];
-                string productsJSON = JsonConvert.SerializeObject(st, Formatting.Indented);
+                string storeJSON = JsonConvert.SerializeObject(st, Formatting.Indented);
                 response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");                
+                response.Content = new StringContent(storeJSON, Encoding.UTF8, "application/json");                
             }
             else
             {
@@ -50,9 +50,9 @@ namespace WAPI.Controllers
 
         }
 
-        [HttpPost, ActionName("postInfo")]
+        [HttpPost]
         [Route("api/poststore")]
-        public HttpResponseMessage PostInfo(Object content)
+        public HttpResponseMessage PostStore(Object content)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
@@ -80,7 +80,7 @@ namespace WAPI.Controllers
 
         [HttpPut]
         [Route("api/updatestore/{key}")]
-        public HttpResponseMessage UpdateInfo(Object content, string key)
+        public HttpResponseMessage UpdateStore(Object content, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
@@ -96,7 +96,7 @@ namespace WAPI.Controllers
                 else
                 {
                     response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred updating Category", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("An error has ocurred updating Store", Encoding.UTF8, "application/json");
                 }
             }
             catch
@@ -107,9 +107,9 @@ namespace WAPI.Controllers
             return response;
         }
 
-        [HttpDelete, ActionName("DeleteInfo")]
+        [HttpDelete]
         [Route("api/deletestore/{key}")]
-        public HttpResponseMessage DeleteInfo(string key)
+        public HttpResponseMessage DeleteStore(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
@@ -119,12 +119,12 @@ namespace WAPI.Controllers
                 if (ss.Delete(key))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store deleted\n", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("Store deleted", Encoding.UTF8, "application/json");
                 }
                 else
                 {
                     response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred deleting the store", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("An error has ocurred deleting the Store", Encoding.UTF8, "application/json");
                 }
             }
             catch
