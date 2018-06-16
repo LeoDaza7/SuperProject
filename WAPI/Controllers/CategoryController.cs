@@ -12,15 +12,15 @@ using System.Web.Http;
 
 namespace WAPI.Controllers
 {
-    public class StoreController: ApiController
+    public class CategoryController: ApiController
     {
         [HttpGet]
         [Route("api/getstore")]
         public HttpResponseMessage GetStore()
         {
-            StoreService storeservice = new StoreService();//Servicios
-            List<Store> store = storeservice.Read();
-            string productsJSON = JsonConvert.SerializeObject(store, Formatting.Indented);
+            CategoryService categoryservice = new CategoryService();//Servicios
+            List<Category> category = categoryservice.Read();
+            string productsJSON = JsonConvert.SerializeObject(category, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
             return response;
@@ -31,15 +31,15 @@ namespace WAPI.Controllers
         public HttpResponseMessage GetStore(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
-            StoreService storeservice = new StoreService();//Servicios
-            List<Store> store = storeservice.Read();
-            int id = storeservice.GetIndex(key);
-            if (id!=-1)
+            CategoryService categoryservice = new CategoryService();//Servicios
+            List<Category> category = categoryservice.Read();
+            int id = categoryservice.GetIndex(key);
+            if (id != -1)
             {
-                Store st = store[id];
-                string productsJSON = JsonConvert.SerializeObject(st, Formatting.Indented);
+                Category ct = category[id];
+                string productsJSON = JsonConvert.SerializeObject(ct, Formatting.Indented);
                 response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");                
+                response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
             }
             else
             {
@@ -58,22 +58,22 @@ namespace WAPI.Controllers
             try
             {
                 String storeJSON = content.ToString();
-                Store store = JsonConvert.DeserializeObject<Store>(storeJSON);
-                StoreService ss = new StoreService();
-                if (ss.Create(store))
+                Category category = JsonConvert.DeserializeObject<Category>(storeJSON);
+                CategoryService cs = new CategoryService();
+                if (cs.Create(category))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store created", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("Category created", Encoding.UTF8, "application/json");
                 }
                 else
                 {
                     response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred creating the store", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("An error has ocurred creating the category", Encoding.UTF8, "application/json");
                 }
             }
             catch
             {
-                response.Content = new StringContent("Error",Encoding.UTF8, "application/json");
+                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
             }
             return response;
         }
@@ -85,13 +85,13 @@ namespace WAPI.Controllers
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
             {
-                Store store = JsonConvert.DeserializeObject<Store>(content.ToString());
-                StoreService ss = new StoreService();
-                ss.Read();
-                if (ss.Update(key, store))
+                Category category = JsonConvert.DeserializeObject<Category>(content.ToString());
+                CategoryService cs = new CategoryService();
+                cs.Read();
+                if (cs.Update(key, category))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store Updated", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("Category Updated", Encoding.UTF8, "application/json");
                 }
                 else
                 {
@@ -108,18 +108,18 @@ namespace WAPI.Controllers
         }
 
         [HttpDelete, ActionName("DeleteInfo")]
-        [Route("api/deletestore/{key}")]
-        public HttpResponseMessage DeleteInfo(string key)
+        [Route("api/deletestore/{id}")]
+        public HttpResponseMessage DeleteInfo(string id)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
             {
-                StoreService ss = new StoreService();
-                ss.Read();
-                if (ss.Delete(key))
+                CategoryService cs = new CategoryService();
+                cs.Read();
+                if (cs.Delete(id))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store deleted\n", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("Category deleted", Encoding.UTF8, "application/json");
                 }
                 else
                 {
@@ -131,7 +131,6 @@ namespace WAPI.Controllers
             {
                 response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
                 response.Content = new StringContent(("Error"), Encoding.UTF8, "application/json");
-                
             }
             return response;
         }

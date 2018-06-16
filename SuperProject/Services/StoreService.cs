@@ -13,12 +13,12 @@ namespace SuperProject.Services
         {
             dBstore = new List<Store>();
         }
-        private int GetIndex(string key)
+        public int GetIndex(string key)
         {
             return dBstore.FindIndex((x => x.Name == key));
         }
 
-        private bool Verification(Store store)
+        public bool Verification(Store store)
         {
             return dBstore.Exists((x => x.Name == store.Name));
         }
