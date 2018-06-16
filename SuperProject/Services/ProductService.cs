@@ -7,7 +7,12 @@ namespace SuperProject.Services
 {
     public class ProductService : IService1<Product>
     {
-        public List<Product> productos = new List<Product>();
+        public List<Product> productos;
+
+        public ProductService()
+        {
+            productos = new List<Product>();
+        }
 
         private int GetIndex(string key)
         {
@@ -25,8 +30,8 @@ namespace SuperProject.Services
             p1.Name = "Head Phones";
             p1.Price = 20.75;
             p1.Description = "Audifonos huawei";
-            p1.Type = Product.typeEnum.physical;
-            p1.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.inStore;
+            p1.setType("physical");
+            p1.setShippingDT("inStore");
             p1.Category = null;
             productos.Add(p1);
 
@@ -35,8 +40,8 @@ namespace SuperProject.Services
             p2.Name = "Mouse";
             p2.Price = 17.5;
             p2.Description = "Mouse inalambrico para portatil";
-            p2.Type = Product.typeEnum.physical;
-            p2.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express;
+            p2.setType("physical");
+            p2.setShippingDT("express");
             p2.Category = null;
             productos.Add(p2);
 
@@ -45,8 +50,8 @@ namespace SuperProject.Services
             p3.Name = "Windows Pro";
             p3.Price = 120.75;
             p3.Description = "Licencia digital para activacion de Windows Pro";
-            p3.Type = Product.typeEnum.digital;
-            p3.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.none;
+            p3.setType("digital");
+            p3.setShippingDT("none");
             p3.Category = null;
             productos.Add(p3);
         }
