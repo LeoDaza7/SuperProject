@@ -12,12 +12,12 @@ namespace SuperProject.Services
         {
             listC = new List<Cart>();
         }
-        private int GetIndex(string Username)
+        public int GetIndex(string Username)
         {
             return listC.FindIndex((x => x.Username == Username));
         }
 
-        private bool Verification(Cart c)
+        public bool Verification(Cart c)
         {
             return listC.Exists((x => x.Username == c.Username));
         }
