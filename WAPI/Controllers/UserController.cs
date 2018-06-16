@@ -18,12 +18,36 @@ namespace WAPI.Controllers
         [Route("api/getusers")]
         public HttpResponseMessage GetUsers()
         {
-            UserService userservice= new UserService();//Servicios
+            UserService userservice= new UserService();
             List<User> users = userservice.Read();
             string productsJSON = JsonConvert.SerializeObject(users, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
             return response;
+        }
+
+        [HttpGet]
+        [Route("api/getusers/{key}")]
+        public HttpResponseMessage GetUsers(string key)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            UserService userservice = new UserService();
+            List<User> user = userservice.Read();
+            int id = userservice.GetIndex(key);
+            if (id != -1)
+            {
+                User u = user[id];
+                string cartJSON = JsonConvert.SerializeObject(u, Formatting.Indented);
+                response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(cartJSON, Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+            }
+            return response;
+
         }
 
         [HttpPost]
@@ -36,7 +60,6 @@ namespace WAPI.Controllers
                 String userJSON = user.ToString();
                 User u = JsonConvert.DeserializeObject<User>(userJSON);
                 UserService us = new UserService();
-                us.Read();
                 if (us.Create(u))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
@@ -64,7 +87,6 @@ namespace WAPI.Controllers
             {
                 User u = JsonConvert.DeserializeObject<User>(user.ToString());
                 UserService us = new UserService();
-                us.Read();
                 if (us.Update(u.Username,u))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
@@ -92,7 +114,6 @@ namespace WAPI.Controllers
             try
             {
                 UserService us = new UserService();
-                us.Read();
                 if (us.Delete(id))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);

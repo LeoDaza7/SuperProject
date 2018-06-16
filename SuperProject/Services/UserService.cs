@@ -35,11 +35,6 @@ namespace SuperProject.Services
         }
         public List<User> Read()
         {
-            instance.UsersList.Add(new User { Username = "user1", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
-            instance.UsersList.Add(new User { Username = "user2", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
-            instance.UsersList.Add(new User { Username = "user3", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
-            instance.UsersList.Add(new User { Username = "user4", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
-            instance.UsersList.Add(new User { Username = "user5", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
             return instance.UsersList;
         }
         public bool Update(string key, User user)

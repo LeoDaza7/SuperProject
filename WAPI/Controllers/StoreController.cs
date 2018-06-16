@@ -18,7 +18,7 @@ namespace WAPI.Controllers
         [Route("api/getstore")]
         public HttpResponseMessage GetStore()
         {
-            StoreService storeservice = new StoreService();//Servicios
+            StoreService storeservice = new StoreService();
             List<Store> store = storeservice.Read();
             string storeJSON = JsonConvert.SerializeObject(store, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -31,7 +31,7 @@ namespace WAPI.Controllers
         public HttpResponseMessage GetStore(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
-            StoreService storeservice = new StoreService();//Servicios
+            StoreService storeservice = new StoreService();
             List<Store> store = storeservice.Read();
             int id = storeservice.GetIndex(key);
             if (id!=-1)
@@ -87,7 +87,6 @@ namespace WAPI.Controllers
             {
                 Store store = JsonConvert.DeserializeObject<Store>(content.ToString());
                 StoreService ss = new StoreService();
-                ss.Read();
                 if (ss.Update(key, store))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
@@ -115,7 +114,6 @@ namespace WAPI.Controllers
             try
             {
                 StoreService ss = new StoreService();
-                ss.Read();
                 if (ss.Delete(key))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);

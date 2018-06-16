@@ -35,17 +35,6 @@ namespace SuperProject.Services
 
         public List<Category> Read()
         {
-            Category mock1 = new Category() {Name = "New", Description = "Not Used"};
-            Category mock2 = new Category() {Name = "Not so new", Description = "Slightly Used"};
-            Category mock3 = new Category() {Name = "Old", Description = "Used"};
-            Category mock4 = new Category() {Name = "Rounded", Description = "Without Corners"};
-            Category mock5 = new Category() {Name = "Squared", Description = "Without Curves"};
-            instance.CategorysList.Add(mock1);
-            instance.CategorysList.Add(mock2);
-            instance.CategorysList.Add(mock3);
-            instance.CategorysList.Add(mock4);
-            instance.CategorysList.Add(mock5);
-
             return instance.CategorysList;
         }
 

@@ -18,7 +18,7 @@ namespace WAPI.Controllers
         [Route("api/getproductcart")]
         public HttpResponseMessage GetProductCart()
         {
-            ProductCartService productcartservice = new ProductCartService();//Servicios
+            ProductCartService productcartservice = new ProductCartService();
             List<ProductCart> productcart = productcartservice.Read();
             string productcartJSON = JsonConvert.SerializeObject(productcart, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -31,7 +31,7 @@ namespace WAPI.Controllers
         public HttpResponseMessage GetProductCart(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
-            ProductCartService productcartservice = new ProductCartService();//Servicios
+            ProductCartService productcartservice = new ProductCartService();
             List<ProductCart> productcart = productcartservice.Read();
             int id = productcartservice.GetProductCartIndex(key);
             if (id != -1)
@@ -87,7 +87,6 @@ namespace WAPI.Controllers
             {
                 ProductCart productcart = JsonConvert.DeserializeObject<ProductCart>(content.ToString());
                 ProductCartService pcs = new ProductCartService();
-                pcs.Read();
                 if (pcs.Update(key, productcart))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
@@ -115,7 +114,6 @@ namespace WAPI.Controllers
             try
             {
                 ProductCartService pcs = new ProductCartService();
-                pcs.Read();
                 if (pcs.Delete(id))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);

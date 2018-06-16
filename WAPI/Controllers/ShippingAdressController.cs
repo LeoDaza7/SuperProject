@@ -18,7 +18,7 @@ namespace WAPI.Controllers
         [Route("api/getshippingaddress")]
         public HttpResponseMessage GetShippingAddress()
         {
-            ShippingAddressService shippingaddressservice = new ShippingAddressService();//Servicios
+            ShippingAddressService shippingaddressservice = new ShippingAddressService();
             List<ShippingAddress> shippingaddress = shippingaddressservice.Read();
             string shippingaddressJSON = JsonConvert.SerializeObject(shippingaddress, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -31,7 +31,7 @@ namespace WAPI.Controllers
         public HttpResponseMessage GetShippingAddress(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
-            ShippingAddressService shippingaddressservice = new ShippingAddressService();//Servicios
+            ShippingAddressService shippingaddressservice = new ShippingAddressService();
             List<ShippingAddress> shippingAddress = shippingaddressservice.Read();
             int id = shippingaddressservice.GetIndex(key);
             if (id != -1)
@@ -87,7 +87,6 @@ namespace WAPI.Controllers
             {
                 ShippingAddress shippingaddress = JsonConvert.DeserializeObject<ShippingAddress>(content.ToString());
                 ShippingAddressService sas = new ShippingAddressService();
-                sas.Read();
                 if (sas.Update(key, shippingaddress))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
@@ -115,7 +114,6 @@ namespace WAPI.Controllers
             try
             {
                 ShippingAddressService sas = new ShippingAddressService();
-                sas.Read();
                 if (sas.Delete(id))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);

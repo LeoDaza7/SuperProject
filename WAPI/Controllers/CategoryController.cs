@@ -18,7 +18,7 @@ namespace WAPI.Controllers
         [Route("api/getcategory")]
         public HttpResponseMessage GetCategory()
         {
-            CategoryService categoryservice = new CategoryService();//Servicios
+            CategoryService categoryservice = new CategoryService();
             List<Category> category = categoryservice.Read();
             string categoryJSON = JsonConvert.SerializeObject(category, Formatting.Indented);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -31,7 +31,7 @@ namespace WAPI.Controllers
         public HttpResponseMessage GetCategory(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
-            CategoryService categoryservice = new CategoryService();//Servicios
+            CategoryService categoryservice = new CategoryService();
             List<Category> category = categoryservice.Read();
             int id = categoryservice.GetIndex(key);
             if (id != -1)
@@ -87,7 +87,6 @@ namespace WAPI.Controllers
             {
                 Category category = JsonConvert.DeserializeObject<Category>(content.ToString());
                 CategoryService cs = new CategoryService();
-                cs.Read();
                 if (cs.Update(key, category))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
@@ -115,7 +114,6 @@ namespace WAPI.Controllers
             try
             {
                 CategoryService cs = new CategoryService();
-                cs.Read();
                 if (cs.Delete(id))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
