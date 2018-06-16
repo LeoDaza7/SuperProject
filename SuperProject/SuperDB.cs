@@ -6,16 +6,51 @@ using System.Threading.Tasks;
 
 namespace SuperProject
 {
-    class SuperDB
+    public class SuperDB
     {
         private static SuperDB _instance;
 
         private SuperDB() {
+            Initiate();
+        }
+
+        private void Initiate()
+        {
             this.CartsList = new List<Cart>();
             this.CategorysList = new List<Category>();
             this.ProductsList = new List<Product>();
             this.StoresList = new List<Store>();
             this.UsersList = new List<User>();
+            this.ProductCartList = new List<ProductCart>();
+            this.ShippingAddressesList = new List<ShippingAddress>();
+            this.CartsList.Add(new Cart() { Username = "user1", ListPC = new List<ProductCart>() });
+            this.CartsList.Add(new Cart() { Username = "user2", ListPC = new List<ProductCart>() });
+            this.CartsList.Add(new Cart() { Username = "user3", ListPC = new List<ProductCart>() });
+            this.CartsList.Add(new Cart() { Username = "user4", ListPC = new List<ProductCart>() });
+            this.CartsList.Add(new Cart() { Username = "user5", ListPC = new List<ProductCart>() });
+            this.CategorysList.Add(new Category() { Name = "New", Description = "Not Used" });
+            this.CategorysList.Add(new Category() { Name = "Not so new", Description = "Slightly Used" });
+            this.CategorysList.Add(new Category() { Name = "Old", Description = "Used" });
+            this.CategorysList.Add(new Category() { Name = "Rounded", Description = "Without Corners" });
+            this.CategorysList.Add(new Category() { Name = "Squared", Description = "Without Curves" });
+            this.ShippingAddressesList.Add(new ShippingAddress() { Identifier = "casa", Line1 = "asd", Line2 = "123", Phone = 1, City = "cbba", Zone = "Temporal" });
+            this.ShippingAddressesList.Add(new ShippingAddress() { Identifier = "oficina", Line1 = "asd", Line2 = "123", Phone = 2, City = "cbba", Zone = "centro" });
+            this.ShippingAddressesList.Add(new ShippingAddress() { Identifier = "oficina2", Line1 = "asd", Line2 = "123", Phone = 3, City = "cbba", Zone = "America oeste" });
+            this.ShippingAddressesList.Add(new ShippingAddress() { Identifier = "casa2", Line1 = "asd", Line2 = "123", Phone = 4, City = "cbba", Zone = "parque Lincoln" });
+            this.ShippingAddressesList.Add(new ShippingAddress() { Identifier = "tienda", Line1 = "asd", Line2 = "123", Phone = 5, City = "cbba", Zone = "Muyurina" });
+            this.StoresList.Add(new Store() { Name = "New York", Line1 = "a", Line2 = "b", Phone = 1 });
+            this.StoresList.Add(new Store() { Name = "Chicago", Line1 = "c", Line2 = "d", Phone = 2 });
+            this.StoresList.Add(new Store() { Name = "La Paz", Line1 = "e", Line2 = "f", Phone = 3 });
+            this.StoresList.Add(new Store() { Name = "Cochabamba", Line1 = "g", Line2 = "h", Phone = 4 });
+            this.StoresList.Add(new Store() { Name = "Moscu", Line1 = "i", Line2 = "j", Phone = 5 });
+            this.UsersList.Add(new User { Username = "user1", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
+            this.UsersList.Add(new User { Username = "user2", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
+            this.UsersList.Add(new User { Username = "user3", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
+            this.UsersList.Add(new User { Username = "user4", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
+            this.UsersList.Add(new User { Username = "user5", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
+            this.ProductsList.Add(new Product { Code = "0", Name = "Head Phones", Price = 20.75, Description = "Audifonos huawei", Type = Product.typeEnum.physical, ShippingDeliveryType = Product.shippingDeliveryTypeEnum.inStore, Category = null });
+            this.ProductsList.Add(new Product { Code = "1", Name = "Mouse", Price = 17.5, Description = "Mouse inalambrico para portatil", Type = Product.typeEnum.physical, ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express, Category = null });
+            this.ProductsList.Add(new Product { Code = "2", Name = "Windows Pro", Price = 120.75, Description = "Licencia digital para activacion de Windows Pro", Type = Product.typeEnum.digital, ShippingDeliveryType = Product.shippingDeliveryTypeEnum.none, Category = null });
         }
 
         public static SuperDB Instance
@@ -36,6 +71,7 @@ namespace SuperProject
         public List<ShippingAddress> ShippingAddressesList { get; private set; }
         public List<Store> StoresList { get; private set; }
         public List<User> UsersList { get; private set; }
+        public List<ProductCart> ProductCartList { get; private set; }
 
     }
 }
