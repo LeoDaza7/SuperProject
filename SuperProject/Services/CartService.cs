@@ -7,19 +7,19 @@ namespace SuperProject.Services
 {
     public class CartService : IService1<Cart>
     {
-        public List<Cart> listC;
+        public SuperDB instance;
         public CartService()
         {
-            listC = new List<Cart>();
+            instance = SuperDB.Instance;
         }
-        private int GetIndex(string Username)
+        public int GetIndex(string Username)
         {
-            return listC.FindIndex((x => x.Username == Username));
+            return instance.CartsList.FindIndex((x => x.Username == Username));
         }
 
-        private bool Verification(Cart c)
+        public bool Verification(Cart c)
         {
-            return listC.Exists((x => x.Username == c.Username));
+            return instance.CartsList.Exists((x => x.Username == c.Username));
         }
 
         public bool Create(Cart cart)
@@ -27,25 +27,14 @@ namespace SuperProject.Services
             bool existe = !Verification(cart);
             if (existe)
             {
-                listC.Add(cart);
+                instance.CartsList.Add(cart);
             }
             return existe;
         }
 
         public List<Cart> Read()
         {
-            Cart cart1 = new Cart() { Username = "Francisco", ListPC = new List<ProductCart>() };
-            Cart cart2 = new Cart() { Username = "Francisco", ListPC = new List<ProductCart>() };
-            Cart cart3 = new Cart() { Username = "Francisco", ListPC = new List<ProductCart>() };
-            Cart cart4 = new Cart() { Username = "Francisco", ListPC = new List<ProductCart>() };
-            Cart cart5 = new Cart() { Username = "Francisco", ListPC = new List<ProductCart>() };
-
-            listC.Add(cart1);
-            listC.Add(cart2);
-            listC.Add(cart3);
-            listC.Add(cart4);
-            listC.Add(cart5);
-            return listC;
+            return instance.CartsList;
         }
 
         public bool Update(string key, Cart cart)
@@ -57,7 +46,7 @@ namespace SuperProject.Services
             {
                 int index = GetIndex(key);
                 if (index != -1)
-                    listC[index] = cart;
+                    instance.CartsList[index] = cart;
                 else
                     existe = false;
             }
@@ -69,7 +58,7 @@ namespace SuperProject.Services
             bool eliminado = true;
             int index = GetIndex(key);
             if (index != -1)
-                listC.RemoveAt(index);
+                instance.CartsList.RemoveAt(index);
             else
                 eliminado = false;
             return eliminado;

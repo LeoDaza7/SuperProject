@@ -1,4 +1,4 @@
-﻿using Services;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,69 +7,34 @@ namespace SuperProject.Services
 {
     public class ProductService : IService1<Product>
     {
-        public List<Product> productos;
-
+        public SuperDB instance;
         public ProductService()
         {
-            productos = new List<Product>();
+            instance = SuperDB.Instance;
         }
-
-        private int GetIndex(string key)
+        public int GetIndex(string key)
         {
-            return productos.FindIndex((x => x.Code == key));
+            return instance.ProductsList.FindIndex((x => x.Code == key));
         }
 
-        private bool Verification(Product p)
+        public bool Verification(Product p)
         {
-            return productos.Exists((x => x.Code == p.Code));
+            return instance.ProductsList.Exists((x => x.Code == p.Code));
         }
-        public void ejemploLista()
-        {
-            Product p1 = new Product();
-            p1.Code = "0";
-            p1.Name = "Head Phones";
-            p1.Price = 20.75;
-            p1.Description = "Audifonos huawei";
-            p1.setType("physical");
-            p1.setShippingDT("inStore");
-            p1.Category = null;
-            productos.Add(p1);
-
-            Product p2 = new Product();
-            p2.Code = "1";
-            p2.Name = "Mouse";
-            p2.Price = 17.5;
-            p2.Description = "Mouse inalambrico para portatil";
-            p2.setType("physical");
-            p2.setShippingDT("express");
-            p2.Category = null;
-            productos.Add(p2);
-
-            Product p3 = new Product();
-            p3.Code = "2";
-            p3.Name = "Windows Pro";
-            p3.Price = 120.75;
-            p3.Description = "Licencia digital para activacion de Windows Pro";
-            p3.setType("digital");
-            p3.setShippingDT("none");
-            p3.Category = null;
-            productos.Add(p3);
-        }
-
+        
         public bool Create(Product producto)
         {
             bool estado = !Verification(producto);
             if (estado)
             {
-                productos.Add(producto);
+                instance.ProductsList.Add(producto);
             }
             return estado;
         }
 
         public List<Product> Read()
         {
-            ejemploLista();
-            return productos;
+            return instance.ProductsList;
         }
 
         public bool Update(string codigo, Product producto)
@@ -81,7 +46,7 @@ namespace SuperProject.Services
             {
                 int index = GetIndex(codigo);
                 if (index != -1)
-                    productos[index] = producto;
+                    instance.ProductsList[index] = producto;
                 else
                     estado = false;
             }
@@ -93,7 +58,7 @@ namespace SuperProject.Services
             bool estado = true;
             int index = GetIndex(codigo);
             if (index != -1)
-                productos.RemoveAt(index);
+                instance.ProductsList.RemoveAt(index);
             else
                 estado = false;
             return estado;
