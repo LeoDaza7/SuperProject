@@ -14,12 +14,12 @@ namespace SuperProject.Services
             categoryList = new List<Category>();
         }
 
-        private int GetIndex(string key)
+        public int GetIndex(string key)
         {
             return categoryList.FindIndex((x => x.Name == key));
         }
 
-        private bool Verification(Category c)
+        public bool Verification(Category c)
         {
             return categoryList.Exists((x => x.Name == c.Name));
         }
