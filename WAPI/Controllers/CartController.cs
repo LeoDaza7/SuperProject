@@ -51,7 +51,7 @@ namespace WAPI.Controllers
         }
 
         [HttpPost]
-        [Route("api/postCart")]
+        [Route("api/postcart")]
         public HttpResponseMessage PostCart(Object content)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);

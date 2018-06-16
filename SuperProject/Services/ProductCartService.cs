@@ -12,7 +12,7 @@ namespace SuperProject.Services
         public List<ProductCart> listPC;
         public ProductCartService() { 
         }
-        private int GetProductCartIndex(string productCode)
+        public int GetProductCartIndex(string productCode)
         {
             return listPC.FindIndex((x => x.ProductCode == productCode));
         }
