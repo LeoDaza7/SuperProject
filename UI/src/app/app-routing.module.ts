@@ -18,8 +18,8 @@ const routes: Routes = [
     {path: 'product-list', component: ProductListComponent},
     {path: 'product-detail', component: ProductDetailComponent},
     {path: 'shopping-cart', component: ShoppingCartComponent},
-    {path: 'shipping-options', component: HomeComponent},
-    {path: '**', component: ShippingOptionsComponent}
+    {path: 'shipping-options', component: ShippingOptionsComponent},
+    {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
