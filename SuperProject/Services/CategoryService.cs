@@ -40,18 +40,23 @@ namespace SuperProject.Services
 
         public bool Update(string key, Category uCategory)
         {
-            bool exist = true;
+            int index = GetIndex(key);
+            bool existe = true;
             if (!key.Equals(uCategory.Name))
-                exist = false;
-            if (exist)
             {
-                int index = GetIndex(key);
+                if (GetIndex(uCategory.Name) != -1)
+                    existe = false;
+                else
+                    existe = true;
+            }
+            if (existe)
+            {
                 if (index != -1)
                     instance.CategorysList[index] = uCategory;
                 else
-                    exist = false;
+                    existe = false;
             }
-            return exist;
+            return existe;
         }
 
         public bool Delete(string key)
