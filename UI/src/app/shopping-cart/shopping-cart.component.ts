@@ -39,9 +39,9 @@ export class ShoppingCartComponent implements OnInit {
   }
   getProducts(){
     this.carrito.listPC.forEach(pc => {
-      let tmp = this.allService.getObject("api/getproducts",pc.productCode).subscribe(
+      this.allService.getObject("api/getproducts",pc.productCode).subscribe(
         response => {
-          this.products.push(tmp);
+          this.products.push(response);
         },
         error => {
           console.log(error);
