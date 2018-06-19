@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Cart } from '../models/cart';
+import { ProductCart } from '../models/productCart';
+import { Store } from '../models/store';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,40 +12,31 @@ import { Component, OnInit } from '@angular/core';
 export class ShoppingCartComponent implements OnInit {
 
   constructor() { }
-  product: {
-    nombre : string;
-    price: number;
-    tipoDeEntrega: string[];
-    tiendaARecoger: string[];
-    cantidad: number;
-  };
-  carrito : any[] = [];
-
+  
+  product : Product;
+  items : ProductCart[] = [];
+  carrito : Cart;
+  store: Store;
   ngOnInit() {
-    this.product = {
-      nombre : "Laptop",
-      price: 520,
-      tipoDeEntrega: ["auto", "bici"],
-      tiendaARecoger: ["central"],
-      cantidad: 1
-    };
-    this.carrito.push(this.product);
-    this.product = {
-      nombre : "Celular",
-      price: 320,
-      tipoDeEntrega: ["auto"],
-      tiendaARecoger: ["Sucursal 1"],
-      cantidad: 1
-    };
-    this.carrito.push(this.product);
-    this.product = {
-      nombre : "Reloj",
-      price: 420,
-      tipoDeEntrega: ["auto", "bici", "Correo"],
-      tiendaARecoger: ["central", "Sucursal 2"],
-      cantidad: 1
-    };
-    this.carrito.push(this.product);
+    this.store = new Store();
+    this.store.name = "Oxxo";
+    this.store.lane1 = "Lane1";
+    this.store.lane2 = "LaneUno";
+    this.store.phone = 79763702;
+
+    this.items.push({productCode : "ABCssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss", shippingDeliveryType: 2, store : this.store, quantity : 5})
+    this.items.push({productCode : "123", shippingDeliveryType: 4, store : this.store, quantity : 2})
+    this.items.push({productCode : "JQK", shippingDeliveryType: 1, store : this.store, quantity : 1})
+    this.items.push({productCode : "456", shippingDeliveryType: 3, store : this.store, quantity : 7})
+    this.items.push({productCode : "456", shippingDeliveryType: 3, store : this.store, quantity : 7})
+    this.items.push({productCode : "456", shippingDeliveryType: 3, store : this.store, quantity : 7})
+    this.items.push({productCode : "456", shippingDeliveryType: 3, store : this.store, quantity : 7})
+
+    this.items.forEach(i => {
+      console.log("Call the service");
+    });
+    console.log(this.items);
+    
   }
 
 }
