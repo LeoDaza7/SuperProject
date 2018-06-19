@@ -39,18 +39,23 @@ namespace SuperProject.Services
 
         public bool Update(string codigo, Product producto)
         {
-            bool estado = true;
+            int index = GetIndex(codigo);
+            bool existe = true;
             if (!codigo.Equals(producto.Code))
-                estado = false;
-            if (estado)
             {
-                int index = GetIndex(codigo);
+                if (GetIndex(producto.Code) != -1)
+                    existe = false;
+                else
+                    existe = true;
+            }
+            if (existe)
+            {
                 if (index != -1)
                     instance.ProductsList[index] = producto;
                 else
-                    estado = false;
+                    existe = false;
             }
-            return estado;
+            return existe;
         }
 
         public bool Delete(String codigo)

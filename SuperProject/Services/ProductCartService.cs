@@ -52,12 +52,17 @@ namespace SuperProject.Services
 
         public bool Update(string key, ProductCart pc)
         {
+            int index = GetProductCartIndex(key);
             bool existe = true;
             if (!key.Equals(pc.ProductCode))
-                existe = false;
+            {
+                if (GetProductCartIndex(pc.ProductCode) != -1)
+                    existe = false;
+                else
+                    existe = true;
+            }
             if (existe)
             {
-                int index = GetProductCartIndex(key);
                 if (index != -1)
                     instance.ProductCartList[index] = pc;
                 else
