@@ -23,4 +23,8 @@ export class HttpService {
     let _url = this._serviceUrl+_serviceUri+"/"+key;
     return this.http.delete<any>(_url)
   }
+  getCollection(_serviceUri:String){
+    let _url = this._serviceUrl+_serviceUri;
+    return this.http.get<any>(_url)
+  }
 }
