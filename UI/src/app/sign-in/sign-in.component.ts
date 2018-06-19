@@ -15,7 +15,7 @@ export class SignInComponent implements OnInit {
   }
 
   addUser() {
-    this._http.postUser(this.getUserData)
+    this._http.postObject(this.getUserData,"postuser")
     .subscribe(
       res => console.log(res),
       err => console.log(err)
