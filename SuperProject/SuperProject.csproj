@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\OrderHistory.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCart.cs" />
     <Compile Include="Models\ShippingAddress.cs" />
