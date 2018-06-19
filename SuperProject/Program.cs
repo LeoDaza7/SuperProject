@@ -39,18 +39,18 @@ namespace SuperProject
 
             Console.WriteLine("Actualizando un producto inexistente\n");
             Product ej2 = new Product();
-            ej2.Code = "15";
+            ej2.Code = "2";
             ej2.Name = "Huawei Mate 10 pro";
             ej2.Price = 270.75;
             ej2.Description = "...";
             ej2.Type = Product.typeEnum.physical;
             ej2.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express;
             ej2.Category = null;
-            Console.WriteLine(ps.Update(ej2.Code, ej2));
+            Console.WriteLine(ps.Update("0", ej2));
 
             Console.WriteLine("Actualizando un producto existente\n");
-            ej2.Code = "0";
-            Console.WriteLine(ps.Update(ej2.Code, ej2));
+            ej2.Code = "4";
+            Console.WriteLine(ps.Update("0", ej2));
 
             Console.WriteLine("Revisando los cambios realizados\n");
             foreach (Product p in ps.instance.ProductsList)

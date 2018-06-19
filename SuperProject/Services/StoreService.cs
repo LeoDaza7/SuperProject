@@ -37,12 +37,17 @@ namespace SuperProject.Services
         }
         public bool Update(string name, Store store)
         {
+            int index = GetIndex(name);
             bool existe = true;
             if (!name.Equals(store.Name))
-                existe = false;
+            {
+                if (GetIndex(store.Name) != -1)
+                    existe = false;
+                else
+                    existe = true;
+            }
             if (existe)
             {
-                int index = GetIndex(name);
                 if (index != -1)
                     instance.StoresList[index] = store;
                 else
