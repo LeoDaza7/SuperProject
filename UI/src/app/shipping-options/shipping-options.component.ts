@@ -29,6 +29,7 @@ export class ShippingOptionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAdressess();
   }
 
   deliver(){
@@ -45,6 +46,8 @@ export class ShippingOptionsComponent implements OnInit {
       response => {
         if (response)
         this.addressess = response;
+
+      console.log(response);
       },
       error => {
         console.log(error);
@@ -67,16 +70,18 @@ export class ShippingOptionsComponent implements OnInit {
 
   createAddress(){
     console.log("create");
-    // this.tmpAddress = new ShippingAddress();
-    // this.tmpAddress.identifier = this.cuForm.controls['identifier'].value;
-    // this.tmpAddress.line1 = this.cuForm.controls['line1'].value;
-    // this.tmpAddress.line2 = this.cuForm.controls['line2'].value;
-    // this.tmpAddress.city = this.cuForm.controls['city'].value;
-    // this.tmpAddress.phone = this.cuForm.controls['phone'].value;
-    // this.tmpAddress.zone = this.cuForm.controls['zone'].value;
+     this.tmpAddress = new ShippingAddresses();
+     this.tmpAddress.Identifier = this.cuForm.controls['identifier'].value;
+     this.tmpAddress.Line1 = this.cuForm.controls['line1'].value;
+     this.tmpAddress.Line2 = this.cuForm.controls['line2'].value;
+     this.tmpAddress.City = this.cuForm.controls['city'].value;
+     this.tmpAddress.Phone = this.cuForm.controls['phone'].value;
+     this.tmpAddress.Zone = this.cuForm.controls['zone'].value;
+
     this.allService.postObject(this.tmpAddress,"postshippingaddress").subscribe(
       response => {
         console.log("created",response);
+        this.getAdressess();
       },
       error => {
         console.log(error);
