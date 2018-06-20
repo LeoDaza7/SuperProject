@@ -1,11 +1,11 @@
-<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
-  <div class="card-header">Leonardo Cristhian Gonzales Vargas</div>
+<div *ngFor="let address in addressess" class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+  <div class="card-header">{{address.Identifier}}</div>
   <div class="card-body">
-    <p class="card-text">Address1</p>
-    <p class="card-text">Address2</p>
-    <p class="card-text">City</p>
-    <p class="card-text">Zone</p>
-    <p class="card-text">Phone</p>
+    <p class="card-text">{{address.Line1}}</p>
+    <p class="card-text">{{address.Line2}}</p>
+    <p class="card-text">{{address.City}}</p>
+    <p class="card-text">{{address.Zone}}</p>
+    <p class="card-text">{{address.Phone}}</p>
     <button class="btn btn-primary" (click)="deliver()">Deliver to this adress</button>
     <div class="m-1 btn-group " role="group" aria-label="Basic example">
       <button type="button" class="btn btn-secondary" (click)="editAddress()">EDIT</button>

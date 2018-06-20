@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpService } from '../http.service';
+import { ShippingAddresses } from '../models/shippingAddresses';
 
 @Component({
   selector: 'app-shipping-options',
@@ -9,8 +10,8 @@ import { HttpService } from '../http.service';
 })
 export class ShippingOptionsComponent implements OnInit {
 
-  tmpAddress : any;
-  addressess : any[];
+  tmpAddress : ShippingAddresses;
+  addressess : ShippingAddresses[];
   @ViewChild('form') public contentModal;
 
   cuForm: FormGroup;
@@ -35,7 +36,7 @@ export class ShippingOptionsComponent implements OnInit {
   }
 
   editAddress(identifier : string){
-    this.tmpAddress = this.addressess.find(a => a.identifier == identifier);
+    this.tmpAddress = this.addressess.find(a => a.Identifier == identifier);
 
   }
 
@@ -54,7 +55,7 @@ export class ShippingOptionsComponent implements OnInit {
 
   deleteAddress(){
     console.log("delete");
-    this.allService.deleteObject("deleteshippingaddress",this.tmpAddress.identifier).subscribe(
+    this.allService.deleteObject("deleteshippingaddress",this.tmpAddress.Identifier).subscribe(
       response => {
         console.log("deleted",response);
       },
