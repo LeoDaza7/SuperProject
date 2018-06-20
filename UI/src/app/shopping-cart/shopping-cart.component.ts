@@ -62,7 +62,7 @@ export class ShoppingCartComponent implements OnInit {
         console.log(response);
         this.products = response;
         this.products.forEach(p => {
-          this.totalPrice += p.price;
+          this.totalPrice += p.Price;
           
         });
 
