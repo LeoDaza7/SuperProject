@@ -17,7 +17,7 @@ namespace WAPI.Controllers
     {
         [HttpGet]
         [Route("api/getstore")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetStore()
         {
             StoreService storeservice = new StoreService();
@@ -30,7 +30,7 @@ namespace WAPI.Controllers
 
         [HttpGet]
         [Route("api/getstore/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetStore(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -55,7 +55,7 @@ namespace WAPI.Controllers
 
         [HttpPost]
         [Route("api/poststore")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostStore(Object content)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -84,7 +84,7 @@ namespace WAPI.Controllers
 
         [HttpPut]
         [Route("api/updatestore/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateStore(Object content, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -113,7 +113,7 @@ namespace WAPI.Controllers
 
         [HttpDelete]
         [Route("api/deletestore/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteStore(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);

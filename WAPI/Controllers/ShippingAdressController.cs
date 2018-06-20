@@ -17,7 +17,7 @@ namespace WAPI.Controllers
     {
         [HttpGet]
         [Route("api/getshippingaddress")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetShippingAddress()
         {
             ShippingAddressService shippingaddressservice = new ShippingAddressService();
@@ -30,7 +30,7 @@ namespace WAPI.Controllers
 
         [HttpGet]
         [Route("api/getshippingaddress/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetShippingAddress(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -55,7 +55,7 @@ namespace WAPI.Controllers
 
         [HttpPost]
         [Route("api/postshippingaddress")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostShippingAddress(Object content)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -84,7 +84,7 @@ namespace WAPI.Controllers
 
         [HttpPut]
         [Route("api/updateshippingaddress/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateShippingAddress(Object content, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -113,7 +113,7 @@ namespace WAPI.Controllers
 
         [HttpDelete]
         [Route("api/deleteshippingaddress/{id}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteShippingAddress(string id)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);

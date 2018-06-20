@@ -17,7 +17,7 @@ namespace WAPI.Controllers
     {
         [HttpGet]
         [Route("api/getusers")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetUsers()
         {
             UserService userservice= new UserService();
@@ -30,7 +30,7 @@ namespace WAPI.Controllers
 
         [HttpGet]
         [Route("api/getusers/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetUsers(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -55,7 +55,7 @@ namespace WAPI.Controllers
 
         [HttpPost]
         [Route("api/postuser")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PosUser(Object user)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -84,7 +84,7 @@ namespace WAPI.Controllers
 
         [HttpPut]
         [Route("api/updateuser/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateInfo(Object user, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -113,7 +113,7 @@ namespace WAPI.Controllers
 
         [HttpDelete]
         [Route("api/deleteuser/{id}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteInfo(string id)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
