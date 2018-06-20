@@ -1,4 +1,4 @@
-<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+<div class="card text-white bg-dark mb-3" id="address-card-id">
   <div class="card-header">Leonardo Cristhian Gonzales Vargas</div>
   <div class="card-body">
     <p class="card-text">Address1</p>
@@ -6,16 +6,16 @@
     <p class="card-text">City</p>
     <p class="card-text">Zone</p>
     <p class="card-text">Phone</p>
-    <button class="btn btn-primary">Deliver to this adress</button>
     <div class="m-1 btn-group " role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary">EDIT</button>
-      <button type="button" class="btn btn-secondary">DELETE</button>
+      <button class="btn btn-outline-primary">Deliver</button>
+      <button type="button" class="btn btn-outline-info">EDIT</button>
+      <button type="button" class="btn btn-outline-danger">DELETE</button>
     </div>
   </div>
 </div>
 
-
-<form class="bg-dark p-2">
+<div class="d-flex justify-content-center" id="address-flex-id">
+<form class="p-2" id="address-form-id">
     <h3>Add a new Address</h3>
   <div class="form-row">
     <div class="col-md-4 mb-3">
@@ -46,5 +46,6 @@
 
     </div>
   </div>
-  <button class="btn btn-primary" type="submit">Save</button>
+  <button class="btn btn-outline-success" type="submit">Save</button>
 </form>
+</div>
