@@ -26,10 +26,12 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getCart(){
-    this.allService.getObject("api/getCart", "User").subscribe(
+    this.allService.getObject("getCart", "user1").subscribe(
       response => {
+        console.log(response);
         this.carrito = response;
-        this.getProducts();
+        //if (this.carrito.listPC)
+          this.getProducts();
       },
       error => {
         console.log(error);
@@ -38,17 +40,27 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
   getProducts(){
-    this.carrito.listPC.forEach(pc => {
-      this.allService.getObject("api/getproducts",pc.productCode).subscribe(
-        response => {
-          this.products.push(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    // this.carrito.listPC.forEach(pc => {
+    //   this.allService.getObject("getproducts",pc.productCode).subscribe(
+    //     response => {
+    //       this.products.push(response);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   );
       
-    });
+    // });
 
+    this.allService.getObject("getproducts","").subscribe(
+      response => {
+        console.log(response);
+        this.products = response;
+      },
+      error => {
+        console.log(error);
+      }
+
+    );
   }
 }
