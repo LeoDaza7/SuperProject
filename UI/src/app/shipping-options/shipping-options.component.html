@@ -1,63 +1,99 @@
-<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h4 class="card-title">Dark card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<div class="card text-white bg-dark mb-3" style="max-width: 20rem;"> Hello {{User.Username}}
+  <div class="card-header"> {{shippingoptions.Identifier}}</div>
+
+  <ul  class="list-group list-group-flush">
+    <li *ngFor="let shippingoptions of shippingAddresses" class="list-group-item">
+      <div class="card-body">
+    <p class="card-text"> {{shippingoptions.Line1}}</p>
+    <p class="card-text"> {{shippingoptions.Line2}}</p>
+    <p class="card-text"> Phone: {{shippingoptions.Phone}}</p>
+    <p class="card-text"> {{shippingoptions.City}}</p>
+    <p class="card-text"> {{shippingoptions.Zone}}</p>
+
+ <div class="form-row">
+<div ><button class="btn btn-primary" type="button">Deliver to this address</button></div></div>
+    <div class="form-row">
+    
+  <div class="offset-2"><button class="btn btn-primary" type="button">Edit</button></div>
+  <div class="col-md-3 mb-3 "><button class="btn btn-primary" type="button">Delete</button></div>
+    
   </div>
+    
+    
+  </div>
+
+    </li>
+  </ul>
+  
 </div>
-<form class="bg-dark">
+<form class="bg-dark text-white" #shippingoptionsForm="ngForm" (ngSubmit)="onSubmit(shippingoptionsForm)>
+  <div class="card-header">Add a new address</div>
+  <div class="form-row">
+    
+  <div class="offset-2"><button class="btn btn-primary" type="submit">Save</button></div>
+  <div class="col-md-3 mb-3 "><button class="btn btn-primary" type="button" (click)="resetForm(shippingoptionsForm)">Cancel</button></div>
+    
+  </div>
   <div class="form-row">
     <div class="col-md-4 mb-3">
-      <label for="validationServer01">First name</label>
-      <input type="text" class="form-control is-valid" id="validationServer01" placeholder="First name" value="Mark" required>
+      <label for="validationServer01">Address Identifier</label>
+      <input class="form-control" name="Identifier" #Identifier="ngModel" [(ngModel)]="allService.Identifier"
+        placeholder="AddressIdentifier" required="true">
+      <div class="validation-error" *ngIf="Identifier.invalid && Identifier.touched">This Field is Required.</div>
+      
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationServer02">Address Line 1</label>
+     <input class="form-control" name="Line1" #Line1="ngModel" [(ngModel)]="allService.Line1"
+        placeholder="AddressLine1" required="true">
       <div class="valid-feedback">
         Looks good!
       </div>
     </div>
+  </div>
+  <div class="form-row">
     <div class="col-md-4 mb-3">
-      <label for="validationServer02">Last name</label>
-      <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Last name" value="Otto" required>
+      <label for="validationServerUsername">Address Line 2</label>
+      <input class="form-control" name="Line2" #Line2="ngModel" [(ngModel)]="allService.Line2"
+        placeholder="AddressLine2" required="true">
       <div class="valid-feedback">
         Looks good!
       </div>
     </div>
+  </div>
+  <div class="form-row">
     <div class="col-md-4 mb-3">
-      <label for="validationServerUsername">Username</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroupPrepend3">@</span>
-        </div>
-        <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
-        <div class="invalid-feedback">
-          Please choose a username.
-        </div>
+      <label for="validationServer03">Phone</label>
+      <input class="form-control" name="Phone" #Phone="ngModel" [(ngModel)]="allService.Phone"
+        placeholder="Phone" required="true">
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+  </div>
+<div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationServer04">City</label>
+      <input class="form-control" name="City" #City="ngModel" [(ngModel)]="allService.City"
+        placeholder="City" required="true">
+      <div class="valid-feedback">
+        Looks good!
       </div>
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-6 mb-3">
-      <label for="validationServer03">City</label>
-      <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
-      <div class="invalid-feedback">
-        Please provide a valid city.
-      </div>
-    </div>
-    <div class="col-md-3 mb-3">
-      <label for="validationServer04">State</label>
-      <input type="text" class="form-control is-invalid" id="validationServer04" placeholder="State" required>
-      <div class="invalid-feedback">
-        Please provide a valid state.
-      </div>
-    </div>
-    <div class="col-md-3 mb-3">
-      <label for="validationServer05">Zip</label>
-      <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
-      <div class="invalid-feedback">
-        Please provide a valid zip.
+    <div class="col-md-4 mb-3">
+      <label for="validationServer05">Zone</label>
+      <input class="form-control" name="Zone" #Zone="ngModel" [(ngModel)]="allService.Zone"
+        placeholder="Zone" required="true">
+      <div class="valid-feedback">
+        Looks good!
       </div>
     </div>
   </div>
-  <div class="form-group">
+<!--<div class="form-group">
     <div class="form-check">
       <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
       <label class="form-check-label" for="invalidCheck3">
@@ -68,5 +104,6 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" type="submit">Submit form</button>
+-->
+  
 </form>
