@@ -1,3 +1,4 @@
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace SuperProject
             this.StoresList = new List<Store>();
             this.UsersList = new List<User>();
             this.ProductCartList = new List<ProductCart>();
+            this.OrderHistoryList = new List<OrderHistory>();
             this.ShippingAddressesList = new List<ShippingAddress>();
             this.CartsList.Add(new Cart() { Username = "user1", ListPC = new List<ProductCart>() });
             this.CartsList.Add(new Cart() { Username = "user2", ListPC = new List<ProductCart>() });
@@ -72,6 +74,7 @@ namespace SuperProject
         public List<Store> StoresList { get; private set; }
         public List<User> UsersList { get; private set; }
         public List<ProductCart> ProductCartList { get; private set; }
+        public List<OrderHistory> OrderHistoryList { get; private set; }
 
     }
 }
