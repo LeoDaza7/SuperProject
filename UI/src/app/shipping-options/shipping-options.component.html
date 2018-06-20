@@ -1,51 +1,57 @@
+<h2>My ShippingAddresses</h2>
 <div class="card text-white bg-dark mb-3" id="address-card-id">
-  <div class="card-header">Leonardo Cristhian Gonzales Vargas</div>
+
+  <ng-container *ngFor="let shippingaddress of shippingAddresses;">
+
+  <div class="card-header">{{user.Username}}</div>
   <div class="card-body">
-    <p class="card-text">Address1</p>
-    <p class="card-text">Address2</p>
-    <p class="card-text">City</p>
-    <p class="card-text">Zone</p>
-    <p class="card-text">Phone</p>
+     <p class="card-text"> {{shippingaddress.Line1}}</p>
+    <p class="card-text"> {{shippingaddress.Line2}}</p>
+    <p class="card-text"> Phone: {{shippingaddress.Phone}}</p>
+    <p class="card-text"> {{shippingaddress.City}}</p>
+    <p class="card-text"> {{shippingaddress.Zone}}</p>
     <div class="m-1 btn-group " role="group" aria-label="Basic example">
-      <button class="btn btn-outline-primary">Deliver</button>
-      <button type="button" class="btn btn-outline-info">EDIT</button>
-      <button type="button" class="btn btn-outline-danger">DELETE</button>
+      <button class="btn btn-outline-primary">Deliver to this address </button>
+      <button type="button" class="btn btn-outline-info">Edit</button>
+      <button type="button" class="btn btn-outline-danger">Delete</button>
     </div>
   </div>
+</ng-container>
 </div>
 
 <div class="d-flex justify-content-center" id="address-flex-id">
 <form class="p-2" id="address-form-id">
     <h3>Add a new Address</h3>
   <div class="form-row">
-    <div class="col-md-4 mb-3">
-      <label for="validationServer01">Adress Identifier:</label>
-      <input type="text" class="form-control is-valid" id="validationServer01" placeholder="AdressIdentifier" required>
+    <div class="form-group col-md-4 mb-3">
+      <label for="Identifier">Adress Identifier:</label>
+      <input [(ngModel)]="getdata.Identifier" type="text" class="form-control" id="Identifier" placeholder="AdressIdentifier" required>
     </div>
-    <div class="col-md-4 mb-3">
-      <label for="validationServer02">Adress Line 1: </label>
-      <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Address Line1"  required>
+    <div class="form-group col-md-4 mb-3">
+      <label for="Line1">Adress Line 1: </label>
+      <input [(ngModel)]="getdata.Line1" type="text" class="form-control" id="Line1" placeholder="Address Line1"  required>
     </div>
-    <div class="col-md-4 mb-3">
-        <label for="validationServer02">Adress Line 2: </label>
-        <input type="text" class="form-control is-valid" id="validationServer03" placeholder="Address Line2"  required>
+    <div class="form-group col-md-4 mb-3">
+        <label for="Line2">Adress Line 2: </label>
+        <input [(ngModel)]="getdata.Line2" type="text" class="form-control" id="Line2" placeholder="Address Line2"  required>
       </div>
-    <div class="col-md-4 mb-3">
-      <label for="validationServerUsername">City</label>
-      <input type="text" class="form-control is-valid" id="validationServer04" placeholder="City" required>
+    <div class="form-group col-md-4 mb-3">
+      <label for="City">City</label>
+      <input [(ngModel)]="getdata.City " type="text" class="form-control" id="City" placeholder="City" required>
     </div>
   </div>
-  <div class="form-row">
+  <div class="form-group form-row">
     <div class="col-md-6 mb-3">
-      <label for="validationServer03">Phone</label>
-      <input type="text" class="form-control is-valid" id="validationServer05" placeholder="Phone" required>
+      <label for="Phone">Phone</label>
+      <input [(ngModel)]="getdata.Phone" type="text" class="form-control" id="Phone" placeholder="Phone" required>
     </div>
-    <div class="col-md-3 mb-3">
-      <label for="validationServer04">Zone</label>
-      <input type="text" class="form-control is-valid" id="validationServer04" placeholder="Zone" required>
+    <div class="form-group col-md-3 mb-3">
+      <label for="Zone">Zone</label>
+      <input [(ngModel)]="getdata.Zone" type="text" class="form-control" id="Zone" placeholder="Zone" required>
 
     </div>
   </div>
-  <button class="btn btn-outline-success" type="submit">Save</button>
+  <button class="btn btn-outline-success" type="submit" (click)="postShippingAddresses()">Save</button>
+  <button class="btn btn-outline-success" type="button" (click)="resetForm()">Cancel</button>
 </form>
 </div>
