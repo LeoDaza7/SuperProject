@@ -13,9 +13,9 @@ namespace SuperProject
         public string Description { get; set; } 
         public string ImageURL { get; set; }
         public enum typeEnum : int { physical, digital, nulo};
-        private typeEnum type { get; set; }
+        public typeEnum type { get; set; }
         public enum shippingDeliveryTypeEnum : int { nulo = -1, express = 1, normal = 2, inStore = 3, free = 4, none = 0};
-        private shippingDeliveryTypeEnum shippingDeliveryType { get; set; }
+        public shippingDeliveryTypeEnum shippingDeliveryType { get; set; }
         public Category Category { get; set; }
 
         public Product()
