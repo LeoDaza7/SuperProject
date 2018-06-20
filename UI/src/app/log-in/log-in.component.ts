@@ -13,6 +13,7 @@ export class LogInComponent implements OnInit {
   constructor(private _http: HttpService) { }
   user: User;
   public username;
+  log_status:boolean = false
   ngOnInit() {
   }
   onSubmit(f: NgForm) {
@@ -25,6 +26,7 @@ export class LogInComponent implements OnInit {
         console.log(res)
         this.user = res;
         this.username = this.user.Username;
+        this.log_status = true
       },
       err => console.log(err)
     )

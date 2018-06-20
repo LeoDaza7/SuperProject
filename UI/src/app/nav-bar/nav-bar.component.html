@@ -9,16 +9,16 @@
       <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
     <ul class="navbar-nav ml-auto" id="ul-id">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Welcome User</a>
+      <li class="nav-item" *ngIf="show">
+        <a class="nav-link">Welcome User</a>
       </li>
       <li class="nav-item">
           <a class="nav-link" href="/product-list"><i class="fas fa-store"></i></a>
-        </li>
-      <li class="nav-item">
+      </li>
+      <li class="nav-item" *ngIf="show">
             <a class="nav-link" href="/shopping-cart"><i class="fas fa-shopping-cart"></i></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="show">
           <a class="nav-link" href="/shipping-options"><i class="fas fa-address-card"></i></a>
       </li>
       <li class="nav-item dropdown">
@@ -26,10 +26,9 @@
           <i class="fas fa-plus"></i>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/log-in">Log In</a>
-          <a class="dropdown-item" href="/sign-in">Sign In</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Log Out</a>
+          <a class="dropdown-item" href="/log-in" *ngIf="!show">Log In</a>
+          <a class="dropdown-item" href="/sign-in" *ngIf="!show">Sign In</a>
+          <a class="dropdown-item" href="#" *ngIf="show">Log Out</a>
         </div>
       </li>
     </ul>

@@ -9,6 +9,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ShippingOptionsComponent } from './shipping-options/shipping-options.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -16,9 +17,9 @@ const routes: Routes = [
     {path: 'log-in', component: LogInComponent},
     {path: 'sign-in', component: SignInComponent},
     {path: 'product-list', component: ProductListComponent},
-    {path: 'product-detail', component: ProductDetailComponent},
-    {path: 'shopping-cart', component: ShoppingCartComponent},
-    {path: 'shipping-options', component: ShippingOptionsComponent},
+    {path: 'product-detail', component: ProductDetailComponent, canActivate:[AuthGuard]},
+    {path: 'shopping-cart', component: ShoppingCartComponent, canActivate:[AuthGuard]},
+    {path: 'shipping-options', component: ShippingOptionsComponent, canActivate:[AuthGuard]},
     {path: '**', component: PageNotFoundComponent}
 ];
 
