@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cart } from '../models/cart';
 import { Product } from '../models/product';
 import { HttpService } from '../http.service';
+import { ProductCart } from '../models/productCart';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,15 +15,17 @@ export class ProductDetailComponent implements OnInit {
 
   products : Product[];
   product : Product;
- // carrito : Cart;
+  productCart: ProductCart;
+  carrito : Cart;
   id : String;
 
   ngOnInit() {
-   // this.getCart();
+    this.getCart();
+    this.getProductCart();
     this.getProducts();
     this.getSpecific();
   }
-/*
+
   getCart(){
     this.allService.getObject("getCart", "user1").subscribe(
       response => {
@@ -36,7 +39,21 @@ export class ProductDetailComponent implements OnInit {
       }
 
     );
-  }*/
+  }
+  getProductCart(){
+    this.allService.getObject("getproductCart",this.id).subscribe(
+      response => {
+        console.log(response);
+        this.productCart = response;
+       
+
+      },
+      error => {
+        console.log(error);
+      }
+
+    );
+  }
   getProducts(){
 
     this.allService.getObject("getproducts","").subscribe(
@@ -54,4 +71,9 @@ export class ProductDetailComponent implements OnInit {
    this.product = this.products.find(i => i.code === this.id);
 
   }
+  onClick(){
+    this.carrito.listPC.push(this.productCart);
+
+  }
+
 }
