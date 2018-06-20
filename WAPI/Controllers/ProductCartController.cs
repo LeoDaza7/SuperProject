@@ -17,7 +17,7 @@ namespace WAPI.Controllers
     {
         [HttpGet]
         [Route("api/getproductcart")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetProductCart()
         {
             ProductCartService productcartservice = new ProductCartService();
@@ -30,7 +30,7 @@ namespace WAPI.Controllers
 
         [HttpGet]
         [Route("api/getproductcart/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetProductCart(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -55,7 +55,7 @@ namespace WAPI.Controllers
 
         [HttpPost]
         [Route("api/postproductart")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostCart(Object content)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -84,7 +84,7 @@ namespace WAPI.Controllers
 
         [HttpPut]
         [Route("api/updateproductcart/{key}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateProductCart(Object content, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -113,7 +113,7 @@ namespace WAPI.Controllers
 
         [HttpDelete]
         [Route("api/deleteproductcart/{id}")]
-        [EnableCors(origins: "http://<ip_address>:4200", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteProductCart(string id)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
