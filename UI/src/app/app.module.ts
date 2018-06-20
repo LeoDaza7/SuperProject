@@ -7,6 +7,7 @@ import { AppRoutingModule, RoutingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HttpService } from './http.service';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { HttpService } from './http.service';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [HttpService],
+  providers: [HttpService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
