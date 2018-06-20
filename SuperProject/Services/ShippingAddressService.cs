@@ -38,12 +38,17 @@ namespace SuperProject.Services
         }
         public bool Update(string key, ShippingAddress actualizado)
         {
+            int index = GetIndex(key);
             bool existe = true;
             if (!key.Equals(actualizado.Identifier))
-                existe = false;
+            {
+                if (GetIndex(actualizado.Identifier) != -1)
+                    existe = false;
+                else
+                    existe = true;
+            }
             if (existe)
             {
-                int index = GetIndex(key);
                 if (index != -1)
                     instance.ShippingAddressesList[index] = actualizado;
                 else

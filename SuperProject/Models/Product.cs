@@ -12,7 +12,7 @@ namespace SuperProject
         public double Price { get; set; }
         public string Description { get; set; } 
         public string ImageURL { get; set; }
-        public enum typeEnum : int { physical = 1, digital = 0, nulo = -1};
+        public enum typeEnum : int { physical, digital, nulo};
         public typeEnum Type { get; set; }
         public enum shippingDeliveryTypeEnum : int { nulo = -1, express = 1, normal = 2, inStore = 3, free = 4, none = 0};
         public shippingDeliveryTypeEnum ShippingDeliveryType { get; set; }

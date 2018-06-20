@@ -16,7 +16,6 @@
     
   <div class="offset-2"><button class="btn btn-primary" type="button">Edit</button></div>
   <div class="col-md-3 mb-3 "><button class="btn btn-primary" type="button">Delete</button></div>
-    
   </div>
     
     
@@ -40,7 +39,6 @@
       <input class="form-control" name="Identifier" #Identifier="ngModel" [(ngModel)]="allService.Identifier"
         placeholder="AddressIdentifier" required="true">
       <div class="validation-error" *ngIf="Identifier.invalid && Identifier.touched">This Field is Required.</div>
-      
     </div>
   </div>
   <div class="form-row">
@@ -61,6 +59,9 @@
       <div class="valid-feedback">
         Looks good!
       </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationServerUsername">City</label>
+      <input type="text" class="form-control is-valid" id="validationServer04" placeholder="City" required>
     </div>
   </div>
   <div class="form-row">
@@ -90,20 +91,18 @@
         placeholder="Zone" required="true">
       <div class="valid-feedback">
         Looks good!
-      </div>
+   </div>
     </div>
   </div>
-<!--<div class="form-group">
-    <div class="form-check">
-      <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-      <label class="form-check-label" for="invalidCheck3">
-        Agree to terms and conditions
-      </label>
-      <div class="invalid-feedback">
-        You must agree before submitting.
-      </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationServer03">Phone</label>
+      <input type="text" class="form-control is-valid" id="validationServer05" placeholder="Phone" required>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="validationServer04">Zone</label>
+      <input type="text" class="form-control is-valid" id="validationServer04" placeholder="Zone" required>
+
     </div>
   </div>
--->
-  
+  <button class="btn btn-primary" type="submit">Save</button>
 </form>
