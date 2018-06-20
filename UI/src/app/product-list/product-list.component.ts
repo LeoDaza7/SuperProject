@@ -11,18 +11,18 @@ export class ProductListComponent implements OnInit {
   constructor(private _http: HttpService) { }
   products: Product[]
   /*products: any[] = [
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"},
-    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name"}
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"},
+    {imageUrl:"https://picsum.photos/200/300/?random",price:1,description:"description",name:"name",code:"1026"}
   ]*/
   ngOnInit() {
     this.getAllProducts()
