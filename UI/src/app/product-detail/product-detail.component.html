@@ -1,8 +1,13 @@
-<div class="card mb-3">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+<div class="row">
+  <div class="col-sm-4">
+    <img class="card-img" src="{{product.imageURL}}" alt="Product image" width="10%">
+  </div>
+  <div class="col-sm-4">
+   <p class="card-text">Nombre: Producto{{product.Name}}</p>
+    <p class="card-text">Categoria: {{product.Category.name}}</p>
+    <p class="card-text">Precio :{{product.Price}} $</p>
+    <p class="card-text">Codigo: {{product.Code}}</p>
+    <p class="card-text">Descripcion: {{product.Description}}</p>
+    <p><button type="button" class="btn btn-success" (click)="onClick()">ADD </button></p>
   </div>
 </div>

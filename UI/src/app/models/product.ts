@@ -9,5 +9,4 @@ export class Product {
     Type: number;
     ShippingDeliveryType: number;
     Category: Category;
-  }
-  
+}
