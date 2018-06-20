@@ -68,7 +68,7 @@ export class ProductDetailComponent implements OnInit {
     );
   }
   getSpecific(){
-   this.product = this.products.find(i => i.code === this.id);
+   this.product = this.products.find(i => i.Code === this.id);
 
   }
   onClick(){
