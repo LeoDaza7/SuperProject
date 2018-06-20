@@ -13,9 +13,9 @@ namespace SuperProject
         public string Description { get; set; } 
         public string ImageURL { get; set; }
         public enum typeEnum : int { physical, digital, nulo};
-        public typeEnum Type { get; set; }
+        public typeEnum type { get; set; }
         public enum shippingDeliveryTypeEnum : int { nulo = -1, express = 1, normal = 2, inStore = 3, free = 4, none = 0};
-        public shippingDeliveryTypeEnum ShippingDeliveryType { get; set; }
+        public shippingDeliveryTypeEnum shippingDeliveryType { get; set; }
         public Category Category { get; set; }
 
         public Product()
@@ -25,8 +25,8 @@ namespace SuperProject
             Price = 0.0;
             Description = "";
             ImageURL = "";
-            Type = typeEnum.nulo;
-            ShippingDeliveryType = shippingDeliveryTypeEnum.nulo;
+            type = typeEnum.nulo;
+            shippingDeliveryType = shippingDeliveryTypeEnum.nulo;
             Category = null;
         }
 
@@ -35,56 +35,60 @@ namespace SuperProject
             return "Codigo = " + Code + "\nNombre = " + Name + "\nPrecio = " + Price + "\nTipo = " + Type + "\nTipo de entrega = " + ShippingDeliveryType + "\nCategoria = " + Category;
         }
 
-        public void setType(string tipo)
+        public string Type
         {
-            switch (tipo)
+            get
             {
-                case "physical":
-                    this.Type = typeEnum.physical;
-                    break;
-                case "digital":
-                    this.Type = typeEnum.digital;
-                    this.ShippingDeliveryType = shippingDeliveryTypeEnum.none;
-                    break;
-                default:
-                    this.Type = typeEnum.nulo;
-                    break;
+                return this.type.ToString();
             }
-        }
-
-        public typeEnum getType()
-        {
-            return this.Type;
-        }
-
-        public void setShippingDT(string ship)
-        {
-            if (!Type.ToString().Equals("digital"))
+            set
             {
-                switch (ship)
+                switch (value)
                 {
-                    case "express":
-                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.express;
+                    case "physical":
+                        this.type = typeEnum.physical;
                         break;
-                    case "normal":
-                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.normal;
-                        break;
-                    case "inStore":
-                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.inStore;
-                        break;
-                    case "free":
-                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.free;
+                    case "digital":
+                        this.type = typeEnum.digital;
+                        this.shippingDeliveryType = shippingDeliveryTypeEnum.none;
                         break;
                     default:
-                        this.ShippingDeliveryType = shippingDeliveryTypeEnum.nulo;
+                        this.type = typeEnum.nulo;
                         break;
                 }
             }
         }
 
-        public shippingDeliveryTypeEnum getShippingDT()
+        public string ShippingDeliveryType
         {
-            return this.ShippingDeliveryType;
+            get
+            {
+                return this.shippingDeliveryType.ToString();
+            }
+            set
+            {
+                if (!Type.ToString().Equals("digital"))
+                {
+                    switch (value)
+                    {
+                        case "express":
+                            this.shippingDeliveryType = shippingDeliveryTypeEnum.express;
+                            break;
+                        case "normal":
+                            this.shippingDeliveryType = shippingDeliveryTypeEnum.normal;
+                            break;
+                        case "inStore":
+                            this.shippingDeliveryType = shippingDeliveryTypeEnum.inStore;
+                            break;
+                        case "free":
+                            this.shippingDeliveryType = shippingDeliveryTypeEnum.free;
+                            break;
+                        default:
+                            this.shippingDeliveryType = shippingDeliveryTypeEnum.nulo;
+                            break;
+                    }
+                }
+            }
         }
             
     }

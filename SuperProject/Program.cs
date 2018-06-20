@@ -22,8 +22,8 @@ namespace SuperProject
             ej1.Name = "Huawei Mate 10 Lite";
             ej1.Price = 270.75;
             ej1.Description = "RNE-L23";
-            ej1.Type = Product.typeEnum.physical;
-            ej1.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express;
+            ej1.Type = Product.typeEnum.physical.ToString();
+            ej1.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express.ToString();
             ej1.Category = null;
             Console.WriteLine(ps.Create(ej1));
 
@@ -43,8 +43,8 @@ namespace SuperProject
             ej2.Name = "Huawei Mate 10 pro";
             ej2.Price = 270.75;
             ej2.Description = "...";
-            ej2.Type = Product.typeEnum.physical;
-            ej2.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express;
+            ej2.Type = Product.typeEnum.physical.ToString();
+            ej2.ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express.ToString();
             ej2.Category = null;
             Console.WriteLine(ps.Update("0", ej2));
 
