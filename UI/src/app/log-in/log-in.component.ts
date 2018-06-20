@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { NgForm } from '@angular/forms';
 import { User } from '../models/user';
+import { DataSharingService } from '../data-sharing.service';
 
 @Component({
   selector: 'app-log-in',
@@ -10,14 +11,14 @@ import { User } from '../models/user';
 })
 export class LogInComponent implements OnInit {
   getUserData = {}
-  constructor(private _http: HttpService) { }
+  constructor(private _http: HttpService,private _shared: DataSharingService) { }
   user: User;
   public username;
-  log_status:boolean = false
   ngOnInit() {
   }
   onSubmit(f: NgForm) {
     this.authUser(f.value.Username);
+    this._shared.setStatus(true)
   }
   authUser(key:string) {
     this._http.getObject("getuser",key)
@@ -26,7 +27,7 @@ export class LogInComponent implements OnInit {
         console.log(res)
         this.user = res;
         this.username = this.user.Username;
-        this.log_status = true
+        this._shared.setStatus(true)
       },
       err => console.log(err)
     )

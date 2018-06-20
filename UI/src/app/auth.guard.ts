@@ -6,7 +6,7 @@ import { CanActivate, Router } from '@angular/router';
 })
 export class AuthGuard implements CanActivate {
   constructor(private _router:Router) {}
-  log_status:boolean = false
+  log_status:boolean = true
   canActivate(): boolean {
     if (this.log_status) {
       return true
