@@ -44,6 +44,11 @@ export class ShoppingCartComponent implements OnInit {
     //   this.allService.getObject("getproducts",pc.productCode).subscribe(
     //     response => {
     //       this.products.push(response);
+    //       this.products.forEach(p => {
+    //       this.totalPrice += p.price;
+          
+    //     });
+    //       this.totalItems += pc.quantity
     //     },
     //     error => {
     //       console.log(error);
@@ -56,6 +61,11 @@ export class ShoppingCartComponent implements OnInit {
       response => {
         console.log(response);
         this.products = response;
+        this.products.forEach(p => {
+          this.totalPrice += p.price;
+          
+        });
+
       },
       error => {
         console.log(error);
