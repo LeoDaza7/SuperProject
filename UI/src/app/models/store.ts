@@ -1,7 +1,7 @@
 export class Store{
-    name: string;
-    lane1: string;
-    lane2: string;
-    phone: number;
+    Name: string;
+    Line1: string;
+    Line2: string;
+    Phone: number;
 
 }
