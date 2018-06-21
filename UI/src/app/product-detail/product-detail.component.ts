@@ -9,8 +9,7 @@ import { ProductCart } from '../models/productCart';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css'],
-  template: 'The href is: {{href}}'
+  styleUrls: ['./product-detail.component.css']
 })
 
 
@@ -19,7 +18,7 @@ import { ProductCart } from '../models/productCart';
  
 export class ProductDetailComponent implements OnInit {
 
-  constructor(private allService: HttpService ,private router: Router ) { }
+  constructor(private _http: HttpService ,private router: Router ) { }
  
   products : Product[];
   product : Product;
@@ -30,12 +29,14 @@ export class ProductDetailComponent implements OnInit {
   cad : String[];
 
   ngOnInit() {
-    this.getCart();
-    this.getProducts();
-   
+  console.log("dude");
+   // this.getCart();
+    this.getAllProducts();
     this.href = this.router.url;
+    console.log(this.href);
     this.getId();
-    this.getSpecific();
+    console.log(this.id);
+    
   }
 
   getCart(){
@@ -57,7 +58,7 @@ export class ProductDetailComponent implements OnInit {
       response => {
         console.log(response);
         this.productCart = response;
-       
+      
 
       },
       error => {
@@ -66,21 +67,21 @@ export class ProductDetailComponent implements OnInit {
 
     );
   }
-  getProducts(){
+  getAllProducts(){
+    this._http.getObject("getproducts",null).subscribe(
+      res=>{
+        console.log(res)
+        this.products = res;
+        this.getSpecific();
 
-    this.allService.getObject("getproducts","").subscribe(
-      response => {
-        console.log(response);
-        this.products = response;
       },
-      error => {
-        console.log(error);
-      }
-
-    );
+      err=>{
+        console.log(err)
+      });
   }
   getSpecific(){
-   this.product = this.products.find(i => i.code === this.id);
+   this.product = this.products.find(i => i.Code == this.id);
+   console.log(this.product);
 
   }
   onClick(){
@@ -89,6 +90,9 @@ export class ProductDetailComponent implements OnInit {
   getId(){
 this.cad = this.href.split("/");
 this.id = this.cad[this.cad.length-1]; 
+console.log(this.id);
+  
   }
+ 
 
 }
