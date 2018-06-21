@@ -48,9 +48,9 @@ namespace SuperProject
             this.UsersList.Add(new User { Username = "user3", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
             this.UsersList.Add(new User { Username = "user4", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
             this.UsersList.Add(new User { Username = "user5", Name = "name", LastName = "last name", Password = "password", ShippingAddresses = new List<ShippingAddress>() });
-            this.ProductsList.Add(new Product { Code = "0", Name = "Head Phones", Price = 20.75, Description = "Audifonos huawei", Type = Product.typeEnum.physical.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.inStore.ToString(), Category = null });
-            this.ProductsList.Add(new Product { Code = "1", Name = "Mouse", Price = 17.5, Description = "Mouse inalambrico para portatil", Type = Product.typeEnum.physical.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express.ToString(), Category = null });
-            this.ProductsList.Add(new Product { Code = "2", Name = "Windows Pro", Price = 120.75, Description = "Licencia digital para activacion de Windows Pro", Type = Product.typeEnum.digital.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.none.ToString(), Category = null });
+            this.ProductsList.Add(new Product { Code = "0", Name = "Head Phones", Price = 20.75, Description = "Audifonos huawei", Type = Product.typeEnum.physical.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.inStore.ToString(), Category = CategorysList.Find(cl => cl.Name == "Old") });
+            this.ProductsList.Add(new Product { Code = "1", Name = "Mouse", Price = 17.5, Description = "Mouse inalambrico para portatil", Type = Product.typeEnum.physical.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express.ToString(), Category = CategorysList.Find(cl => cl.Name == "New") });
+            this.ProductsList.Add(new Product { Code = "2", Name = "Windows Pro", Price = 120.75, Description = "Licencia digital para activacion de Windows Pro", Type = Product.typeEnum.digital.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.none.ToString(), Category = CategorysList.Find(cl => cl.Name == "Not so new") });
         }
 
         public static SuperDB Instance
