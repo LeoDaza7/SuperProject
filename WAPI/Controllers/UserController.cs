@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WAPI.Controllers
 {
@@ -16,6 +17,7 @@ namespace WAPI.Controllers
     {
         [HttpGet]
         [Route("api/getusers")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetUsers()
         {
             UserService userservice= new UserService();
@@ -28,6 +30,7 @@ namespace WAPI.Controllers
 
         [HttpGet]
         [Route("api/getusers/{key}")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetUsers(string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -52,6 +55,7 @@ namespace WAPI.Controllers
 
         [HttpPost]
         [Route("api/postuser")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PosUser(Object user)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
@@ -79,15 +83,16 @@ namespace WAPI.Controllers
         }
 
         [HttpPut]
-        [Route("api/updateuser")]
-        public HttpResponseMessage UpdateInfo(Object user)
+        [Route("api/updateuser/{key}")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+        public HttpResponseMessage UpdateInfo(Object user, string key)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);
             try
             {
                 User u = JsonConvert.DeserializeObject<User>(user.ToString());
                 UserService us = new UserService();
-                if (us.Update(u.Username,u))
+                if (us.Update(key,u))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Content = new StringContent("usuario actualizado", Encoding.UTF8, "application/json");
@@ -108,6 +113,7 @@ namespace WAPI.Controllers
 
         [HttpDelete]
         [Route("api/deleteuser/{id}")]
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteInfo(string id)
         {
             var response = Request.CreateResponse(HttpStatusCode.Unused);

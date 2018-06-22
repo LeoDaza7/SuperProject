@@ -1,0 +1,50 @@
+<div *ngFor="let address of addressess" class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+  <div class="card-header">{{address.Identifier}}</div>
+  <div class="card-body">
+    <p class="card-text">{{address.Line1}}</p>
+    <p class="card-text">{{address.Line2}}</p>
+    <p class="card-text">{{address.City}}</p>
+    <p class="card-text">{{address.Zone}}</p>
+    <p class="card-text">{{address.Phone}}</p>
+    <button class="btn btn-primary" (click)="deliver()">Deliver to this adress</button>
+    <div class="m-1 btn-group " role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-secondary" (click)="editAddress()">EDIT</button>
+      <button type="button" class="btn btn-secondary" (click)="deleteAddress()">DELETE</button>
+    </div>
+  </div>
+</div>
+
+
+<form class="bg-dark p-2">
+    <h3>Add a new Address</h3>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="identifier">Adress Identifier:</label>
+      <input type="text" class="form-control" id="identifier" [formControl]="cuForm.controls['identifier']" placeholder="AdressIdentifier" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="line1">Adress Line 1: </label>
+      <input type="text" class="form-control" id="line1" [formControl]="cuForm.controls['line1']" placeholder="Address Line1"  required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label for="line2">Adress Line 2: </label>
+        <input type="text" class="form-control" id="line2" [formControl]="cuForm.controls['line2']" placeholder="Address Line2"  required>
+      </div>
+    <div class="col-md-4 mb-3">
+      <label for="city">City</label>
+      <input type="text" class="form-control" id="city" [formControl]="cuForm.controls['city']" placeholder="City" required>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="phone">Phone</label>
+      <input type="text" class="form-control" id="phone" [formControl]="cuForm.controls['phone']" placeholder="Phone" required>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="zone">Zone</label>
+      <input type="text" class="form-control" id="zone" [formControl]="cuForm.controls['zone']" placeholder="Zone" required>
+
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="createAddress()">Save</button>
+</form>

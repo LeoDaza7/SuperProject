@@ -39,12 +39,17 @@ namespace SuperProject.Services
 
         public bool Update(string key, Cart cart)
         {
+            int index = GetIndex(key);
             bool existe = true;
             if (!key.Equals(cart.Username))
-                existe = false;
+            {
+                if (GetIndex(cart.Username) != -1)
+                    existe = false;
+                else
+                    existe = true;
+            }
             if (existe)
             {
-                int index = GetIndex(key);
                 if (index != -1)
                     instance.CartsList[index] = cart;
                 else

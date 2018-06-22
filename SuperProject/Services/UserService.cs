@@ -39,12 +39,17 @@ namespace SuperProject.Services
         }
         public bool Update(string key, User user)
         {
+            int index = GetIndex(key);
             bool existe = true;
             if (!key.Equals(user.Username))
-                existe = false;
+            {
+                if (GetIndex(user.Username) != -1)
+                    existe = false;
+                else
+                    existe = true;
+            }
             if (existe)
             {
-                int index = GetIndex(key);
                 if (index != -1)
                     instance.UsersList[index] = user;
                 else
