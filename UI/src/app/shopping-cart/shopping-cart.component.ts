@@ -40,6 +40,7 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
   getProducts(){
+    if (this.carrito.listPC)
     this.carrito.listPC.forEach(pc => {
       this.allService.getObject("getproducts",pc.productCode).subscribe(
         response => {

@@ -4,7 +4,7 @@ import { Store } from '../models/store';
 import { Product } from '../models/product';
 import { HttpService } from '../http.service';
 
-import { Router,ActivateRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductCart } from '../models/productCart';
 
 @Component({
@@ -19,13 +19,13 @@ import { ProductCart } from '../models/productCart';
  
 export class ProductDetailComponent implements OnInit {
 
-  constructor(private _http: HttpService ,private router: Router,private id:ActivateRoute ) { this.id.params.subscribe(p => this.id)}
+  constructor(private _http: HttpService ,private router: Router,private id:ActivatedRoute, private allService:HttpService ) { this.id.params.subscribe(p => this.id)}
  
   products : Product[];
   product : Product;
   productCart: ProductCart;
   carrito : Cart;
-  id : String;
+  identifier : String;
   href : String;
   cad : String[];
   stores : Store[];
@@ -70,7 +70,7 @@ getStore(){
   }
 
   getProductCart(){
-    this._http.getObject("getproductCart",this.id).subscribe(
+    this._http.getObject("getproductCart",this.identifier).subscribe(
       response => {
         console.log(response);
         this.productCart = response;
@@ -96,7 +96,7 @@ getStore(){
       });
   }
   getSpecific(){
-   this.product = this.products.find(i => i.Code == this.id);
+   this.product = this.products.find(i => i.Code == this.identifier);
    console.log(this.product);
 
   }
@@ -105,7 +105,7 @@ getStore(){
   }
   getId(){
 this.cad = this.href.split("/");
-this.id = this.cad[this.cad.length-1]; 
+this.identifier = this.cad[this.cad.length-1]; 
 console.log(this.id);
   
   }
