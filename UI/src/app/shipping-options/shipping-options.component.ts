@@ -12,6 +12,10 @@ export class ShippingOptionsComponent implements OnInit {
 
   tmpAddress : ShippingAddresses;
   addressess : ShippingAddresses[];
+  isCreated : boolean = false;
+  isDuplicated : boolean = false;
+  isError : boolean = false;
+
   @ViewChild('form') public contentModal;
 
   cuForm: FormGroup;
@@ -82,9 +86,13 @@ export class ShippingOptionsComponent implements OnInit {
       response => {
         console.log("created",response);
         this.getAdressess();
+        this.isCreated = true;
+        this.isError = false;
       },
       error => {
         console.log(error);
+        this.isCreated = false;
+        this.isError = true;
       }
     );
 

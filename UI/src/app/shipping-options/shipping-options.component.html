@@ -14,7 +14,11 @@
   </div>
 </div>
 
-
+<div *ngIf="isCreated || isDuplicated || isError" class="alerts">
+  <p *ngIf="isCreated">The Adress was Added Succesfully</p>
+  <p *ngIf="isDuplicated">The Adress already exists</p>
+  <p *ngIf="isError">Error, try again later</p>
+</div>
 <form class="bg-dark p-2">
     <h3>Add a new Address</h3>
   <div class="form-row">
@@ -48,3 +52,5 @@
   </div>
   <button class="btn btn-primary" (click)="createAddress()">Save</button>
 </form>
+
+
