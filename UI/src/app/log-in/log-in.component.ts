@@ -18,6 +18,8 @@ export class LogInComponent implements OnInit {
   user: User;
   errtext: boolean;
   public username;
+  isGhost : boolean = false;
+  isError : boolean = false;
   
   ngOnInit() {
     this.errtext = false;
@@ -43,6 +45,12 @@ export class LogInComponent implements OnInit {
 
         },
         err => {console.log(err)
+          if(err.status == 417){
+            this.isGhost = true;
+          } else {
+            this.isError = true;
+          }
+
           this.cookieService.set('User','');
           this.cookieService.set('Name','');
           this.cookieService.set('Lname','');
