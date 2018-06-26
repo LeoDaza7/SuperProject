@@ -15,12 +15,14 @@ export class NavBarComponent implements OnInit {
   show:boolean = true;
 
   constructor(private _shared: DataSharingService, private cookieService: CookieService) {
-    this.user.Username="";
-   }
+    this.user.Name="";
+    this.user.LastName="";
+  }
 
   ngOnInit() {
     //this.show = this._shared.getStatus();
-    this.user.Username = this.cookieService.get('User')
+    this.user.LastName = this.cookieService.get('Lname');
+    this.user.Name = this.cookieService.get('Name');
   }
 
 }
