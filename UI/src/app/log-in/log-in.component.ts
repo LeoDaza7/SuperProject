@@ -33,9 +33,14 @@ export class LogInComponent implements OnInit {
         this.username = this.user.Username;
         this._shared.setStatus(true);
         this.cookieService.set('User',this.username);
-        console.log(this.cookieService.get('User'));
+        this.cookieService.set('Name',this.user.Name);
+        this.cookieService.set('Lname',this.user.LastName);
       },
-      err => console.log(err)
+      err => {console.log(err)
+        this.cookieService.set('User','');
+        this.cookieService.set('Name','');
+        this.cookieService.set('Lname','');
+      }
 
     )
   }
