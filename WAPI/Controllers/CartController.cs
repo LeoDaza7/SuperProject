@@ -33,7 +33,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetCart(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             CartService cartservice = new CartService();
             List<Cart> cart = cartservice.Read();
             int id = cartservice.GetIndex(key);
@@ -41,13 +41,12 @@ namespace WAPI.Controllers
             {
                 Cart ca = cart[id];
                 string cartJSON = JsonConvert.SerializeObject(ca, Formatting.Indented);
-                response = Request.CreateResponse(HttpStatusCode.OK);
+                response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StringContent(cartJSON, Encoding.UTF8, "application/json");
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
             }
             return response;
 
@@ -58,7 +57,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostCart(Object content)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 String cartJSON = content.ToString();
@@ -66,18 +65,16 @@ namespace WAPI.Controllers
                 CartService cs = new CartService();
                 if (cs.Create(cart))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Cart created", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred creating the Cart", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -87,26 +84,23 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateCart(Object content, string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 Cart cart = JsonConvert.DeserializeObject<Cart>(content.ToString());
                 CartService cs = new CartService();
                 if (cs.Update(key, cart))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Cart Updated", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred updating Cart", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -116,25 +110,22 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteCart(string id)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 CartService cs = new CartService();
                 if (cs.Delete(id))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Cart deleted", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred deleting the Cart", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent(("Error"), Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }

@@ -33,7 +33,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetProductCart(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             ProductCartService productcartservice = new ProductCartService();
             List<ProductCart> productcart = productcartservice.Read();
             int id = productcartservice.GetProductCartIndex(key);
@@ -41,13 +41,12 @@ namespace WAPI.Controllers
             {
                 ProductCart pc = productcart[id];
                 string productcartJSON = JsonConvert.SerializeObject(pc, Formatting.Indented);
-                response = Request.CreateResponse(HttpStatusCode.OK);
+                response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StringContent(productcartJSON, Encoding.UTF8, "application/json");
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
             }
             return response;
 
@@ -58,7 +57,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostCart(Object content)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 String productcartJSON = content.ToString();
@@ -66,18 +65,16 @@ namespace WAPI.Controllers
                 ProductCartService pcs = new ProductCartService();
                 if (pcs.Create(productcart))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Product Cart created", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred creating the Product Cart", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -87,26 +84,23 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateProductCart(Object content, string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 ProductCart productcart = JsonConvert.DeserializeObject<ProductCart>(content.ToString());
                 ProductCartService pcs = new ProductCartService();
                 if (pcs.Update(key, productcart))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Product Cart Updated", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred updating Product Cart", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = Request.CreateResponse(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -116,25 +110,22 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteProductCart(string id)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 ProductCartService pcs = new ProductCartService();
                 if (pcs.Delete(id))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Product Cart deleted", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred deleting the Product Cart", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }

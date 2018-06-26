@@ -33,7 +33,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetCategory(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             CategoryService categoryservice = new CategoryService();
             List<Category> category = categoryservice.Read();
             int id = categoryservice.GetIndex(key);
@@ -41,13 +41,12 @@ namespace WAPI.Controllers
             {
                 Category ct = category[id];
                 string categoryJSON = JsonConvert.SerializeObject(ct, Formatting.Indented);
-                response = Request.CreateResponse(HttpStatusCode.OK);
+                response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StringContent(categoryJSON, Encoding.UTF8, "application/json");
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
 
@@ -58,7 +57,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostCategory(Object content)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 String categoryJSON = content.ToString();
@@ -66,18 +65,16 @@ namespace WAPI.Controllers
                 CategoryService cs = new CategoryService();
                 if (cs.Create(category))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Category created", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred creating the Category", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -87,26 +84,23 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateCategory(Object content, string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 Category category = JsonConvert.DeserializeObject<Category>(content.ToString());
                 CategoryService cs = new CategoryService();
                 if (cs.Update(key, category))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Category Updated", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred updating Category", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -116,25 +110,22 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteCategory(string id)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 CategoryService cs = new CategoryService();
                 if (cs.Delete(id))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Category deleted", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred deleting the Category", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent(("Error"), Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }

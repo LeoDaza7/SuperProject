@@ -88,11 +88,20 @@ export class ShippingOptionsComponent implements OnInit {
         this.getAdressess();
         this.isCreated = true;
         this.isError = false;
+        this.isDuplicated = false;
       },
       error => {
         console.log(error);
+        if(error.status == 417)
+        {
+          this.isDuplicated = true;
+          this.isError = false;
+          this.isCreated = false;
+        } else { 
         this.isCreated = false;
         this.isError = true;
+        this.isDuplicated = false;
+        }
       }
     );
 
