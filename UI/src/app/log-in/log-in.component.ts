@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { User } from '../models/user';
 import { DataSharingService } from '../data-sharing.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -13,12 +14,13 @@ import { CookieService } from 'ngx-cookie-service';
 export class LogInComponent implements OnInit {
   cookieValue = 'UNKNOWN';
   getUserData = {}
-  constructor(private _http: HttpService,private _shared: DataSharingService, private cookieService: CookieService) { }
+  constructor(private _http: HttpService,private _shared: DataSharingService, private cookieService: CookieService,private router:Router) { }
   user: User;
+  errtext: boolean;
   public username;
   
   ngOnInit() {
-    
+    this.errtext = false;
   }
   onSubmit(f: NgForm) {
     this.authUser(f.value.Username);
@@ -31,15 +33,19 @@ export class LogInComponent implements OnInit {
         console.log(res)
         this.user = res;
         this.username = this.user.Username;
-        this._shared.setStatus(true);
         this.cookieService.set('User',this.username);
         this.cookieService.set('Name',this.user.Name);
         this.cookieService.set('Lname',this.user.LastName);
+        this._shared.setStatus(true);
+        this.router.navigate(['home']);
+        window.location.reload();
+
       },
       err => {console.log(err)
         this.cookieService.set('User','');
         this.cookieService.set('Name','');
         this.cookieService.set('Lname','');
+        this.errtext = true;
       }
 
     )
