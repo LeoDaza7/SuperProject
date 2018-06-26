@@ -33,7 +33,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetStore(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             StoreService storeservice = new StoreService();
             List<Store> store = storeservice.Read();
             int id = storeservice.GetIndex(key);
@@ -41,13 +41,12 @@ namespace WAPI.Controllers
             {
                 Store st = store[id];
                 string storeJSON = JsonConvert.SerializeObject(st, Formatting.Indented);
-                response = Request.CreateResponse(HttpStatusCode.OK);
+                response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StringContent(storeJSON, Encoding.UTF8, "application/json");                
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
             }
             return response;
 
@@ -58,7 +57,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostStore(Object content)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 String storeJSON = content.ToString();
@@ -66,18 +65,16 @@ namespace WAPI.Controllers
                 StoreService ss = new StoreService();
                 if (ss.Create(store))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store created", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred creating the store", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response.Content = new StringContent("Error",Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -87,26 +84,23 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateStore(Object content, string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 Store store = JsonConvert.DeserializeObject<Store>(content.ToString());
                 StoreService ss = new StoreService();
                 if (ss.Update(key, store))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store Updated", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred updating Store", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -116,26 +110,23 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteStore(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 StoreService ss = new StoreService();
                 if (ss.Delete(key))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Store deleted", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("An error has ocurred deleting the Store", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent(("Error"), Encoding.UTF8, "application/json");
-                
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
+
             }
             return response;
         }

@@ -31,7 +31,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage GetCategory(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             ProductService productservice = new ProductService();
             List<Product> product = productservice.Read();
             int id = productservice.GetIndex(key);
@@ -39,13 +39,12 @@ namespace WAPI.Controllers
             {
                 Product ct = product[id];
                 string categoryJSON = JsonConvert.SerializeObject(ct, Formatting.Indented);
-                response = Request.CreateResponse(HttpStatusCode.OK);
+                response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StringContent(categoryJSON, Encoding.UTF8, "application/json");
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
             }
             return response;
 
@@ -56,7 +55,7 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage PostProducts(Object product)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 String productJSON = product.ToString();
@@ -65,19 +64,16 @@ namespace WAPI.Controllers
                 ProductService ps = new ProductService();
                 if (ps.Create(p))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Producto creado\n", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("Error al crear producto", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error!!!", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -87,26 +83,23 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage UpdateProduct(Object producto, string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 Product p = JsonConvert.DeserializeObject<Product>(producto.ToString());
                 ProductService ps = new ProductService();
                 if (ps.Update(key, p))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("Producto actualizado", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("Error al actualizar producto", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error!!!", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
@@ -116,25 +109,22 @@ namespace WAPI.Controllers
         [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DeleteProduct(string id)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unused);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unused);
             try
             {
                 ProductService ps = new ProductService();
                 if (ps.Delete(id))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent("producto eliminado", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                    response.Content = new StringContent("Error al eliminar producto", Encoding.UTF8, "application/json");
+                    response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
                 }
             }
             catch
             {
-                response = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Error!!!", Encoding.UTF8, "application/json");
+                response = new HttpResponseMessage(HttpStatusCode.Unused);
             }
             return response;
         }
