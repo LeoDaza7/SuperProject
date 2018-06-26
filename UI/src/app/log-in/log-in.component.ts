@@ -27,27 +27,29 @@ export class LogInComponent implements OnInit {
     this._shared.setStatus(true)
   }
   authUser(key:string) {
-    this._http.getObject("getusers",key)
-    .subscribe(
-      res => {
-        console.log(res)
-        this.user = res;
-        this.username = this.user.Username;
-        this.cookieService.set('User',this.username);
-        this.cookieService.set('Name',this.user.Name);
-        this.cookieService.set('Lname',this.user.LastName);
-        this._shared.setStatus(true);
-        this.router.navigate(['home']);
-        window.location.reload();
+    if (key!=null){
+      this._http.getObject("getusers",key)
+      .subscribe(
+        res => {
+          console.log(res)
+          this.user = res;
+          this.username = this.user.Username;
+          this.cookieService.set('User',this.username);
+          this.cookieService.set('Name',this.user.Name);
+          this.cookieService.set('Lname',this.user.LastName);
+          this._shared.setStatus(true);
+          this.router.navigate(['home']);
+          window.location.reload();
 
-      },
-      err => {console.log(err)
-        this.cookieService.set('User','');
-        this.cookieService.set('Name','');
-        this.cookieService.set('Lname','');
-        this.errtext = true;
-      }
+        },
+        err => {console.log(err)
+          this.cookieService.set('User','');
+          this.cookieService.set('Name','');
+          this.cookieService.set('Lname','');
+          this.errtext = true;
+        }
 
-    )
+      )
+    }
   }
 }
