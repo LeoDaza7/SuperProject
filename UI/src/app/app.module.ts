@@ -9,12 +9,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HttpService } from './http.service';
 import { AuthGuard } from './auth.guard';
 
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    RoutingComponents
+    RoutingComponents,
 
   ],
   imports: [
@@ -24,7 +25,7 @@ import { AuthGuard } from './auth.guard';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [HttpService,AuthGuard],
+  providers: [HttpService,AuthGuard,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
