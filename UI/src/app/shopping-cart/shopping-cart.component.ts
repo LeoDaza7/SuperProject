@@ -4,6 +4,8 @@ import { ProductCart } from '../models/productCart';
 import { Store } from '../models/store';
 import { Product } from '../models/product';
 import { HttpService } from '../http.service';
+import { CookieService } from 'ngx-cookie-service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -12,26 +14,25 @@ import { HttpService } from '../http.service';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  constructor(private allService: HttpService) { }
+  constructor(private allService: HttpService, private cookie: CookieService) { }
   
-  products : Product[];
+  products : Product[] = [];
   carrito : Cart;
   store: Store;
   totalItems: number = 0;
   totalPrice: number = 0;
+  user : string = "";
   ngOnInit() {
-
+    this.user = this.cookie.get('User');
     this.getCart();
 
   }
 
   getCart(){
-    this.allService.getObject("getCart", "user1").subscribe(
+    this.allService.getObject("getCart", this.user).subscribe(
       response => {
-        console.log(response);
         this.carrito = response;
-        //if (this.carrito.listPC)
-          this.getProducts();
+        this.getProducts();
       },
       error => {
         console.log(error);
@@ -40,38 +41,24 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
   getProducts(){
-    if (this.carrito.listPC)
-    this.carrito.listPC.forEach(pc => {
-      this.allService.getObject("getproducts",pc.productCode).subscribe(
-        response => {
-          this.products.push(response);
-          this.products.forEach(p => {
-          this.totalPrice += p.Price;
-          
-        });
-          this.totalItems += pc.quantity
-        },
-        error => {
-          console.log(error);
-        }
-      );
-      
-    });
-
-    // this.allService.getObject("getproducts","").subscribe(
-    //   response => {
-    //     console.log(response);
-    //     this.products = response;
-    //     this.products.forEach(p => {
-    //       this.totalPrice += p.Price;
-          
-    //     });
-
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-
-   // );
+    
+    if (this.carrito.ListPC){
+      this.carrito.ListPC.forEach(pc => {
+        this.allService.getObject("getproducts",pc.ProductCode).subscribe(
+          response => {
+            console.log("products",pc);
+            this.products.push(response);
+            this.totalPrice += response.Price * pc.Quantity;
+            this.totalItems += pc.Quantity
+          },
+          error => {
+            console.log(error);
+          }
+        );
+        
+      });        
+    });  
+    }
+    
   }
 }

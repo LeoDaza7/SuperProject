@@ -9,6 +9,10 @@ import { HttpService } from '../http.service';
 export class SignInComponent implements OnInit {
 
   getUserData = {}
+  isCreated : boolean = false;
+  isDuplicated : boolean = false;
+  isError : boolean = false;
+
   constructor(private _http: HttpService) { }
 
   ngOnInit() {
@@ -17,8 +21,25 @@ export class SignInComponent implements OnInit {
   addUser() {
     this._http.postObject(this.getUserData,"postuser")
     .subscribe(
-      res => console.log(res),
-      err => console.log(err)
+      res => {
+        
+        this.isCreated = true;
+        this.isDuplicated = false;
+        this.isError = false;
+      },
+      err => {
+        
+        this.getUserData = {};
+        if(err.status == 417){
+          this.isDuplicated =  true;
+          this.isCreated = false;
+          this.isError = false;
+        } else {
+          this.isError = true;
+          this.isCreated = false;
+          this.isDuplicated = false;
+        }
+      }
     )
   }
 
