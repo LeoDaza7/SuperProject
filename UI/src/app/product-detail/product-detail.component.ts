@@ -60,7 +60,6 @@ getStore(){
       response => {
         console.log(response);
         this.stores = response;
-        //if (this.carrito.listPC)
       },
       error => {
         console.log(error);
@@ -101,7 +100,7 @@ getStore(){
 
   }
   onClick(){
-    //this.carrito.listPC.push(new productCart(this.product.));
+    this.carrito.listPC.push(new ProductCart(this.product));
   }
   getId(){
 this.cad = this.href.split("/");
