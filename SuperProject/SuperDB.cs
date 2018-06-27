@@ -23,11 +23,6 @@ namespace SuperProject
             this.UsersList = new List<User>();
             this.ProductCartList = new List<ProductCart>();
             this.ShippingAddressesList = new List<ShippingAddress>();
-            this.CartsList.Add(new Cart() { Username = "user1", ListPC = new List<ProductCart>() });
-            this.CartsList.Add(new Cart() { Username = "user2", ListPC = new List<ProductCart>() });
-            this.CartsList.Add(new Cart() { Username = "user3", ListPC = new List<ProductCart>() });
-            this.CartsList.Add(new Cart() { Username = "user4", ListPC = new List<ProductCart>() });
-            this.CartsList.Add(new Cart() { Username = "user5", ListPC = new List<ProductCart>() });
             this.CategorysList.Add(new Category() { Name = "New", Description = "Not Used" });
             this.CategorysList.Add(new Category() { Name = "Not so new", Description = "Slightly Used" });
             this.CategorysList.Add(new Category() { Name = "Old", Description = "Used" });
@@ -51,6 +46,15 @@ namespace SuperProject
             this.ProductsList.Add(new Product { Code = "0", Name = "Head Phones", Price = 20.75, Description = "Audifonos huawei", Type = Product.typeEnum.physical.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.inStore.ToString(), Category = CategorysList.Find(cl => cl.Name == "Old") });
             this.ProductsList.Add(new Product { Code = "1", Name = "Mouse", Price = 17.5, Description = "Mouse inalambrico para portatil", Type = Product.typeEnum.physical.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.express.ToString(), Category = CategorysList.Find(cl => cl.Name == "New") });
             this.ProductsList.Add(new Product { Code = "2", Name = "Windows Pro", Price = 120.75, Description = "Licencia digital para activacion de Windows Pro", Type = Product.typeEnum.digital.ToString(), ShippingDeliveryType = Product.shippingDeliveryTypeEnum.none.ToString(), Category = CategorysList.Find(cl => cl.Name == "Not so new") });
+            this.ProductCartList.Add(new ProductCart { ProductCode = ProductsList[1].Code, SelectedDelivery = ProductsList[1].ShippingDeliveryType, Store = StoresList[1], Quantity = 3 });
+            this.ProductCartList.Add(new ProductCart { ProductCode = ProductsList[2].Code, SelectedDelivery = ProductsList[2].ShippingDeliveryType, Store = StoresList[2], Quantity = 7 });
+            this.ProductCartList.Add(new ProductCart { ProductCode = ProductsList[0].Code, SelectedDelivery = ProductsList[0].ShippingDeliveryType, Store = StoresList[0], Quantity = 15 });
+
+            this.CartsList.Add(new Cart() { Username = "user1", ListPC = ProductCartList});
+            this.CartsList.Add(new Cart() { Username = "user2", ListPC = new List<ProductCart>() });
+            this.CartsList.Add(new Cart() { Username = "user3", ListPC = new List<ProductCart>() });
+            this.CartsList.Add(new Cart() { Username = "user4", ListPC = new List<ProductCart>() });
+            this.CartsList.Add(new Cart() { Username = "user5", ListPC = new List<ProductCart>() });
         }
 
         public static SuperDB Instance
