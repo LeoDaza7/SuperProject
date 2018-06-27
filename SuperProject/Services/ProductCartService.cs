@@ -29,7 +29,7 @@ namespace SuperProject.Services
             bool existe = !ProductCartVerification(pc);
             if (existe)
             {
-                if (pc.ShippingDeliveryType != ProductCart.shippingDeliveryTypeEnum.inStore)
+                if (!pc.SelectedDelivery.Equals("inStore"))
                     pc.Store = null;
                 instance.ProductCartList.Add(pc);
             }
