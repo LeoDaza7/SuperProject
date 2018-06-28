@@ -5,7 +5,7 @@
     <p class="col-2">Quantity</p>
   </div>
   <ul  class="list-group list-group-flush">
-    <li *ngFor="let product of products" class="list-group-item">
+    <li *ngFor="let product of products; let j = index" class="list-group-item">
       <div class="row">
         <img class="col-1" src="{{product.ImageURL}}" alt="Smiley face" width="100" height="100">
         <div class="col-7">
@@ -16,14 +16,8 @@
         </div>
         
         <p class="col-2">$ {{product.Price}} </p>
-        <div class="col-2">
-          <select>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </div>
+        <p class="col-2"> {{carrito.ListPC[j].Quantity}}
+        </p>
       </div>
 
     </li>
@@ -33,6 +27,7 @@
     <p class="col-2">Subtotal ({{totalItems}} items): </p>
     <p class="col-2">$ {{totalPrice}}</p>
   </div>
+  <button type="button" class="btn btn-success" (click)="buyIt()" >Buy!</button>
   
 </div>
 

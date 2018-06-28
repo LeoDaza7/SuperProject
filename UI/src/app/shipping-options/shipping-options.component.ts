@@ -10,6 +10,7 @@ import { ShippingAddresses } from '../models/shippingAddresses';
 })
 export class ShippingOptionsComponent implements OnInit {
 
+  edit : boolean = false;
   tmpAddress : ShippingAddresses;
   addressess : ShippingAddresses[];
   isCreated : boolean = false;
@@ -22,12 +23,12 @@ export class ShippingOptionsComponent implements OnInit {
   constructor(fb: FormBuilder, private allService: HttpService) { 
     this.cuForm = fb.group({
 
-      'identifier': new FormControl('', Validators.required),
-      'line1': new FormControl('', Validators.required),
-      'line2': new FormControl('', Validators.required),
-      'city': new FormControl('', Validators.required),
-      'phone': new FormControl('', Validators.required),
-      'zone': new FormControl('', Validators.required),
+      'Identifier': new FormControl('', Validators.required),
+      'Line1': new FormControl('', Validators.required),
+      'Line2': new FormControl('', Validators.required),
+      'City': new FormControl('', Validators.required),
+      'Phone': new FormControl('', Validators.required),
+      'Zone': new FormControl('', Validators.required),
   });
 
   }
@@ -40,8 +41,31 @@ export class ShippingOptionsComponent implements OnInit {
     console.log("Order Send");
   }
 
-  editAddress(identifier : string){
-    this.tmpAddress = this.addressess.find(a => a.Identifier == identifier);
+  editAddress(position : number){
+    this.cuForm.patchValue(this.addressess[position]);
+    this.edit = true;
+
+  }
+
+  editAddressSave(){
+    this.tmpAddress = new ShippingAddresses();
+     this.tmpAddress.Identifier = this.cuForm.controls['Identifier'].value;
+     this.cuForm.controls['Identifier'].disable;
+     this.tmpAddress.Line1 = this.cuForm.controls['Line1'].value;
+     this.tmpAddress.Line2 = this.cuForm.controls['Line2'].value;
+     this.tmpAddress.City = this.cuForm.controls['City'].value;
+     this.tmpAddress.Phone = this.cuForm.controls['Phone'].value;
+     this.tmpAddress.Zone = this.cuForm.controls['Zone'].value;
+     this.allService.updateObject(this.tmpAddress,"updateshippingaddress",this.tmpAddress.Identifier).subscribe(
+       response => {
+         this.edit = false;
+         let x = this.addressess.findIndex(a => a.Identifier ==this.tmpAddress.Identifier);
+         this.addressess[x] = this.tmpAddress;
+       },
+       error => {
+         console.log(error);
+       }
+     );
 
   }
 
@@ -60,11 +84,12 @@ export class ShippingOptionsComponent implements OnInit {
 
   }
 
-  deleteAddress(){
+  deleteAddress(position: number){
     console.log("delete");
-    this.allService.deleteObject("deleteshippingaddress",this.tmpAddress.Identifier).subscribe(
+    this.allService.deleteObject("deleteshippingaddress",this.addressess[position].Identifier).subscribe(
       response => {
         console.log("deleted",response);
+        this.addressess.splice(position,1);
       },
       error => {
         console.log(error);
@@ -75,12 +100,12 @@ export class ShippingOptionsComponent implements OnInit {
   createAddress(){
     console.log("create");
      this.tmpAddress = new ShippingAddresses();
-     this.tmpAddress.Identifier = this.cuForm.controls['identifier'].value;
-     this.tmpAddress.Line1 = this.cuForm.controls['line1'].value;
-     this.tmpAddress.Line2 = this.cuForm.controls['line2'].value;
-     this.tmpAddress.City = this.cuForm.controls['city'].value;
-     this.tmpAddress.Phone = this.cuForm.controls['phone'].value;
-     this.tmpAddress.Zone = this.cuForm.controls['zone'].value;
+     this.tmpAddress.Identifier = this.cuForm.controls['Identifier'].value;
+     this.tmpAddress.Line1 = this.cuForm.controls['Line1'].value;
+     this.tmpAddress.Line2 = this.cuForm.controls['Line2'].value;
+     this.tmpAddress.City = this.cuForm.controls['City'].value;
+     this.tmpAddress.Phone = this.cuForm.controls['Phone'].value;
+     this.tmpAddress.Zone = this.cuForm.controls['Zone'].value;
 
     this.allService.postObject(this.tmpAddress,"postshippingaddress").subscribe(
       response => {
