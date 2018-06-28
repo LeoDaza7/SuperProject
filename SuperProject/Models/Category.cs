@@ -10,7 +10,8 @@ namespace SuperProject
         public string Description { set; get; }
         public Category()
         {
-            
+            this.Name = "";
+            this.Description = "";
         }
     }
 }
