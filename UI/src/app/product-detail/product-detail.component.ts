@@ -43,11 +43,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
   
-  //var cant = ((document.getElementById("cant") as HTMLInputElement).value);
-  //var cant =(<HTMLInputElement>document.getElementById("cant")).value;
-  //var data = cant.onselect.toString;
-  console.log("hereeeeeeeeeeeeeeeee");
-    //console.log(cant);
+ 
      this.user.LastName = this.cookieService.get('Lname');
     this.user.Name = this.cookieService.get('Name');
     this.user.Username = this.cookieService.get('User');
