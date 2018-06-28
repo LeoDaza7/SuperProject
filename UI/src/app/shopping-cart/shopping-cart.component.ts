@@ -6,6 +6,7 @@ import { Product } from '../models/product';
 import { HttpService } from '../http.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,7 +15,10 @@ import { User } from '../models/user';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  constructor(private allService: HttpService, private cookie: CookieService) { }
+  constructor(private allService: HttpService, private cookie: CookieService, private router: Router) { 
+    
+  }
+  
   
   products : Product[] = [];
   carrito : Cart;
@@ -59,5 +63,16 @@ export class ShoppingCartComponent implements OnInit {
       });
     }
     
+  }
+
+  buyIt(){
+    if(this.products.find(p => p.ShippingDeliveryType == 3 || p.ShippingDeliveryType == 0))
+    {
+      this.router.navigate(['/home']);
+    }
+    else {
+      console.log("a huevo");
+      this.router.navigate(['/shipping-options']);
+    }
   }
 }
