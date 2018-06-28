@@ -13,7 +13,10 @@ namespace SuperProject
 
         public ProductCart()
         {
-
+            this.ProductCode = "";
+            this.SelectedDelivery = "";
+            this.Store = new Store();
+            this.Quantity = 0;
         }
 
 

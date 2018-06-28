@@ -13,7 +13,8 @@ namespace SuperProject
 
         public Cart()
         {
-
+            this.Username = "";
+            this.ListPC = new List<ProductCart>();
         }
     }
 }

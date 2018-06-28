@@ -14,7 +14,12 @@ namespace SuperProject
         public string Zone { set; get; }
         public ShippingAddress()
         {
-
+            this.Identifier = "";
+            this.Line1 = "";
+            this.Line2 = "";
+            this.Phone = 0;
+            this.City = "";
+            this.Zone = "";
         }
     }
 }
