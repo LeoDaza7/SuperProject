@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductCart } from '../models/productCart';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,8 +29,9 @@ export class ProductDetailComponent implements OnInit {
   state:string = '';
   log:boolean = false;
   text:string =''; 
-
-  constructor(private _http: HttpService ,private router: Router,private id:ActivatedRoute, private allService:HttpService , private _shared: DataSharingService, private cookieService: CookieService) {    }
+  quantity:number = 0 ;
+  cant: number;
+  constructor(private _http: HttpService ,private router: Router,private id:ActivatedRoute, private allService:HttpService , private _shared: DataSharingService, private cookieService: CookieService) {   }
   products : Product[];
   product : Product;
   productCart: ProductCart;
@@ -40,6 +42,12 @@ export class ProductDetailComponent implements OnInit {
   stores : Store[];
 
   ngOnInit() {
+  
+  //var cant = ((document.getElementById("cant") as HTMLInputElement).value);
+  //var cant =(<HTMLInputElement>document.getElementById("cant")).value;
+  //var data = cant.onselect.toString;
+  console.log("hereeeeeeeeeeeeeeeee");
+    //console.log(cant);
      this.user.LastName = this.cookieService.get('Lname');
     this.user.Name = this.cookieService.get('Name');
     this.user.Username = this.cookieService.get('User');
@@ -56,6 +64,9 @@ export class ProductDetailComponent implements OnInit {
     
   }
 
+  private changeInputVar(): void {
+   console.log(this.cant);
+  }
 
   getCart(){
     this.allService.getObject("getCart", this.user.Username).subscribe(
@@ -121,20 +132,18 @@ getStore(){
      object.ProductCode= this.identifier;
     object.ShippingDeliveryType=this.product.ShippingDeliveryType;
     object.Store=this.getStore[0];
-
-    object.Quantity=1;
+    object.Quantity=this.cant;
    this.getCart();
-   console.log("getcart");
     var lista = this.carrito.ListPC;
     var result = false;
-
+    var cant1 = this.cant;
     console.log(lista);
     lista.forEach(function(element){
      console.log(element.ProductCode);
       if (element.ProductCode== data ){
         result = true;
         var value = element.Quantity;
-        element.Quantity = value+1;
+        element.Quantity = value+cant1;
         
       }else{}
     });
@@ -142,11 +151,6 @@ getStore(){
 if(result==false){lista.push(object);}
 console.log(lista);
 this.carrito.ListPC=lista;
-   // this.carrito.ListPC.push(this.productCart); 
-    //console.log("hey");
-   // console.log(object.ProductCode);
-  //  let lista = this.list
-    //this.seeCart();
   this.addCart();
   }
   
@@ -183,7 +187,4 @@ console.log(this.id);
       }
     )
   }
-
- 
-
 }
