@@ -1,13 +1,20 @@
 <div class="row">
   <div class="col-sm-4">
-    <img class="card-img" src="{{product.imageURL}}" alt="Product image" width="10%">
+    <img class="card-img" src="{{product.ImageURL}}" alt="Product image" width="10%">
   </div>
-  <div class="col-sm-4">
-   <p class="card-text">Nombre: Producto{{product.Name}}</p>
+  <div *ngIf="product" class="col-sm-4">
+   <p class="card-text">Nombre: Producto {{product.Name}}</p>
     <p class="card-text">Categoria: {{product.Category.name}}</p>
     <p class="card-text">Precio :{{product.Price}} $</p>
     <p class="card-text">Codigo: {{product.Code}}</p>
     <p class="card-text">Descripcion: {{product.Description}}</p>
+   <br>
+   <div> 
+   <input id = "cant" type="number" min="0" max="500" step="1" value="0" size="6" name="cant" [(ngModel)]='cant'>
+   </div>
+   <br>
+   <br>
+   <br>
     <p><button type="button" class="btn btn-success" (click)="onClick()">ADD </button></p>
   </div>
 </div>
