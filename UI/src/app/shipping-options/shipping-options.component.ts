@@ -10,6 +10,7 @@ import { ShippingAddresses } from '../models/shippingAddresses';
 })
 export class ShippingOptionsComponent implements OnInit {
 
+
   edit : boolean = false;
   tmpAddress : ShippingAddresses;
   addressess : ShippingAddresses[];
@@ -18,6 +19,7 @@ export class ShippingOptionsComponent implements OnInit {
   isError : boolean = false;
 
   @ViewChild('form') public contentModal;
+  @ViewChild('Identifier') public idInput;
 
   cuForm: FormGroup;
   constructor(fb: FormBuilder, private allService: HttpService) { 
@@ -43,6 +45,7 @@ export class ShippingOptionsComponent implements OnInit {
 
   editAddress(position : number){
     this.cuForm.patchValue(this.addressess[position]);
+    this.cuForm.controls['Identifier'].disable();
     this.edit = true;
 
   }
@@ -50,7 +53,7 @@ export class ShippingOptionsComponent implements OnInit {
   editAddressSave(){
     this.tmpAddress = new ShippingAddresses();
      this.tmpAddress.Identifier = this.cuForm.controls['Identifier'].value;
-     this.cuForm.controls['Identifier'].disable;
+
      this.tmpAddress.Line1 = this.cuForm.controls['Line1'].value;
      this.tmpAddress.Line2 = this.cuForm.controls['Line2'].value;
      this.tmpAddress.City = this.cuForm.controls['City'].value;
@@ -61,6 +64,8 @@ export class ShippingOptionsComponent implements OnInit {
          this.edit = false;
          let x = this.addressess.findIndex(a => a.Identifier ==this.tmpAddress.Identifier);
          this.addressess[x] = this.tmpAddress;
+         this.cuForm.controls['Identifier'].enable();
+         this.cuForm.reset();
        },
        error => {
          console.log(error);
