@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { NgForm } from '@angular/forms';
+import { Cart } from '../models/cart';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,10 +14,21 @@ export class SignInComponent implements OnInit {
   isCreated : boolean = false;
   isDuplicated : boolean = false;
   isError : boolean = false;
+  public cart: Cart;
+  
 
-  constructor(private _http: HttpService) { }
+  constructor(private _http: HttpService) {
+    this.cart = new Cart();
+  }
 
   ngOnInit() {
+    
+  }
+
+  onSubmit(args: NgForm) {
+    this.cart.Username = args.value.Username;
+    this.cart.ListPC = [];
+    this.addUser();
   }
 
   addUser() {
@@ -26,6 +39,8 @@ export class SignInComponent implements OnInit {
         this.isCreated = true;
         this.isDuplicated = false;
         this.isError = false;
+        this._http.postObject(this.cart,"postcart");
+
       },
       err => {
         

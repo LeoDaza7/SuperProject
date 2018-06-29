@@ -140,7 +140,7 @@ console.log("HE is buying");
     lista.push(object);
     
     let newCart = new Cart();
-    newCart.username=this.user.Username;
+    newCart.Username=this.user.Username;
     newCart.ListPC= lista;
     this.addCart(newCart);
   
@@ -154,7 +154,7 @@ lista.forEach(function(element){
       }
     })
     let newCart = new Cart();
-    newCart.username=this.user.Username;
+    newCart.Username=this.user.Username;
     newCart.ListPC= lista;
     this.addCart(newCart);
     
