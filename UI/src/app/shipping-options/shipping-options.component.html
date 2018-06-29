@@ -1,19 +1,20 @@
-<div *ngFor="let address of addressess; let j = index" class="card text-white bg-dark mb-3" style="max-width: 20rem;">
-  <div class="card-header">{{address.Identifier}}</div>
-  <div class="card-body">
-    <p class="card-text">{{address.Line1}}</p>
-    <p class="card-text">{{address.Line2}}</p>
-    <p class="card-text">{{address.City}}</p>
-    <p class="card-text">{{address.Zone}}</p>
-    <p class="card-text">{{address.Phone}}</p>
-    <button class="btn btn-primary" (click)="deliver()">Deliver to this adress</button>
-    <div class="m-1 btn-group " role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary" (click)="editAddress(j)">EDIT</button>
-      <button type="button" class="btn btn-secondary" (click)="deleteAddress(j)">DELETE</button>
+<div class="mt-5">
+  <div *ngFor="let address of addressess; let j = index" class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+    <div class="card-header">{{address.Identifier}}</div>
+    <div class="card-body">
+      <p class="card-text">{{address.Line1}}</p>
+      <p class="card-text">{{address.Line2}}</p>
+      <p class="card-text">{{address.City}}</p>
+      <p class="card-text">{{address.Zone}}</p>
+      <p class="card-text">{{address.Phone}}</p>
+      <button class="btn btn-primary" (click)="deliver()">Deliver to this adress</button>
+      <div class="m-1 btn-group " role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" (click)="editAddress(j)">EDIT</button>
+        <button type="button" class="btn btn-secondary" (click)="deleteAddress(j)">DELETE</button>
+      </div>
     </div>
   </div>
 </div>
-
 <div *ngIf="isCreated || isDuplicated || isError" class="alerts">
   <p *ngIf="isCreated">The Adress was Added Succesfully</p>
   <p *ngIf="isDuplicated">The Adress already exists</p>

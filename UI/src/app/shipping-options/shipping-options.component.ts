@@ -51,9 +51,10 @@ export class ShippingOptionsComponent implements OnInit {
   }
 
   deliver(){
-    console.log("Order Send");
+    
     this.deleteCart();
     this.router.navigate(['/home']);
+    this.popToast('Purchase made successfully');
   }
 
   deleteCart(){
@@ -143,6 +144,7 @@ export class ShippingOptionsComponent implements OnInit {
         this.isCreated = true;
         this.isError = false;
         this.isDuplicated = false;
+        this.popToast('Address added succesfully');
       },
       error => {
         console.log(error);
@@ -158,13 +160,9 @@ export class ShippingOptionsComponent implements OnInit {
         }
       }
     );
-
   }
 
-  popToast() {
-
-    
-    this.toasterService.pop('success', 'DONE', 'Player Created Succesfully');
+  popToast(message : string) {
+    this.toasterService.pop('success', 'DONE', message);
   }
-
 }

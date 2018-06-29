@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { ToasterService } from 'angular2-toaster';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +15,7 @@ export class SignInComponent implements OnInit {
   isDuplicated : boolean = false;
   isError : boolean = false;
 
-  constructor(private _http: HttpService) { }
+  constructor(private _http: HttpService, private toasterService : ToasterService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -26,6 +28,8 @@ export class SignInComponent implements OnInit {
         this.isCreated = true;
         this.isDuplicated = false;
         this.isError = false;
+        this.popToast('User added Succesfully');
+        this.router.navigate(['/log-in']);
       },
       err => {
         
@@ -34,6 +38,7 @@ export class SignInComponent implements OnInit {
           this.isDuplicated =  true;
           this.isCreated = false;
           this.isError = false;
+          
         } else {
           this.isError = true;
           this.isCreated = false;
@@ -41,6 +46,10 @@ export class SignInComponent implements OnInit {
         }
       }
     )
+  }
+
+  popToast(message : string) {
+    this.toasterService.pop('success', 'DONE', message);
   }
 
 }
