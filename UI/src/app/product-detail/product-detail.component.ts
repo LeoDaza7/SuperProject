@@ -4,7 +4,6 @@ import { Store } from '../models/store';
 import { Product } from '../models/product';
 import { HttpService } from '../http.service';
 import { DataSharingService } from '../data-sharing.service';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductCart } from '../models/productCart';
 import { CookieService } from 'ngx-cookie-service';
@@ -30,7 +29,6 @@ export class ProductDetailComponent implements OnInit {
   text:string =''; 
   quantity:number = 0 ;
   cant: number;
-  constructor(private _http: HttpService ,private router: Router,private id:ActivatedRoute, private allService:HttpService , private _shared: DataSharingService, private cookieService: CookieService) {   }
   products : Product[];
   product : Product;
   productCart: ProductCart;
@@ -40,39 +38,34 @@ export class ProductDetailComponent implements OnInit {
   cad : string[];
   stores : Store[];
 
+ 
+  constructor(private _http: HttpService ,private router: Router,private id:ActivatedRoute, private allService:HttpService , private _shared: DataSharingService, private cookieService: CookieService) {   }
   ngOnInit() {
-    this.changeInputVar();
     this.user.LastName = this.cookieService.get('Lname');
     this.user.Name = this.cookieService.get('Name');
     this.user.Username = this.cookieService.get('User');
    
-   console.log("user");
-   console.log(this.user.Username); 
-   console.log(this.user.LastName);
-    this.getCart();
+    console.log("user");
+    console.log(this.user.Username); 
+    console.log(this.user.LastName);
+    this.changeInputVar();
+    this.getCart(this.user.Username);
     this.getAllProducts();
     this.href = this.router.url;
-    console.log(this.href);
-    this.getId();
-    console.log(this.id);
-    
+    this.getId(); 
   }
-
   private changeInputVar(): void {
    this.cant=1;
   }
-
-  getCart(){
-    this.allService.getObject("getCart", this.user.Username).subscribe(
+  getCart( username: string){
+    this.allService.getObject("getCart",username).subscribe(
       response => {
         console.log(response);
         this.carrito = response;
-        //if (this.carrito.listPC)
       },
       error => {
         console.log(error);
       }
-
     );
   }
 
@@ -85,7 +78,6 @@ getStore(){
       error => {
         console.log(error);
       }
-
     );
   }
 
@@ -94,8 +86,6 @@ getStore(){
       response => {
         console.log(response);
         this.productCart = response;
-      
-
       },
       error => {
         console.log(error);
@@ -109,7 +99,6 @@ getStore(){
         console.log(res)
         this.products = res;
         this.getSpecific();
-
       },
       err=>{
         console.log(err)
@@ -117,8 +106,6 @@ getStore(){
   }
   getSpecific(){
    this.product = this.products.find(i => i.Code == this.identifier);
-   console.log(this.product);
-
   }
   onClick(){
     if(this.cant==0 || this.cant==null || this.cant <0 ){
@@ -126,65 +113,96 @@ this.cant=1;
       console.log("dato incorrecto");
     }else{
   
+console.log("HE is buying");
+
     var data = this.identifier;
     var object = new ProductCart();
-     object.ProductCode= this.identifier;
+    object.ProductCode= this.identifier;
     object.ShippingDeliveryType=this.product.ShippingDeliveryType;
     object.Store=this.getStore[0];
     object.Quantity=this.cant;
-   this.getCart();
-    var lista = this.carrito.ListPC;
-    var result = false;
-    var cant1 = this.cant;
-    console.log(lista);
-    lista.forEach(function(element){
-     console.log(element.ProductCode);
-      if (element.ProductCode== data ){
-        result = true;
-        var value = element.Quantity;
-        element.Quantity = value+cant1;
-        
-      }else{}
-    });
+    
+    console.log("here is username");
+    console.log(this.user.Username);
+    console.log("here is my carrito");
+    console.log(this.carrito.ListPC);
+    
+    this.getCart(this.user.Username);
 
-if(result==false){lista.push(object);}
-console.log(lista);
+    var lista = this.carrito.ListPC;
+    console.log("this is my lista");
+    console.log(lista);
+    
+    let pc = lista.find(i => i.ProductCode == this.identifier);
+
+    if(pc ==null){
+    console.log("no esta en el carrito");
+    lista.push(object);
+    
+    let newCart = new Cart();
+    newCart.username=this.user.Username;
+    newCart.ListPC= lista;
+    this.addCart(newCart);
+  
+  }else{
+   
+console.log("si esta");
+lista.forEach(function(element){
+      if (element.ProductCode== pc.ProductCode ){
+        var value = element.Quantity;
+        element.Quantity = value+pc.Quantity;
+      }
+    })
+    let newCart = new Cart();
+    newCart.username=this.user.Username;
+    newCart.ListPC= lista;
+    this.addCart(newCart);
+    
+  
+  }
+ 
+
+    /*var result = false;
+    var cant1 = this.cant;
+        
+    );
+
+if(result==false){
+  lista.push(object);
+}
 this.carrito.ListPC=lista;
   this.addCart();
-  }
+  */}
   }
   
   seeCart(){
     console.log(this.carrito.ListPC.length);
-
   }
-
   getId(){
 this.cad = this.href.split("/");
 this.identifier = this.cad[this.cad.length-1]; 
 console.log(this.id);
-  
   }
-  addCart() {
+  addCart(car : Cart) {
     console.log("this is updating");
-    console.log(this.carrito.ListPC);
+ console.log(car);
     this.allService.deleteObject("deletecart",this.user.Username).subscribe(
       response => {
         console.log("deleted",response);
+        this._http.postObject(car,"postcart")
+        .subscribe(
+          res => {
+           console.log("ok");
+          },
+          err => {
+            console.log("no");
+          }
+        )
       },
       error => {
         console.log(error);
       }
     );
-  
-    this._http.postObject(this.carrito,"postcart")
-    .subscribe(
-      res => {
-       console.log("ok");
-      },
-      err => {
-        console.log("no");
-      }
-    )
+    
   }
 }
