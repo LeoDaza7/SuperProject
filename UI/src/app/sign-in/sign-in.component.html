@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center" id="sign-in-flex-id">
-  <form id="sign-in-form-id">
+  <form id="sign-in-form-id" #args="ngForm" (ngSubmit)="onSubmit(args)">
       <fieldset>
         <legend>Sign In</legend>
         <div class="form-group row">
@@ -25,7 +25,7 @@
           <p *ngIf="isDuplicated">This user already exists</p>
           <p *ngIf="isError">Error, please try again later</p>
         </div>
-        <button (click)="addUser()" class="btn btn-outline-success">Submit</button>
+        <button class="btn btn-outline-success">Submit</button>
       </fieldset>
   </form>
 </div>

@@ -7,6 +7,7 @@ import { HttpService } from '../http.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -20,7 +21,8 @@ export class ShoppingCartComponent implements OnInit {
   totalItems: number = 0;
   totalPrice: number = 0;
   user : string = "";
-  constructor(private allService: HttpService, private cookie: CookieService, private router: Router) { 
+  isBuyed : boolean = false;
+  constructor(private allService: HttpService, private cookie: CookieService, private router: Router, private toasterService: ToasterService) { 
     
   }
   ngOnInit() {
@@ -45,6 +47,7 @@ export class ShoppingCartComponent implements OnInit {
     
     if (this.carrito.ListPC){
       this.carrito.ListPC.forEach(pc => {
+        this.isBuyed=true;
         this.allService.getObject("getproducts",pc.ProductCode).subscribe(
           response => {
             console.log("products",pc);
@@ -58,6 +61,10 @@ export class ShoppingCartComponent implements OnInit {
         );
         
       });
+      
+    }
+    else{
+      this.isBuyed=false;
     }
     
   }
@@ -87,6 +94,7 @@ export class ShoppingCartComponent implements OnInit {
     }
     else {
       this.deleteCart();
+      this.popToast();
       this.router.navigate(['/home']);
     }
   }
@@ -98,5 +106,8 @@ export class ShoppingCartComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  popToast() { 
+    this.toasterService.pop('success', 'DONE', 'Purchase made successfully');
   }
 }

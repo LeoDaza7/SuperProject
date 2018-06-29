@@ -1,8 +1,8 @@
-<div class="card mb-3">
+<div class="mt-5 card mb-3">
   <div class="row">
     <h3 class="card-header col-8">Shopping Cart</h3>
-    <p class="col-2">Price</p>
-    <p class="col-2">Quantity</p>
+    <p class="mt-4 col-2">Price</p>
+    <p class="mt-4 col-2">Quantity</p>
   </div>
   <ul  class="list-group list-group-flush">
     <li *ngFor="let product of products; let j = index" class="list-group-item">
@@ -29,7 +29,7 @@
     <p class="col-2">Subtotal ({{totalItems}} items): </p>
     <p class="col-2">$ {{totalPrice}}</p>
   </div>
-  <button type="button" class="btn btn-success" (click)="buyIt()" >Buy!</button>
+  <button *ngIf="isBuyed" type="button" class="btn btn-success" (click)="buyIt()" >Buy!</button>
   
 </div>
 

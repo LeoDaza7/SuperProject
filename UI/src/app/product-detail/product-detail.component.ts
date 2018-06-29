@@ -16,49 +16,53 @@ import { User } from '../models/user';
 })
 
 
-  
 
- 
+
+
 export class ProductDetailComponent implements OnInit {
-  
-  cookieValue = 'UNKNOWN';
-  user:User = new User();
-  show:boolean = true;
-  state:string = '';
-  log:boolean = false;
-  text:string =''; 
-  quantity:number = 0 ;
-  cant: number;
-  products : Product[];
-  product : Product;
-  productCart: ProductCart;
-  carrito : Cart;
-  identifier : string;
-  href : String;
-  cad : string[];
-  stores : Store[];
 
- 
-  constructor(private _http: HttpService ,private router: Router,private id:ActivatedRoute, private allService:HttpService , private _shared: DataSharingService, private cookieService: CookieService) {   }
+  cookieValue = 'UNKNOWN';
+  user: User = new User();
+  show: boolean = true;
+  state: string = '';
+  log: boolean = false;
+  text: string = '';
+  quantity: number = 0;
+  cant: number;
+  products: Product[];
+  product: Product;
+  productCart: ProductCart;
+  carrito: Cart;
+  identifier: string;
+  href: String;
+  cad: string[];
+  stores: Store[];
+
+
+  constructor(private _http: HttpService, private router: Router, private id: ActivatedRoute, private allService: HttpService, private _shared: DataSharingService, private cookieService: CookieService) { }
   ngOnInit() {
     this.user.LastName = this.cookieService.get('Lname');
     this.user.Name = this.cookieService.get('Name');
     this.user.Username = this.cookieService.get('User');
-   
+    if(this.cookieService.get("User")!="")
+    {
+      this.log = true;
+    }
+
     console.log("user");
-    console.log(this.user.Username); 
+    console.log(this.user.Username);
     console.log(this.user.LastName);
     this.changeInputVar();
     this.getCart(this.user.Username);
     this.getAllProducts();
     this.href = this.router.url;
-    this.getId(); 
+    this.getId();
   }
   private changeInputVar(): void {
-   this.cant=1;
+    this.cant = 1;
   }
-  getCart( username: string){
-    this.allService.getObject("getCart",username).subscribe(
+  getCart(username: string) {
+    this.allService.getObject("getCart", username).subscribe(
       response => {
         console.log(response);
         this.carrito = response;
@@ -69,8 +73,8 @@ export class ProductDetailComponent implements OnInit {
     );
   }
 
-getStore(){
-    this.allService.getObject("getStore",null).subscribe(
+  getStore() {
+    this.allService.getObject("getStore", null).subscribe(
       response => {
         console.log(response);
         this.stores = response;
@@ -81,8 +85,8 @@ getStore(){
     );
   }
 
-  getProductCart(){
-    this._http.getObject("getproductCart",this.identifier).subscribe(
+  getProductCart() {
+    this._http.getObject("getproductCart", this.identifier).subscribe(
       response => {
         console.log(response);
         this.productCart = response;
@@ -93,117 +97,93 @@ getStore(){
 
     );
   }
-  getAllProducts(){
-    this._http.getObject("getproducts",null).subscribe(
-      res=>{
+  getAllProducts() {
+    this._http.getObject("getproducts", null).subscribe(
+      res => {
         console.log(res)
         this.products = res;
         this.getSpecific();
       },
-      err=>{
+      err => {
         console.log(err)
       });
   }
-  getSpecific(){
-   this.product = this.products.find(i => i.Code == this.identifier);
+  getSpecific() {
+    this.product = this.products.find(i => i.Code == this.identifier);
   }
-  onClick(){
-    if(this.cant==0 || this.cant==null || this.cant <0 ){
-this.cant=1;
+  onClick() {
+    if (this.cant == 0 || this.cant == null || this.cant < 0) {
+      this.cant = 1;
       console.log("dato incorrecto");
-    }else{
-  
-console.log("HE is buying");
+    } else {
+      console.log("HE is buying");
 
-    var data = this.identifier;
-    var object = new ProductCart();
-    object.ProductCode= this.identifier;
-    object.ShippingDeliveryType=this.product.ShippingDeliveryType;
-    object.Store=this.getStore[0];
-    object.Quantity=this.cant;
-    
-    console.log("here is username");
-    console.log(this.user.Username);
-    console.log("here is my carrito");
-    console.log(this.carrito.ListPC);
-    
-    this.getCart(this.user.Username);
+      var data = this.identifier;
+      var object = new ProductCart();
+      object.ProductCode = this.identifier;
+      object.ShippingDeliveryType = this.product.ShippingDeliveryType;
+      object.Store = this.getStore[0];
+      object.Quantity = this.cant;
 
-    var lista = this.carrito.ListPC;
-    console.log("this is my lista");
-    console.log(lista);
-    
-    let pc = lista.find(i => i.ProductCode == this.identifier);
+      console.log("here is username");
+      console.log(this.user.Username);
+      console.log("here is my carrito");
+      console.log(this.carrito.ListPC);
 
-    if(pc ==null){
-    console.log("no esta en el carrito");
-    lista.push(object);
-    
-    let newCart = new Cart();
-    newCart.username=this.user.Username;
-    newCart.ListPC= lista;
-    this.addCart(newCart);
-  
-  }else{
-   
-console.log("si esta");
-lista.forEach(function(element){
-      if (element.ProductCode== pc.ProductCode ){
-        var value = element.Quantity;
-        element.Quantity = value+pc.Quantity;
+      this.getCart(this.user.Username);
+
+      var lista = this.carrito.ListPC;
+      console.log("this is my lista");
+      console.log(lista);
+
+      let pc = lista.find(i => i.ProductCode == this.identifier);
+
+      if (pc == null) {
+        console.log("no esta en el carrito");
+        lista.push(object);
+
+        let newCart = new Cart();
+        newCart.username = this.user.Username;
+        newCart.ListPC = lista;
+        this.addCart(newCart);
+
+      } else {
+
+        console.log("si esta");
+        lista.forEach(function (element) {
+          if (element.ProductCode == object.ProductCode) {
+            var value = element.Quantity;
+            element.Quantity = value + object.Quantity;
+          }
+        })
+        let newCart = new Cart();
+        newCart.username = this.user.Username;
+        newCart.ListPC = lista;
+        this.addCart(newCart);
       }
-    })
-    let newCart = new Cart();
-    newCart.username=this.user.Username;
-    newCart.ListPC= lista;
-    this.addCart(newCart);
-    
-  
+      this.router.navigate(['/product-list']);
+    }
   }
- 
 
-    /*var result = false;
-    var cant1 = this.cant;
-        
-    );
-
-if(result==false){
-  lista.push(object);
-}
-this.carrito.ListPC=lista;
-  this.addCart();
-  */}
-  }
-  
-  seeCart(){
+  seeCart() {
     console.log(this.carrito.ListPC.length);
   }
 
-  getId(){
-this.cad = this.href.split("/");
-this.identifier = this.cad[this.cad.length-1]; 
-console.log(this.id);
+  getId() {
+    this.cad = this.href.split("/");
+    this.identifier = this.cad[this.cad.length - 1];
+    console.log(this.id);
   }
 
-  addCart(car : Cart) {
+  addCart(car: Cart) {
     console.log("this is updating");
- console.log(car);
-    this.allService.deleteObject("deletecart",this.user.Username).subscribe(
-      response => {
-        console.log("deleted",response);
-        this._http.postObject(car,"postcart")
-        .subscribe(
-          res => {
-           console.log("ok");
-          },
-          err => {
-            console.log("no");
-          }
-        )
-
+    console.log(car);
+    this.allService.updateObject(car, "updatecart", this.user.Username).subscribe(
+      res => {
+        console.log("ok");
       },
-      error => {
-        console.log(error);
+      err => {
+        console.log("no");
       }
     );
   }

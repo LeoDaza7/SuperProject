@@ -1,6 +1,6 @@
 import { ProductCart } from "./productCart";
 
 export class Cart {
-    username: string;
+    Username: string;
     ListPC : ProductCart[];
 }
