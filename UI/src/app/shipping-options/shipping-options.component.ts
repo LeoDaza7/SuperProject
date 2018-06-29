@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpService } from '../http.service';
 import { ShippingAddresses } from '../models/shippingAddresses';
+import { Cart } from 'src/app/models/cart';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shipping-options',
@@ -16,11 +19,13 @@ export class ShippingOptionsComponent implements OnInit {
   isCreated : boolean = false;
   isDuplicated : boolean = false;
   isError : boolean = false;
+  carrito : Cart;
 
   @ViewChild('form') public contentModal;
+  @ViewChild('Identifier') public idInput;
 
   cuForm: FormGroup;
-  constructor(fb: FormBuilder, private allService: HttpService) { 
+  constructor(fb: FormBuilder, private allService: HttpService, private cookieService: CookieService, private router: Router) { 
     this.cuForm = fb.group({
 
       'Identifier': new FormControl('', Validators.required),
@@ -29,8 +34,11 @@ export class ShippingOptionsComponent implements OnInit {
       'City': new FormControl('', Validators.required),
       'Phone': new FormControl('', Validators.required),
       'Zone': new FormControl('', Validators.required),
-  });
-
+    });
+    this.carrito = {
+      username: "",
+      ListPC : []
+    }
   }
 
   ngOnInit() {
@@ -39,18 +47,32 @@ export class ShippingOptionsComponent implements OnInit {
 
   deliver(){
     console.log("Order Send");
+    this.deleteCart();
+    this.router.navigate(['/home']);
+  }
+
+  deleteCart(){
+    this.carrito.username = this.cookieService.get('User');
+    this.carrito.ListPC=[];
+    this.allService.updateObject(this.carrito,"updatecart",this.carrito.username).subscribe(
+      response => {},
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   editAddress(position : number){
     this.cuForm.patchValue(this.addressess[position]);
+    this.cuForm.controls['Identifier'].disable();
     this.edit = true;
 
   }
 
+
   editAddressSave(){
     this.tmpAddress = new ShippingAddresses();
      this.tmpAddress.Identifier = this.cuForm.controls['Identifier'].value;
-     this.cuForm.controls['Identifier'].disable;
      this.tmpAddress.Line1 = this.cuForm.controls['Line1'].value;
      this.tmpAddress.Line2 = this.cuForm.controls['Line2'].value;
      this.tmpAddress.City = this.cuForm.controls['City'].value;
@@ -61,6 +83,8 @@ export class ShippingOptionsComponent implements OnInit {
          this.edit = false;
          let x = this.addressess.findIndex(a => a.Identifier ==this.tmpAddress.Identifier);
          this.addressess[x] = this.tmpAddress;
+         this.cuForm.controls['Identifier'].enable();
+         this.cuForm.reset();
        },
        error => {
          console.log(error);

@@ -27,7 +27,7 @@ namespace SuperProject
             ImageURL = "";
             type = typeEnum.nulo;
             shippingDeliveryType = shippingDeliveryTypeEnum.nulo;
-            Category = null;
+            Category = new Category();
         }
 
         public string toString()

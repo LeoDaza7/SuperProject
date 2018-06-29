@@ -14,18 +14,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-
-  constructor(private allService: HttpService, private cookie: CookieService, private router: Router) { 
-    
-  }
-  
-  
   products : Product[] = [];
   carrito : Cart;
   store: Store;
   totalItems: number = 0;
   totalPrice: number = 0;
   user : string = "";
+  constructor(private allService: HttpService, private cookie: CookieService, private router: Router) { 
+    
+  }
   ngOnInit() {
     this.user = this.cookie.get('User');
     this.getCart();
@@ -65,14 +62,41 @@ export class ShoppingCartComponent implements OnInit {
     
   }
 
+  delete(prod:number){
+    this.delfcart(prod);
+    this.allService.updateObject(this.carrito,"updatecart",this.user).subscribe(
+      response => {},
+      error => {
+        console.log(error);
+      }
+      );
+
+  }
+
+  delfcart(prod:number){
+    this.totalItems -= this.carrito.ListPC[prod].Quantity;
+    this.totalPrice -= this.products[prod].Price * this.carrito.ListPC[prod].Quantity;
+    this.products.splice(prod, 1);
+    this.carrito.ListPC.splice(prod,1);
+  }
   buyIt(){
-    if(this.products.find(p => p.ShippingDeliveryType == 3 || p.ShippingDeliveryType == 0))
+
+    if(this.products.find(p => p.ShippingDeliveryType == "normal" || p.ShippingDeliveryType == "express" || p.ShippingDeliveryType == "free"))
     {
-      this.router.navigate(['/home']);
-    }
-    else {
-      console.log("a huevo");
       this.router.navigate(['/shipping-options']);
     }
+    else {
+      this.deleteCart();
+      this.router.navigate(['/home']);
+    }
+  }
+  deleteCart(){
+    this.carrito.ListPC=[];
+    this.allService.updateObject(this.carrito,"updatecart",this.carrito.username).subscribe(
+      response => {},
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -178,11 +178,13 @@ this.carrito.ListPC=lista;
   seeCart(){
     console.log(this.carrito.ListPC.length);
   }
+
   getId(){
 this.cad = this.href.split("/");
 this.identifier = this.cad[this.cad.length-1]; 
 console.log(this.id);
   }
+
   addCart(car : Cart) {
     console.log("this is updating");
  console.log(car);
@@ -198,11 +200,11 @@ console.log(this.id);
             console.log("no");
           }
         )
+
       },
       error => {
         console.log(error);
       }
     );
-    
   }
 }

@@ -13,7 +13,9 @@ namespace Models
         public string UserName { get; set; }
         public OrderHistory()
         {
-
+            this.Cart = new Cart();
+            this.ShippingAddress = new ShippingAddress();
+            this.UserName = "";
         }
     }
 }
