@@ -39,7 +39,15 @@ export class SignInComponent implements OnInit {
         this.isCreated = true;
         this.isDuplicated = false;
         this.isError = false;
-        this._http.postObject(this.cart,"postcart");
+        this._http.postObject(this.cart,"postcart").subscribe(
+          res=>{
+            console.log(res);
+            console.log(this._http.getObject("getcart",this.cart.Username));
+          },
+          err =>{
+            console.log(err);
+          }
+        );
 
       },
       err => {
