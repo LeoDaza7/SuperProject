@@ -8,13 +8,16 @@
     <p class="card-text">Precio :{{product.Price}} $</p>
     <p class="card-text">Codigo: {{product.Code}}</p>
     <p class="card-text">Descripcion: {{product.Description}}</p>
-   <br>
-   <div> 
-   <input id = "cant" type="number" min="1" max="500" step="1" value="1" size="6" name="cant" [(ngModel)]='cant'>
-   </div>
-   <br>
-   <br>
-   <br>
+    <div class="col-2">
+          <select>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+        <br>
     <p><button type="button" class="btn btn-success" (click)="onClick()">ADD </button></p>
+
   </div>
 </div>
