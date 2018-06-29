@@ -17,9 +17,14 @@ const routes: Routes = [
     {path: 'log-in', component: LogInComponent},
     {path: 'sign-in', component: SignInComponent},
     {path: 'product-list', component: ProductListComponent},
-    {path: 'product-detail/0', component: ProductDetailComponent, canActivate:[AuthGuard]},
-    {path: 'product-detail/1', component: ProductDetailComponent, canActivate:[AuthGuard]},
-    {path: 'product-detail/2', component: ProductDetailComponent, canActivate:[AuthGuard]},
+    {
+        path: 'product-detail',
+        component: ProductDetailComponent,
+        children : [{
+            path: '**',
+            component: ProductDetailComponent
+        }]
+    },
     {path: 'shopping-cart', component: ShoppingCartComponent, canActivate:[AuthGuard]},
     {path: 'shipping-options', component: ShippingOptionsComponent, canActivate:[AuthGuard]},
     {path: '**', component: PageNotFoundComponent}
