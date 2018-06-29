@@ -1,4 +1,4 @@
-<div class="mt-5">
+<div class="container-fluid" id="shipping-cart-id">
   <div *ngFor="let address of addressess; let j = index" class="card text-white bg-dark mb-3" style="max-width: 20rem;">
     <div class="card-header">{{address.Identifier}}</div>
     <div class="card-body">
@@ -7,10 +7,10 @@
       <p class="card-text">{{address.City}}</p>
       <p class="card-text">{{address.Zone}}</p>
       <p class="card-text">{{address.Phone}}</p>
-      <button class="btn btn-primary" (click)="deliver()">Deliver to this adress</button>
       <div class="m-1 btn-group " role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" (click)="editAddress(j)">EDIT</button>
-        <button type="button" class="btn btn-secondary" (click)="deleteAddress(j)">DELETE</button>
+        <button type="button" class="btn btn-outline-success" (click)="editAddress(j)">EDIT</button>
+        <button class="btn btn-outline-primary" (click)="deliver()">Deliver adress</button>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteAddress(j)">DELETE</button>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@
   <p *ngIf="isDuplicated">The Adress already exists</p>
   <p *ngIf="isError">Error, try again later</p>
 </div>
-<form class="bg-dark p-2">
+<form class="p-2" id="add-address-id">
     <h3>Add a new Address</h3>
   <div class="form-row">
     <div class="col-md-4 mb-3">
@@ -50,8 +50,8 @@
       <input type="text" class="form-control" id="Zone" [formControl]="cuForm.controls['Zone']" placeholder="Zone" required>
     </div>
   </div>
-  <button *ngIf="!edit" class="btn btn-primary" (click)="createAddress()">Save</button>
-  <button *ngIf="edit" class="btn btn-primary" (click)="editAddressSave()">Save Edit</button>
+  <button *ngIf="!edit" class="btn btn-outline-info" (click)="createAddress()">Save</button>
+  <button *ngIf="edit" class="btn btn-outline-info" (click)="editAddressSave()">Save Edit</button>
 </form>
 
 

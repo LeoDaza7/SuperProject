@@ -1,4 +1,4 @@
-<div class="mt-5 card mb-3">
+<div class="mt-5 card mb-3" id="shopping-cart-div-id">
   <div class="row">
     <h3 class="card-header col-8">Shopping Cart</h3>
     <p class="mt-4 col-2">Price</p>
@@ -11,25 +11,18 @@
         <div class="col-7">
           <h4 >{{product.Name}} </h4>
           <p>Tipo de entrega: {{product.ShippingDeliveryType}} </p>
-          <button type="button" class="btn btn-danger" (click)="delete(j)" >Delete</button>
-  
-
-
+         
+          <button type="button" class="btn btn-outline-danger" (click)="delete(j)" >Delete</button>
         </div>
-        
         <p class="col-2">$ {{product.Price}} </p>
         <p class="col-2"> {{carrito.ListPC[j].Quantity}}
         </p>
       </div>
-
     </li>
   </ul>
-
   <div align="right">
     <p class="col-2">Subtotal ({{totalItems}} items): </p>
     <p class="col-2">$ {{totalPrice}}</p>
-  </div>
-  <button *ngIf="isBuyed" type="button" class="btn btn-success" (click)="buyIt()" >Buy!</button>
-  
+  </div> 
+  <button *ngIf="isBuyed" type="button" class="btn btn-outline-success align-self-end col-2" (click)="buyIt()" >Buy!</button>
 </div>
-
