@@ -65,14 +65,32 @@ export class ShoppingCartComponent implements OnInit {
     
   }
 
+  delete(prod:number){
+    
+    this.allService.updateObject("updatecart",this.products[prod].Code,this.products[prod].Code).subscribe(
+      response => {
+        this.totalItems -= this.carrito.ListPC[prod].Quantity;
+        this.totalPrice -= this.products[prod].Price * this.carrito.ListPC[prod].Quantity;
+        this.products.splice(prod, 1);
+        this.carrito.ListPC.splice(prod,1);
+
+      },
+      error => {
+        console.log(error);
+      }
+      );
+
+  }
+
   buyIt(){
-    if(this.products.find(p => p.ShippingDeliveryType == 3 || p.ShippingDeliveryType == 0))
+
+    if(this.products.find(p => p.ShippingDeliveryType == "normal" || p.ShippingDeliveryType == "express" || p.ShippingDeliveryType == "free"))
     {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/shipping-options']);
     }
     else {
-      console.log("a huevo");
-      this.router.navigate(['/shipping-options']);
+      
+      this.router.navigate(['/home']);
     }
   }
 }

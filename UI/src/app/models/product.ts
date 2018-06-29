@@ -7,6 +7,6 @@ export class Product {
     Description: string;
     ImageURL: string;
     Type: number;
-    ShippingDeliveryType: number;
+    ShippingDeliveryType: string;
     Category: Category;
 }
