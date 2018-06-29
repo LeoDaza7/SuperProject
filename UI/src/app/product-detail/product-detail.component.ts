@@ -143,7 +143,7 @@ export class ProductDetailComponent implements OnInit {
         lista.push(object);
 
         let newCart = new Cart();
-        newCart.username = this.user.Username;
+        newCart.Username = this.user.Username;
         newCart.ListPC = lista;
         this.addCart(newCart);
 
@@ -157,7 +157,7 @@ export class ProductDetailComponent implements OnInit {
           }
         })
         let newCart = new Cart();
-        newCart.username = this.user.Username;
+        newCart.Username = this.user.Username;
         newCart.ListPC = lista;
         this.addCart(newCart);
       }
