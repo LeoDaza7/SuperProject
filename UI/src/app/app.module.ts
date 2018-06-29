@@ -10,6 +10,7 @@ import { HttpService } from './http.service';
 import { AuthGuard } from './auth.guard';
 
 import { CookieService } from 'ngx-cookie-service';
+import {ToasterModule} from 'angular2-toaster';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToasterModule.forRoot()
   ],
   providers: [HttpService,AuthGuard,CookieService],
   bootstrap: [AppComponent]

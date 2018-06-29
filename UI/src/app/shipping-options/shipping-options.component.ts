@@ -5,6 +5,7 @@ import { ShippingAddresses } from '../models/shippingAddresses';
 import { Cart } from 'src/app/models/cart';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import {ToasterService, ToasterConfig} from 'angular2-toaster';
 
 @Component({
   selector: 'app-shipping-options',
@@ -20,12 +21,16 @@ export class ShippingOptionsComponent implements OnInit {
   isDuplicated : boolean = false;
   isError : boolean = false;
   carrito : Cart;
+  public config1 : ToasterConfig = new ToasterConfig({
+    positionClass: 'toast-top-right',
+    animation: 'fade'
+  });
 
   @ViewChild('form') public contentModal;
   @ViewChild('Identifier') public idInput;
 
   cuForm: FormGroup;
-  constructor(fb: FormBuilder, private allService: HttpService, private cookieService: CookieService, private router: Router) { 
+  constructor(fb: FormBuilder, private allService: HttpService, private cookieService: CookieService, private router: Router, private toasterService: ToasterService) { 
     this.cuForm = fb.group({
 
       'Identifier': new FormControl('', Validators.required),
@@ -154,6 +159,12 @@ export class ShippingOptionsComponent implements OnInit {
       }
     );
 
+  }
+
+  popToast() {
+
+    
+    this.toasterService.pop('success', 'DONE', 'Player Created Succesfully');
   }
 
 }
