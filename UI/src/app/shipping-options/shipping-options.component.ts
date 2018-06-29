@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpService } from '../http.service';
 import { ShippingAddresses } from '../models/shippingAddresses';
+import { Cart } from '../models/cart';
+import { User } from '../models/user';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shipping-options',
@@ -17,12 +21,17 @@ export class ShippingOptionsComponent implements OnInit {
   isCreated : boolean = false;
   isDuplicated : boolean = false;
   isError : boolean = false;
+  carrito : Cart = {
+    username :"",
+    ListPC : []
+  };
+  user : string;
 
   @ViewChild('form') public contentModal;
   @ViewChild('Identifier') public idInput;
 
   cuForm: FormGroup;
-  constructor(fb: FormBuilder, private allService: HttpService) { 
+  constructor(fb: FormBuilder, private allService: HttpService, private cookie: CookieService, private router: Router) { 
     this.cuForm = fb.group({
 
       'Identifier': new FormControl('', Validators.required),
@@ -37,10 +46,24 @@ export class ShippingOptionsComponent implements OnInit {
 
   ngOnInit() {
     this.getAdressess();
+    this.user = this.cookie.get("User");
   }
 
   deliver(){
     console.log("Order Send");
+    this.deleteLista();
+    this.router.navigate(['/home']);
+  }
+
+  deleteLista(){
+    this.carrito.username = this.user;
+    this.carrito.ListPC = [];
+    this.allService.updateObject(this.carrito,"updatecart",this.user).subscribe(
+      response => {console.log("Compra Exitosa")},
+      error => {
+        console.log(error);
+      }
+      );
   }
 
   editAddress(position : number){

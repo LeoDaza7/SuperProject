@@ -89,8 +89,21 @@ export class ShoppingCartComponent implements OnInit {
       this.router.navigate(['/shipping-options']);
     }
     else {
-      
+      this.deleteLista();
       this.router.navigate(['/home']);
     }
   }
+
+  deleteLista(){
+    this.carrito.username = this.user;
+    this.carrito.ListPC = [];
+    this.allService.updateObject(this.carrito,"updatecart",this.user).subscribe(
+      response => {console.log("Compra Exitosa")},
+      error => {
+        console.log(error);
+      }
+      );
+  }
+
+  
 }
