@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Cart } from '../models/cart';
 import { Store } from '../models/store';
 import { Product } from '../models/product';
@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductCart } from '../models/productCart';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -122,6 +121,11 @@ getStore(){
 
   }
   onClick(){
+    if(this.cant==0 || this.cant==null || this.cant <0 ){
+this.cant=1;
+      console.log("dato incorrecto");
+    }else{
+  
     var data = this.identifier;
     var object = new ProductCart();
      object.ProductCode= this.identifier;
@@ -147,6 +151,7 @@ if(result==false){lista.push(object);}
 console.log(lista);
 this.carrito.ListPC=lista;
   this.addCart();
+  }
   }
   
   seeCart(){
