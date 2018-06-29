@@ -66,15 +66,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   delete(prod:number){
-    
-    this.allService.updateObject("updatecart",this.products[prod].Code,this.products[prod].Code).subscribe(
-      response => {
-        this.totalItems -= this.carrito.ListPC[prod].Quantity;
-        this.totalPrice -= this.products[prod].Price * this.carrito.ListPC[prod].Quantity;
-        this.products.splice(prod, 1);
-        this.carrito.ListPC.splice(prod,1);
-
-      },
+    this.delfcart(prod);
+    this.allService.updateObject(this.carrito,"updatecart",this.user).subscribe(
+      response => {},
       error => {
         console.log(error);
       }
@@ -82,6 +76,12 @@ export class ShoppingCartComponent implements OnInit {
 
   }
 
+  delfcart(prod:number){
+    this.totalItems -= this.carrito.ListPC[prod].Quantity;
+    this.totalPrice -= this.products[prod].Price * this.carrito.ListPC[prod].Quantity;
+    this.products.splice(prod, 1);
+    this.carrito.ListPC.splice(prod,1);
+  }
   buyIt(){
 
     if(this.products.find(p => p.ShippingDeliveryType == "normal" || p.ShippingDeliveryType == "express" || p.ShippingDeliveryType == "free"))
