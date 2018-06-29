@@ -92,7 +92,7 @@ export class ShoppingCartComponent implements OnInit {
   }
   deleteCart(){
     this.carrito.ListPC=[];
-    this.allService.updateObject(this.carrito,"updatecart",this.carrito.username).subscribe(
+    this.allService.updateObject(this.carrito,"updatecart",this.user).subscribe(
       response => {},
       error => {
         console.log(error);
