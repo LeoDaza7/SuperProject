@@ -116,7 +116,6 @@ export class ProductDetailComponent implements OnInit {
       this.cant = 1;
       console.log("dato incorrecto");
     } else {
-
       console.log("HE is buying");
 
       var data = this.identifier;

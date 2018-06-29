@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { NgForm } from '@angular/forms';
+import { Cart } from '../models/cart';
 import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
 
@@ -14,10 +16,22 @@ export class SignInComponent implements OnInit {
   isCreated : boolean = false;
   isDuplicated : boolean = false;
   isError : boolean = false;
+  public cart: Cart;
+  
 
-  constructor(private _http: HttpService, private toasterService : ToasterService, private router: Router) { }
+
+  constructor(private _http: HttpService, private toasterService : ToasterService, private router: Router) {
+this.cart = new Cart();
+}
 
   ngOnInit() {
+    
+  }
+
+  onSubmit(args: NgForm) {
+    this.cart.Username = args.value.Username;
+    this.cart.ListPC = [];
+    this.addUser();
   }
 
   addUser() {
@@ -28,6 +42,16 @@ export class SignInComponent implements OnInit {
         this.isCreated = true;
         this.isDuplicated = false;
         this.isError = false;
+        this._http.postObject(this.cart,"postcart").subscribe(
+          res=>{
+            console.log(res);
+            console.log(this._http.getObject("getcart",this.cart.Username));
+          },
+          err =>{
+            console.log(err);
+          }
+        );
+
         this.popToast('User added Succesfully');
         this.router.navigate(['/log-in']);
       },

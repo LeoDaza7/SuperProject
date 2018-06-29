@@ -41,7 +41,7 @@ export class ShippingOptionsComponent implements OnInit {
       'Zone': new FormControl('', Validators.required),
     });
     this.carrito = {
-      username: "",
+      Username: "",
       ListPC : []
     }
   }
@@ -58,9 +58,9 @@ export class ShippingOptionsComponent implements OnInit {
   }
 
   deleteCart(){
-    this.carrito.username = this.cookieService.get('User');
+    this.carrito.Username = this.cookieService.get('User');
     this.carrito.ListPC=[];
-    this.allService.updateObject(this.carrito,"updatecart",this.carrito.username).subscribe(
+    this.allService.updateObject(this.carrito,"updatecart",this.carrito.Username).subscribe(
       response => {},
       error => {
         console.log(error);
