@@ -15,17 +15,15 @@ import { Router } from '@angular/router';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  constructor(private allService: HttpService, private cookie: CookieService, private router: Router) { 
-    
-  }
-  
-  
   products : Product[] = [];
   carrito : Cart;
   store: Store;
   totalItems: number = 0;
   totalPrice: number = 0;
   user : string = "";
+  constructor(private allService: HttpService, private cookie: CookieService, private router: Router) { 
+    
+  }
   ngOnInit() {
     this.user = this.cookie.get('User');
     this.getCart();
@@ -89,8 +87,17 @@ export class ShoppingCartComponent implements OnInit {
       this.router.navigate(['/shipping-options']);
     }
     else {
-      
+      this.deleteCart();
       this.router.navigate(['/home']);
     }
+  }
+  deleteCart(){
+    this.carrito.ListPC=[];
+    this.allService.updateObject(this.carrito,"updatecart",this.carrito.username).subscribe(
+      response => {},
+      error => {
+        console.log(error);
+      }
+    );
   }
 }
