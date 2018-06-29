@@ -11,7 +11,14 @@ namespace SuperProject
         public String Name { get; set; }
         public String LastName { get; set; }
         public List<ShippingAddress> ShippingAddresses { get; set; }
-        public User() { }
+        public User()
+        {
+            this.Username = "";
+            this.Password = "";
+            this.Name = "";
+            this.LastName = "";
+            this.ShippingAddresses = new List<ShippingAddress>();
+        }
 
         public override bool Equals(object obj)
         {

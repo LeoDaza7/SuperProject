@@ -13,6 +13,10 @@ namespace SuperProject
 
         public Store()
         {
+            this.Name = "";
+            this.Line1 = "";
+            this.Line2 = "";
+            this.Phone = 0;
         }
     }
 }
