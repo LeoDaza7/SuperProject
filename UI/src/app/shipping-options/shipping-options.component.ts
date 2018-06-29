@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 })
 export class ShippingOptionsComponent implements OnInit {
 
-
   edit : boolean = false;
   tmpAddress : ShippingAddresses;
   addressess : ShippingAddresses[];
@@ -70,10 +69,10 @@ export class ShippingOptionsComponent implements OnInit {
 
   }
 
+
   editAddressSave(){
     this.tmpAddress = new ShippingAddresses();
      this.tmpAddress.Identifier = this.cuForm.controls['Identifier'].value;
-
      this.tmpAddress.Line1 = this.cuForm.controls['Line1'].value;
      this.tmpAddress.Line2 = this.cuForm.controls['Line2'].value;
      this.tmpAddress.City = this.cuForm.controls['City'].value;

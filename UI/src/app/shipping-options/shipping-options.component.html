@@ -24,6 +24,19 @@
   <div class="form-row">
     <div class="col-md-4 mb-3">
       <label for="identifier">Adress Identifier:</label>
+      <input type="text" class="form-control" id="Identifier" [formControl]="cuForm.controls['identifier']" placeholder="AdressIdentifier" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="line1">Adress Line 1: </label>
+      <input type="text" class="form-control" id="Line1" [formControl]="cuForm.controls['line1']" placeholder="Address Line1"  required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label for="line2">Adress Line 2: </label>
+        <input type="text" class="form-control" id="Line2" [formControl]="cuForm.controls['line2']" placeholder="Address Line2"  required>
+      </div>
+    <div class="col-md-4 mb-3">
+      <label for="city">City</label>
+      <input type="text" class="form-control" id="City" [formControl]="cuForm.controls['city']" placeholder="City" required>=======
       <input type="text" class="form-control" id="Identifier" [formControl]="cuForm.controls['Identifier']" placeholder="AdressIdentifier" required>
     </div>
     <div class="col-md-4 mb-3">
@@ -42,11 +55,12 @@
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <label for="phone">Phone</label>
-      <input type="text" class="form-control" id="Phone" [formControl]="cuForm.controls['Phone']" placeholder="Phone" required>
+      <input type="text" class="form-control" id="Phone" [formControl]="cuForm.controls['phone']" placeholder="Phone" required>
     </div>
     <div class="col-md-3 mb-3">
       <label for="zone">Zone</label>
-      <input type="text" class="form-control" id="Zone" [formControl]="cuForm.controls['Zone']" placeholder="Zone" required>
+      <input type="text" class="form-control" id="Zone" [formControl]="cuForm.controls['zone']" placeholder="Zone" required>
+
     </div>
   </div>
   <button *ngIf="!edit" class="btn btn-primary" (click)="createAddress()">Save</button>

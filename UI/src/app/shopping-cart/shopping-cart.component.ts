@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-
   products : Product[] = [];
   carrito : Cart;
   store: Store;
