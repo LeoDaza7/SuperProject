@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { NgForm } from '@angular/forms';
 import { Cart } from '../models/cart';
+import { ToasterService } from 'angular2-toaster';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,9 +19,10 @@ export class SignInComponent implements OnInit {
   public cart: Cart;
   
 
-  constructor(private _http: HttpService) {
-    this.cart = new Cart();
-  }
+
+  constructor(private _http: HttpService, private toasterService : ToasterService, private router: Router) {
+this.cart = new Cart();
+}
 
   ngOnInit() {
     
@@ -49,6 +52,8 @@ export class SignInComponent implements OnInit {
           }
         );
 
+        this.popToast('User added Succesfully');
+        this.router.navigate(['/log-in']);
       },
       err => {
         
@@ -57,6 +62,7 @@ export class SignInComponent implements OnInit {
           this.isDuplicated =  true;
           this.isCreated = false;
           this.isError = false;
+          
         } else {
           this.isError = true;
           this.isCreated = false;
@@ -64,6 +70,10 @@ export class SignInComponent implements OnInit {
         }
       }
     )
+  }
+
+  popToast(message : string) {
+    this.toasterService.pop('success', 'DONE', message);
   }
 
 }
